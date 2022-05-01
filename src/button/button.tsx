@@ -1,14 +1,7 @@
 import { Button, ButtonProps } from '@mui/material';
 import { Component } from 'react';
-import { BUTTON_BLUE } from '../colors';
+import BoardButtonStyle from './style';
 
-const BoardButtonStyle = {
-  backgroundColor: BUTTON_BLUE,
-  boxShadow: 0,
-  '&:hover': {
-    backgroundColor: BUTTON_BLUE,
-  },
-};
 
 class BoardButton extends Component<ButtonProps> {
   render() {

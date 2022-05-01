@@ -1,37 +1,13 @@
 import { Component } from 'react';
 import { EmptyObject } from '@reduxjs/toolkit';
-import { BACKGOUND_LIGHT_BLUE, TEXT_BLUE, TEXT_DARK_BLUE } from '../colors';
+import { TEXT_BLUE } from '../colors';
 import LoginForm from './form/login-form';
 import { ReactComponent as Logo } from '../media/Logo.svg';
 import FONTS from '../fonts';
+import { LogoBlockStyle, SignInPageStyle } from './style';
+
 
 type SignInPageProps = EmptyObject
-
-const FlexColumnCenterStyle = {
-  display: 'flex',
-  flexDirection: 'column' as 'column',
-  alignItems: 'center',
-};
-
-const SignInPageStyle = {
-  backgroundColor: BACKGOUND_LIGHT_BLUE,
-  height: '100vh',
-  ...FlexColumnCenterStyle,
-};
-
-const LogoTextStyle = {
-  color: TEXT_DARK_BLUE,
-  ...FONTS.H1,
-};
-
-const LogoBlockStyle = {
-  ...FlexColumnCenterStyle,
-  gap: '15px',
-  marginTop: '50px',
-  marginBottom: '60px',
-
-  ...LogoTextStyle,
-};
 
 class SignInPage extends Component<SignInPageProps> {
   render() {

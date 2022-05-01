@@ -1,42 +1,16 @@
 import { EmptyObject } from '@reduxjs/toolkit';
 import { ChangeEvent, Component, SyntheticEvent } from 'react';
 import BoardButton from '../../button/button';
-import { TEXT_BLUE } from '../../colors';
-import FONTS from '../../fonts';
 import BoardPasswordTextField from '../../text-fields/password-text-field';
 import BoardTextField from '../../text-fields/text-field';
+import { ForgotPasswordStyle, LoginFormStyle } from './style';
+
 
 type LoginFormProps = EmptyObject
 type LoginFormState = {
     username: string,
     password: string
 }
-
-const WIDTH = 510;
-
-const LoginFormStyle = {
-  display: 'flex',
-  flexDirection: 'column' as 'column',
-  alignItems: 'center',
-  padding: '15px 20px',
-  gap: '20px',
-
-  position: 'relative' as 'relative',
-  width: WIDTH,
-
-  background: 'white',
-  boxShadow: '0px 4px 14px rgba(0, 0, 0, 0.1)',
-  borderRadius: '6px',
-
-  justifyContent: 'space-between',
-};
-
-const ForgotPasswordStyle = {
-  position: 'relative' as 'relative',
-  float: 'right' as 'right',
-  color: TEXT_BLUE,
-  ...FONTS.BODY,
-};
 
 class LoginForm extends Component<LoginFormProps, LoginFormState> {
   constructor(props: LoginFormProps) {
