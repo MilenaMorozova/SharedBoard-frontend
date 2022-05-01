@@ -1,8 +1,8 @@
 import { EmptyObject } from '@reduxjs/toolkit';
 import { ChangeEvent, Component, SyntheticEvent } from 'react';
-import BoardButton from '../../button/button';
-import BoardPasswordTextField from '../../text-fields/password-text-field';
-import BoardTextField from '../../text-fields/text-field';
+import BoardButton from '../../custom-mui-components/button/button';
+import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
+import BoardTextField from '../../custom-mui-components/text-fields/text-field';
 import { ForgotPasswordStyle, LoginFormStyle } from './style';
 
 

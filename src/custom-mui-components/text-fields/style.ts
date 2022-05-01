@@ -1,5 +1,5 @@
-import { TEXT_DARK_BLUE, TEXT_DARK_GRAY, TEXT_GRAY } from '../colors';
-import FONTS from '../fonts';
+import { TEXT_DARK_BLUE, TEXT_DARK_GRAY, TEXT_GRAY } from '../../colors';
+import FONTS from '../../fonts';
 
 export const BoardInputLabelStyle = {
   '& .MuiInputLabel-root': {

@@ -1,4 +1,4 @@
-import { BUTTON_BLUE } from '../colors';
+import { BUTTON_BLUE } from '../../colors';
 
 const BoardButtonStyle = {
   backgroundColor: BUTTON_BLUE,
