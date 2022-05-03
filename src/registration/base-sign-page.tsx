@@ -1,15 +1,13 @@
 import { Component, ReactNode } from 'react';
 import { ReactComponent as Logo } from '../media/Logo.svg';
 import {
-  LogoBlockStyle, questionStyle, referenceToAnotherActionStyle, SignInPageStyle,
+  LogoBlockStyle, SignInPageStyle,
 } from './style';
 
 
-export type BaseSignPageProps = {
+type BaseSignPageProps = {
     signPageActionName: string,
-    question: string,
-    referenceToAnotherActionName: string,
-    children: ReactNode
+    children: ReactNode,
 }
 
 class BaseSignPage extends Component<BaseSignPageProps> {
@@ -21,11 +19,6 @@ class BaseSignPage extends Component<BaseSignPageProps> {
           <div>{this.props.signPageActionName} Share Board</div>
         </div>
         { this.props.children }
-        <div style={questionStyle}>
-          {this.props.question}
-          {' '}
-          <a href="#1" style={referenceToAnotherActionStyle}>{this.props.referenceToAnotherActionName}</a>
-        </div>
       </div>
     );
   }
