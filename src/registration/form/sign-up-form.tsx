@@ -3,22 +3,24 @@ import { ChangeEvent, Component, SyntheticEvent } from 'react';
 import BoardButton from '../../custom-mui-components/button/button';
 import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
 import BoardTextField from '../../custom-mui-components/text-fields/text-field';
-import { ForgotPasswordStyle, SignFormStyle } from './style';
+import { SignFormStyle } from './style';
 
 
-type LoginFormProps = EmptyObject
-type LoginFormState = {
+type SignUpFormProps = EmptyObject
+type SignUpFormState = {
     username: string,
+    email: string,
     password: string
 }
 
-class LoginForm extends Component<LoginFormProps, LoginFormState> {
-  constructor(props: LoginFormProps) {
+class SignUpForm extends Component<SignUpFormProps, SignUpFormState> {
+  constructor(props: SignUpFormProps) {
     super(props);
-    this.state = { username: '', password: '' };
+    this.state = { username: '', password: '', email: '' };
 
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -28,6 +30,10 @@ class LoginForm extends Component<LoginFormProps, LoginFormState> {
 
   handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
     this.setState({ password: event.target.value });
+  }
+
+  handleChangeEmail(event: ChangeEvent<HTMLInputElement>) {
+    this.setState({ email: event.target.value });
   }
 
   handleSubmit(event: SyntheticEvent) {
@@ -40,14 +46,12 @@ class LoginForm extends Component<LoginFormProps, LoginFormState> {
         <div style={SignFormStyle}>
           <BoardTextField label="Username" value={this.state.username} onChange={this.handleChangeUsername} />
           <BoardPasswordTextField label="Password" value={this.state.password} onChange={this.handleChangePassword} />
-          <div style={{ width: '100%' }}>
-            <a href="#1" style={ForgotPasswordStyle}>Forgot password?</a>
-          </div>
-          <BoardButton variant="contained" type="submit">LOGIN</BoardButton>
+          <BoardTextField label="Email" type="email" value={this.state.email} onChange={this.handleChangeEmail} />
+          <BoardButton variant="contained" type="submit">Sign Up</BoardButton>
         </div>
       </form>
     );
   }
 }
 
-export default LoginForm;
+export default SignUpForm;

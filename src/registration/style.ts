@@ -1,4 +1,4 @@
-import { BACKGOUND_LIGHT_BLUE, TEXT_DARK_BLUE } from '../colors';
+import { BACKGOUND_LIGHT_BLUE, TEXT_BLUE, TEXT_DARK_BLUE } from '../colors';
 import FONTS from '../fonts';
 
 export const FlexColumnCenterStyle = {
@@ -25,4 +25,13 @@ export const LogoBlockStyle = {
   marginBottom: '60px',
 
   ...LogoTextStyle,
+};
+
+export const questionStyle = {
+  ...FONTS.BODY,
+  marginTop: '20px',
+};
+
+export const referenceToAnotherActionStyle = {
+  color: TEXT_BLUE,
 };

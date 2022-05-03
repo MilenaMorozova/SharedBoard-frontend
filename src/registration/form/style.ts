@@ -3,7 +3,7 @@ import FONTS from '../../fonts';
 
 const WIDTH = 510;
 
-export const LoginFormStyle = {
+export const SignFormStyle = {
   display: 'flex',
   flexDirection: 'column' as 'column',
   alignItems: 'center',

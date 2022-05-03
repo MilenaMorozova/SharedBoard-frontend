@@ -29,5 +29,6 @@ module.exports = {
       'react/prefer-stateless-function': 0,
       'class-methods-use-this': 1,  // TODO make error
       'arrow-parens': 0,
+      'react/jsx-one-expression-per-line': 0,
     }
   };
