@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
+import loginReducer from '../registration/form/loginSlice';
 
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    login: loginReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>

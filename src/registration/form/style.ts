@@ -1,4 +1,4 @@
-import { TEXT_BLUE } from '../../colors';
+import { TEXT_BLUE, TEXT_RED } from '../../colors';
 import FONTS from '../../fonts';
 
 const WIDTH = 510;
@@ -25,4 +25,16 @@ export const ForgotPasswordStyle = {
   float: 'right' as 'right',
   color: TEXT_BLUE,
   ...FONTS.BODY,
+};
+
+export const FullWidthStyle = {
+  width: '100%',
+};
+
+export const LoginErrorBlockStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '20px',
+
+  color: TEXT_RED,
 };
