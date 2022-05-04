@@ -1,57 +1,41 @@
-import { EmptyObject } from '@reduxjs/toolkit';
-import { ChangeEvent, Component, SyntheticEvent } from 'react';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import BoardButton from '../../custom-mui-components/button/button';
 import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
 import BoardTextField from '../../custom-mui-components/text-fields/text-field';
 import { SignFormStyle } from './style';
 
 
-type SignUpFormProps = EmptyObject
-type SignUpFormState = {
-    username: string,
-    email: string,
-    password: string
-}
+function SignUpForm() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
-class SignUpForm extends Component<SignUpFormProps, SignUpFormState> {
-  constructor(props: SignUpFormProps) {
-    super(props);
-    this.state = { username: '', password: '', email: '' };
+  const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
+  };
 
-    this.handleChangeUsername = this.handleChangeUsername.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
 
-  handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({ username: event.target.value });
-  }
+  const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
 
-  handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({ password: event.target.value });
-  }
-
-  handleChangeEmail(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({ email: event.target.value });
-  }
-
-  handleSubmit(event: SyntheticEvent) {
+  const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-  }
+  };
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <div style={SignFormStyle}>
-          <BoardTextField label="Username" value={this.state.username} onChange={this.handleChangeUsername} />
-          <BoardPasswordTextField label="Password" value={this.state.password} onChange={this.handleChangePassword} />
-          <BoardTextField label="Email" type="email" value={this.state.email} onChange={this.handleChangeEmail} />
-          <BoardButton variant="contained" type="submit">Sign Up</BoardButton>
-        </div>
-      </form>
-    );
-  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <div style={SignFormStyle}>
+        <BoardTextField label="Username" value={username} onChange={handleChangeUsername} />
+        <BoardPasswordTextField label="Password" value={password} onChange={handleChangePassword} />
+        <BoardTextField label="Email" type="email" value={email} onChange={handleChangeEmail} />
+        <BoardButton variant="contained" type="submit">Sign Up</BoardButton>
+      </div>
+    </form>
+  );
 }
 
 export default SignUpForm;

@@ -1,5 +1,6 @@
-import { EmptyObject } from '@reduxjs/toolkit';
-import { ChangeEvent, Component, SyntheticEvent } from 'react';
+import {
+  ChangeEvent, SyntheticEvent, useState,
+} from 'react';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import BoardButton from '../../custom-mui-components/button/button';
 import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
@@ -21,51 +22,37 @@ function ErrorBlock() {
   );
 }
 
-type LoginFormProps = EmptyObject
-type LoginFormState = {
-    username: string,
-    password: string,
-}
+function LoginForm() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-class LoginForm extends Component<LoginFormProps, LoginFormState> {
-  constructor(props: LoginFormProps) {
-    super(props);
-    this.state = { username: '', password: '' };
+  const errorText = useAppSelector(state => state.login.errorText);
 
-    this.handleChangeUsername = this.handleChangeUsername.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
+  };
 
-  handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({ username: event.target.value });
-  }
+  const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
 
-  handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({ password: event.target.value });
-  }
-
-  handleSubmit(event: SyntheticEvent) {
+  const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-  }
+  };
 
-  render() {
-    const errorText = useAppSelector(state => state.login.errorText);
-
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <div style={SignFormStyle}>
-          { (errorText === null) ? null : <ErrorBlock /> }
-          <BoardTextField label="Username" value={this.state.username} onChange={this.handleChangeUsername} />
-          <BoardPasswordTextField label="Password" value={this.state.password} onChange={this.handleChangePassword} />
-          <div style={FullWidthStyle}>
-            <a href="#1" style={ForgotPasswordStyle}>Forgot password?</a>
-          </div>
-          <BoardButton variant="contained" type="submit">LOGIN</BoardButton>
+  return (
+    <form onSubmit={handleSubmit}>
+      <div style={SignFormStyle}>
+        { (errorText === null) ? null : <ErrorBlock /> }
+        <BoardTextField label="Username" value={username} onChange={handleChangeUsername} />
+        <BoardPasswordTextField label="Password" value={password} onChange={handleChangePassword} />
+        <div style={FullWidthStyle}>
+          <a href="#1" style={ForgotPasswordStyle}>Forgot password?</a>
         </div>
-      </form>
-    );
-  }
+        <BoardButton variant="contained" type="submit">LOGIN</BoardButton>
+      </div>
+    </form>
+  );
 }
 
 export default LoginForm;
