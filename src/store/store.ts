@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import loginReducer from '../registration/form/loginSlice';
+import signUpReducer from '../registration/form/signUpSlice';
 
 
 export const store = configureStore({
   reducer: {
     login: loginReducer,
+    signUp: signUpReducer,
   },
   devTools: true,
 });

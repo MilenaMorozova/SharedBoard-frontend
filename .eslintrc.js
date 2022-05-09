@@ -30,6 +30,7 @@ module.exports = {
       'class-methods-use-this': 1,  // TODO make error
       'arrow-parens': 0,
       'react/jsx-one-expression-per-line': 0,
-      'no-param-reassign': ["error", { "props": true, "ignorePropertyModificationsForRegex": ["state"] }]
+      'no-param-reassign': ["error", { "props": true, "ignorePropertyModificationsForRegex": ["state"] }],
+      'react/static-property-placement': 0,
     }
   };
