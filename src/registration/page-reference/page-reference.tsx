@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { pageReferenceStyle, questionStyle } from './style';
 
 type PageReferenceProps = {
@@ -13,9 +14,9 @@ class PageReference extends Component<PageReferenceProps> {
       <div style={questionStyle}>
         {this.props.preamble}
         {' '}
-        <a href={this.props.href} style={pageReferenceStyle}>
+        <Link to={this.props.href} style={pageReferenceStyle}>
           {this.props.pageAction}
-        </a>
+        </Link>
       </div>
     );
   }
