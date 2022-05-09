@@ -2,13 +2,13 @@ import {
   ChangeEvent, SyntheticEvent, useState,
 } from 'react';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
-import BoardButton from '../../custom-mui-components/button/button';
-import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
-import BoardTextField from '../../custom-mui-components/text-fields/text-field';
+import BoardButton from '../../../custom-mui-components/button/button';
+import BoardPasswordTextField from '../../../custom-mui-components/text-fields/password-text-field';
+import BoardTextField from '../../../custom-mui-components/text-fields/text-field';
 import {
   ForgotPasswordStyle, FullWidthStyle, LoginErrorBlockStyle, SignFormStyle,
-} from './style';
-import { useAppSelector } from '../../store/hooks';
+} from '../style';
+import { useAppSelector } from '../../../store/hooks';
 
 
 function ErrorBlock() {

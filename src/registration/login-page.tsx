@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { EmptyObject } from '@reduxjs/toolkit';
-import LoginForm from './form/login-form';
+import LoginForm from './form/login/login-form';
 import BaseSignPage from './base-sign-page';
 import PageReference from './page-reference/page-reference';
 

@@ -1,9 +1,9 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
-import BoardButton from '../../custom-mui-components/button/button';
-import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
-import BoardTextField from '../../custom-mui-components/text-fields/text-field';
-import { useAppSelector } from '../../store/hooks';
-import { SignFormStyle } from './style';
+import BoardButton from '../../../custom-mui-components/button/button';
+import BoardPasswordTextField from '../../../custom-mui-components/text-fields/password-text-field';
+import BoardTextField from '../../../custom-mui-components/text-fields/text-field';
+import { useAppSelector } from '../../../store/hooks';
+import { SignFormStyle } from '../style';
 
 
 function SignUpForm() {

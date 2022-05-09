@@ -33,15 +33,15 @@ class BoardPasswordTextField extends Component<BoardTextFieldProps, BoardPasswor
         type={this.state.showPassword ? 'text' : 'password'}
         InputProps={{
           endAdornment:
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={this.handleClickShowPassword}
-                edge="end"
-              >
-                {this.state.showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-              </IconButton>
-            </InputAdornment>,
+  <InputAdornment position="end">
+    <IconButton
+      aria-label="toggle password visibility"
+      onClick={this.handleClickShowPassword}
+      edge="end"
+    >
+      {this.state.showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+    </IconButton>
+  </InputAdornment>,
         }}
       />
     );
