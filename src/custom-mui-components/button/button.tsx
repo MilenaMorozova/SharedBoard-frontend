@@ -5,7 +5,14 @@ import BoardButtonStyle from './style';
 
 class BoardButton extends Component<ButtonProps> {
   render() {
-    return <Button {...this.props} fullWidth className="board-button" sx={{ ...BoardButtonStyle, ...this.props.sx }} />;
+    return (
+      <Button
+        className="board-button"
+        fullWidth
+        {...this.props}
+        sx={{ ...BoardButtonStyle, ...this.props.sx }}
+      />
+    );
   }
 }
 
