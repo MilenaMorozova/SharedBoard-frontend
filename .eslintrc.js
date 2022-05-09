@@ -1,5 +1,8 @@
 module.exports = {
     root: true,
+    env: {
+      'browser': true,
+    },
     parser: '@typescript-eslint/parser',
     plugins: [
       '@typescript-eslint',
@@ -9,5 +12,25 @@ module.exports = {
       'eslint:recommended',
       'plugin:@typescript-eslint/recommended',
       'plugin:jest/recommended',
+      'airbnb',
     ],
+    rules: {
+      'linebreak-style': 0,
+      '@typescript-eslint/prefer-as-const': 0,
+      'import/no-unresolved': 0,
+      'import/extensions': 0,
+      'react/prefer-stateless-functionv': 0,
+      'react/react-in-jsx-scope': 0,
+      'react/jsx-filename-extension': [2, { 'extensions': ['.jsx', '.tsx'] }],
+      'react/jsx-props-no-spreading': 0,
+      'react/destructuring-assignment': 0,
+      'no-multiple-empty-lines': [2, { 'max': 2 }],
+      'max-len': [2, {'code': 120, "ignoreComments": true}],
+      'react/prefer-stateless-function': 0,
+      'class-methods-use-this': 1,  // TODO make error
+      'arrow-parens': 0,
+      'react/jsx-one-expression-per-line': 0,
+      'no-param-reassign': ["error", { "props": true, "ignorePropertyModificationsForRegex": ["state"] }],
+      'react/static-property-placement': 0,
+    }
   };
