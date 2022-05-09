@@ -1,8 +1,8 @@
-import { TEXT_BLUE } from '../../colors';
+import COLORS from '../../colors';
 import FONTS from '../../fonts';
 
 export const pageReferenceStyle = {
-  color: TEXT_BLUE,
+  color: COLORS.TEXT_BLUE,
 };
 
 export const questionStyle = {

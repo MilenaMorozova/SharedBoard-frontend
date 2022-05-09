@@ -1,4 +1,4 @@
-import { BACKGOUND_LIGHT_BLUE, TEXT_DARK_BLUE } from '../colors';
+import COLORS from '../colors';
 import FONTS from '../fonts';
 
 export const FlexColumnCenterStyle = {
@@ -8,13 +8,13 @@ export const FlexColumnCenterStyle = {
 };
 
 export const SignInPageStyle = {
-  backgroundColor: BACKGOUND_LIGHT_BLUE,
+  backgroundColor: COLORS.BACKGOUND_LIGHT_BLUE,
   height: '100vh',
   ...FlexColumnCenterStyle,
 };
 
 export const LogoTextStyle = {
-  color: TEXT_DARK_BLUE,
+  color: COLORS.TEXT_DARK_BLUE,
   ...FONTS.H1,
 };
 

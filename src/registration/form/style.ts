@@ -1,4 +1,4 @@
-import { TEXT_BLUE, TEXT_RED } from '../../colors';
+import COLORS from '../../colors';
 import FONTS from '../../fonts';
 
 const WIDTH = 510;
@@ -23,7 +23,7 @@ export const SignFormStyle = {
 export const ForgotPasswordStyle = {
   position: 'relative' as 'relative',
   float: 'right' as 'right',
-  color: TEXT_BLUE,
+  color: COLORS.TEXT_BLUE,
   ...FONTS.BODY,
 };
 
@@ -36,5 +36,5 @@ export const LoginErrorBlockStyle = {
   alignItems: 'center',
   gap: '20px',
 
-  color: TEXT_RED,
+  color: COLORS.TEXT_RED,
 };
