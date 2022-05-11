@@ -1,3 +1,0 @@
-function Avatar() {
-  return null;
-}
