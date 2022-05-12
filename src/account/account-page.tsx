@@ -1,9 +1,14 @@
 import AccountCard from './account-card/account-card';
+import { AccountCardLocationStyle, AccountPageStyle } from './style';
 
 
 function AccountPage() {
   return (
-    <AccountCard />
+    <div style={AccountPageStyle}>
+      <div style={AccountCardLocationStyle}>
+        <AccountCard />
+      </div>
+    </div>
   );
 }
 

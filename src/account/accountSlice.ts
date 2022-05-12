@@ -1,32 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import User from '../entities/user';
 import { RootState } from '../store/store';
 
 interface AccountState {
-  username: string,
-  email: string,
+  user: User,
 }
 
 const initialState: AccountState = {
-  username: '',
-  email: '',
+  user: new User(),
 };
 
 export const AccountSlice = createSlice({
   name: 'Account',
   initialState,
   reducers: {
+    setUser: (state: AccountState, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    },
     setUsername: (state: AccountState, action: PayloadAction<string>) => {
-      state.username = action.payload;
+      state.user.username = action.payload;
     },
     setEmail: (state: AccountState, action: PayloadAction<string>) => {
-      state.email = action.payload;
+      state.user.email = action.payload;
     },
   },
 });
 
-export const { setUsername, setPassword, setEmail } = AccountSlice.actions;
+export const { setUsername, setEmail } = AccountSlice.actions;
 
-export const selectUsername = (state: RootState) => state.account.username;
-export const selectEmail = (state: RootState) => state.account.email;
+export const selectUser = (state: RootState) => state.account.user;
 
 export default AccountSlice.reducer;

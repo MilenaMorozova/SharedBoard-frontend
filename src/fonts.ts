@@ -23,5 +23,8 @@ const FONTS = {
   MAIL_ACTIVATE_TITLE: {
     fontFamily: 'Lato', fontStyle: 'normal', fontSize: 40, fontWeight: 400, lineHeight: '48px',
   },
+  AVATAR: {
+    fontFamily: 'Lato', fontStyle: 'normal', fontSize: 34, fontWeight: 500, lineHeight: '40px',
+  },
 };
 export default FONTS;
