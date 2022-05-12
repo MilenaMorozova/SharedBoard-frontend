@@ -9,6 +9,9 @@ const COLORS = {
   BACKGROUND_WHITE: '#FFFFFF',
 
   BUTTON_BLUE: '#5688C7',
+
+  ICON_PURPLE: '#965DF4',
+  ICON_BLUE: '#5688C7',
 };
 
 export default COLORS;

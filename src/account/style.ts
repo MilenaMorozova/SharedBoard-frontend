@@ -7,4 +7,10 @@ export const AccountPageStyle = {
 
 export const AccountCardLocationStyle = {
   padding: '50px 70px',
+  display: 'flex',
+  flexDirection: 'row' as 'row',
+};
+
+export const BoardBlockStyle = {
+  marginLeft: '30px',
 };
