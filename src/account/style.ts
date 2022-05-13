@@ -13,4 +13,9 @@ export const AccountCardLocationStyle = {
 
 export const BoardBlockStyle = {
   marginLeft: '30px',
+
+  display: 'flex',
+  flexDirection: 'column' as 'column',
+
+  gap: '50px',
 };

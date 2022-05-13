@@ -12,6 +12,12 @@ const COLORS = {
 
   ICON_PURPLE: '#965DF4',
   ICON_BLUE: '#5688C7',
+
+  CHIP_LIGHT_PURPLE: 'rgba(150, 93, 244, 0.11)',
+  CHIP_LABEL_PURPLE: '#965DF4',
+
+  CHIP_LIGHT_BLUE: 'rgba(93, 135, 244, 0.11)',
+  CHIP_LABEL_BLUE: '#5688C7',
 };
 
 export default COLORS;

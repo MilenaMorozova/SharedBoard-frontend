@@ -1,10 +1,7 @@
 class User {
   id = '';
-
   color = '';
-
   username = '';
-
   email = '';
 
   get shortUsername(): string {

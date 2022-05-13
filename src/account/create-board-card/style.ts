@@ -9,7 +9,7 @@ export const CreateBoardCardStyle = {
   alignItems: 'center',
   gap: '20px',
   padding: '10px 20px',
-  
+
   background: COLORS.BACKGROUND_WHITE,
 };
 
