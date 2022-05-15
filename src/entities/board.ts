@@ -8,6 +8,12 @@ class Board {
   createdDate: Date | null = null;
   updatedDate: Date | null = null;
   participants: Array<User> = [];
+
+  get owner(): User {
+    const user = new User();
+    user.username = 'Milena Sergeevna';
+    return user;
+  }
 }
 
 export default Board;
