@@ -18,6 +18,8 @@ const COLORS = {
 
   CHIP_LIGHT_BLUE: 'rgba(93, 135, 244, 0.11)',
   CHIP_LABEL_BLUE: '#5688C7',
+
+  TABLE_HEADER_GRAY: '#E5DEF0',
 };
 
 export default COLORS;

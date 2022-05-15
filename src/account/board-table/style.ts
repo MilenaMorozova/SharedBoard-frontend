@@ -4,6 +4,8 @@ import FONTS from '../../fonts';
 
 export const HeaderCellStyle = {
   textAlign: 'center',
+  backgroundColor: COLORS.TABLE_HEADER_GRAY,
+  color: COLORS.TEXT_DARK_GRAY,
 };
 
 export const BoardChipTextStyle = {
@@ -21,4 +23,15 @@ export const BoardChipStyle = {
     backgroundColor: COLORS.CHIP_LIGHT_BLUE,
     label: 'Notes',
   },
+};
+
+export const DateTimeTableCellStyle = {
+  display: 'flex',
+  justifyContent: 'center' as 'center',
+  textAlign: 'left' as 'left',
+};
+
+export const TableCellStyle = {
+  color: COLORS.TEXT_DARK_GRAY,
+  ...FONTS.BODY,
 };

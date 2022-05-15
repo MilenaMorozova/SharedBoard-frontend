@@ -14,6 +14,10 @@ class User {
     }
     return this.email;
   }
+
+  get isOwnerOfThisBoard(): boolean {
+    return false;
+  }
 }
 
 export default User;
