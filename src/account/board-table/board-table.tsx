@@ -1,36 +1,13 @@
 import {
-  Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+  Paper, Table, TableBody, TableCell, TableCellProps, TableContainer, TableHead, TableRow,
 } from '@mui/material';
-import { ErrorButton, SecondaryButton } from '../../custom-mui-components/button/secondary/secondary-button';
 import BoardType from '../../entities/board-type';
-import { useAppSelector } from '../../store/hooks';
+import { ActionTableCell, CustomTableCell, DateTimeTableCell } from './board-table-cell';
 import BoardTypeChip from './board-type-chip';
-import { HeaderCellStyle, DateTimeTableCellStyle, TableCellStyle } from './style';
+import { HeaderCellStyle } from './style';
 
 
 const HEADERS = ['Type', 'Board name', 'Owner', 'Created', 'Updated', ''];
-
-function DateTimeTableCell(props: {date: string, time: string}) {
-  return (
-    <TableCell sx={TableCellStyle}>
-      <div style={DateTimeTableCellStyle}>
-        {props.date}
-        <br />
-        {props.time}
-      </div>
-    </TableCell>
-  );
-}
-
-function ActionTableCell() {
-  const user = useAppSelector(state => state.account.user);
-
-  return (
-    <TableCell align="center" sx={TableCellStyle}>
-      {user.isOwnerOfThisBoard ? <ErrorButton>DELETE</ErrorButton> : <SecondaryButton>LEAVE</SecondaryButton>}
-    </TableCell>
-  );
-}
 
 function BoardTable() {
   return (
@@ -45,15 +22,15 @@ function BoardTable() {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell align="center">
+            <CustomTableCell>
               <BoardTypeChip boardType={BoardType.KANBAN} />
-            </TableCell>
-            <TableCell align="center" sx={TableCellStyle}>
+            </CustomTableCell>
+            <CustomTableCell>
               Board name
-            </TableCell>
-            <TableCell align="center" sx={TableCellStyle}>
+            </CustomTableCell>
+            <CustomTableCell>
               Milena Sergeevna
-            </TableCell>
+            </CustomTableCell>
             <DateTimeTableCell date="02.02.2022" time="13:34" />
             <DateTimeTableCell date="03.03.2002" time="16:34" />
             <ActionTableCell />
