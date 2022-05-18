@@ -5,7 +5,7 @@ import { BoardTextFieldStyle, errorTextFieldStyle } from './style';
 
 export type BoardTextFieldProps =
 TextFieldProps & {
-  errorText?: string|null
+  errorText?: string|null,
 }
 
 class BoardTextField extends Component<BoardTextFieldProps> {

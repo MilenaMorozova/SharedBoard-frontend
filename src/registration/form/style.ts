@@ -13,7 +13,7 @@ export const SignFormStyle = {
   position: 'relative' as 'relative',
   width: WIDTH,
 
-  background: 'white',
+  background: COLORS.BACKGROUND_WHITE,
   boxShadow: '0px 4px 14px rgba(0, 0, 0, 0.1)',
   borderRadius: '6px',
 

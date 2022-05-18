@@ -21,6 +21,6 @@ export const loginSlice = createSlice({
 
 export const { setErrorText } = loginSlice.actions;
 
-export const selectCount = (state: RootState) => state.login.errorText;
+export const selectErrorText = (state: RootState) => state.login.errorText;
 
 export default loginSlice.reducer;

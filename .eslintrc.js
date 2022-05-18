@@ -10,9 +10,9 @@ module.exports = {
     ],
     extends: [
       'eslint:recommended',
-      'plugin:@typescript-eslint/recommended',
       'plugin:jest/recommended',
       'airbnb',
+      'plugin:@typescript-eslint/recommended',
     ],
     rules: {
       'linebreak-style': 0,
@@ -27,10 +27,14 @@ module.exports = {
       'no-multiple-empty-lines': [2, { 'max': 2 }],
       'max-len': [2, {'code': 120, "ignoreComments": true}],
       'react/prefer-stateless-function': 0,
-      'class-methods-use-this': 1,  // TODO make error
       'arrow-parens': 0,
       'react/jsx-one-expression-per-line': 0,
       'no-param-reassign': ["error", { "props": true, "ignorePropertyModificationsForRegex": ["state"] }],
       'react/static-property-placement': 0,
+      'lines-between-class-members': 0,
+      'no-shadow': 'off',
+      '@typescript-eslint/no-shadow': ['error'],
+      'react/no-unstable-nested-components': 0,
+      'prefer-const': 0,
     }
   };
