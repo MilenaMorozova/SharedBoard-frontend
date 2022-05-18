@@ -3,6 +3,7 @@ import {
 } from '@mui/material';
 import Board from '../../entities/board';
 import BoardType from '../../entities/board-type';
+import { useAppSelector } from '../../store/hooks';
 import { ActionTableCell, CustomTableCell, DateTimeTableCell } from './board-table-cell';
 import BoardTypeChip from './board-type-chip';
 import { HeaderCellStyle } from './style';
@@ -11,13 +12,7 @@ import { HeaderCellStyle } from './style';
 const HEADERS = ['Type', 'Board name', 'Owner', 'Created', 'Updated', ' '];
 
 function BoardTable() {
-  const mockBoard = new Board();
-  mockBoard.boardName = 'Board name';
-  mockBoard.type = BoardType.KANBAN;
-  mockBoard.createdDate = new Date('02.02.2020 13:45');
-  mockBoard.updatedDate = new Date('03.03.2020 16:00');
-
-  const userBoards: Array<Board> = [];
+  const userBoards: Array<Board> = useAppSelector(state => state.account.boards);
 
   function TableContent() {
     let content;
@@ -30,7 +25,7 @@ function BoardTable() {
       );
     } else {
       content = userBoards.map((board) => (
-        <TableRow key={board.id}>
+        <TableRow hover key={board.id}>
           <CustomTableCell>
             <BoardTypeChip boardType={BoardType.KANBAN} />
           </CustomTableCell>
@@ -55,9 +50,8 @@ function BoardTable() {
   }
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ boxShadow: 0 }}>
       <Table>
-
         <TableHead>
           <TableRow>
             {HEADERS.map((header) => (
@@ -65,9 +59,7 @@ function BoardTable() {
             ))}
           </TableRow>
         </TableHead>
-
         <TableContent />
-
       </Table>
     </TableContainer>
   );

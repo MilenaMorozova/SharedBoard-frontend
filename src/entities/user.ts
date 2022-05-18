@@ -18,6 +18,15 @@ class User {
   get isOwnerOfThisBoard(): boolean {
     return false;
   }
+
+  copy() {
+    let copiedUser = new User();
+    copiedUser.id = this.id;
+    copiedUser.color = this.color;
+    copiedUser.email = this.email;
+    copiedUser.username = this.username;
+    return copiedUser;
+  }
 }
 
 export default User;

@@ -1,7 +1,6 @@
 import { Button } from '@mui/material';
 import { CSSProperties, ReactNode } from 'react';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
-import COLORS from '../../colors';
 import Avatar from '../../custom-mui-components/avatar/avatar';
 import { useAppSelector } from '../../store/hooks';
 import {

@@ -35,5 +35,6 @@ module.exports = {
       'no-shadow': 'off',
       '@typescript-eslint/no-shadow': ['error'],
       'react/no-unstable-nested-components': 0,
+      'prefer-const': 0,
     }
   };
