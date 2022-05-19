@@ -1,3 +1,3 @@
 export const DialogTitleStyle = {
-    cursor: 'move',
-}
+  cursor: 'move',
+};

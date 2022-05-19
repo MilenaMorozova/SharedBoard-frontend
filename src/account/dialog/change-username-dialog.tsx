@@ -1,37 +1,36 @@
-import DraggableDialog from "../../custom-mui-components/dialog/dialog";
-import BoardTextField from "../../custom-mui-components/text-fields/text-field";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { SecondaryButton } from "../../custom-mui-components/button/secondary/secondary-button";
-import { useState } from "react";
+import DraggableDialog from '../../custom-mui-components/dialog/dialog';
+import BoardTextField from '../../custom-mui-components/text-fields/text-field';
+import TextButton from '../../custom-mui-components/button/text-button/text-button';
 
 
 function ActionPanel() {
-    return (
-        <div>
-            <SecondaryButton>CANCEL</SecondaryButton>
-            <SecondaryButton>CHANGE</SecondaryButton>
-        </div>
-    );
+  return (
+    <div>
+      <TextButton>CANCEL</TextButton>
+      <TextButton>CHANGE</TextButton>
+    </div>
+  );
 }
 
-function ChangeUsernameDialog() {
-    const [open, setOpen] = useState(false);
+type ChangeUsernameDialogProps = {
+    open: boolean,
+    onClose: () => void,
+}
 
-    const onClose = () => {
-        setOpen(false);
-    }
-
-    return (
-        <DraggableDialog 
-            titleIcon={<PersonOutlineIcon />}
-            title="Change username"
-            actionPanel={<ActionPanel />} 
-            open={open} 
-            onClose={onClose}
-        >
-            <BoardTextField/>
-        </DraggableDialog>
-    )
+function ChangeUsernameDialog(props: ChangeUsernameDialogProps) {
+  console.log(props);
+  return (
+    <DraggableDialog
+      titleIcon={<PersonOutlineIcon />}
+      title="Change username"
+      actionPanel={<ActionPanel />}
+      open={props.open}
+      onClose={props.onClose}
+    >
+      <BoardTextField />
+    </DraggableDialog>
+  );
 }
 
 export default ChangeUsernameDialog;
