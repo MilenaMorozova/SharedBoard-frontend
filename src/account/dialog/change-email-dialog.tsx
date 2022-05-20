@@ -1,29 +1,29 @@
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useEffect, useState } from 'react';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import DraggableDialog from '../../custom-mui-components/dialog/dialog';
 import BoardTextField from '../../custom-mui-components/text-fields/text-field';
 import TextButton from '../../custom-mui-components/button/text-button/text-button';
 import { ContentTextStyle, TextFieldStyle } from './style';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setUsername } from '../accountSlice';
+import { setEmail } from '../accountSlice';
 
 
-type ChangeUsernameDialogProps = {
+type ChangeEmailDialogProps = {
     open: boolean,
     onClose: () => void,
 }
 
-function ChangeUsernameDialog(props: ChangeUsernameDialogProps) {
-  const username = useAppSelector(state => state.account.user.username);
-  const [value, setValue] = useState(username);
+function ChangeEmailDialog(props: ChangeEmailDialogProps) {
+  const email = useAppSelector(state => state.account.user.email);
+  const [value, setValue] = useState(email);
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => { setValue(username); }, [props.open]);
+  useEffect(() => { setValue(email); }, [props.open]);
 
   const onClick = () => {
-    if (value !== username) {
-      dispatch(setUsername(value));
+    if (value !== email) {
+      dispatch(setEmail(value));
     }
     props.onClose();
   };
@@ -39,18 +39,18 @@ function ChangeUsernameDialog(props: ChangeUsernameDialogProps) {
 
   return (
     <DraggableDialog
-      titleIcon={<PersonOutlineIcon />}
-      title="Change username"
+      titleIcon={<EmailOutlinedIcon />}
+      title="Change email"
       actionPanel={<ActionPanel />}
       open={props.open}
       onClose={props.onClose}
     >
       <div style={ContentTextStyle}>
-        Entry new username
+        Entry new email
       </div>
       <BoardTextField sx={TextFieldStyle} value={value} onChange={(event) => setValue(event.target.value)} />
     </DraggableDialog>
   );
 }
 
-export default ChangeUsernameDialog;
+export default ChangeEmailDialog;

@@ -1,14 +1,15 @@
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper, { PaperProps } from '@mui/material/Paper';
 import Draggable from 'react-draggable';
 import React, { ReactNode } from 'react';
-import { IconButton } from '@mui/material';
+import { DialogActions, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { DialogTitleStyle } from './style';
+import {
+  CloseButtonIconStyle, CloseIconStyle, DialogActionsStyle,
+  DialogContentStyle, DialogTitleStyle, DialogTitleWithIconStyle, TopDialogStyle,
+} from './style';
 
 
 function PaperComponent(props: PaperProps) {
@@ -41,21 +42,21 @@ export default function DraggableDialog(props: DraggableDialogProps) {
       PaperComponent={PaperComponent}
       aria-labelledby="draggable-dialog-title"
     >
-      <DialogTitle style={DialogTitleStyle} id="draggable-dialog-title">
-        <div>
-          <div>
+      <DialogTitle sx={DialogTitleStyle} id="draggable-dialog-title">
+        <div style={TopDialogStyle}>
+          <div style={DialogTitleWithIconStyle}>
             {props.titleIcon}
             {props.title}
           </div>
-          <IconButton onClick={props.onClose}>
-            <CloseIcon />
+          <IconButton onClick={props.onClose} sx={CloseButtonIconStyle}>
+            <CloseIcon sx={CloseIconStyle} />
           </IconButton>
         </div>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={DialogContentStyle}>
         {props.children}
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={DialogActionsStyle}>
         {props.actionPanel}
       </DialogActions>
     </Dialog>

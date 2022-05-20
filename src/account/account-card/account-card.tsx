@@ -11,13 +11,15 @@ import {
 } from './style';
 import { ErrorButton, SecondaryButton } from '../../custom-mui-components/button/secondary/secondary-button';
 import ChangeUsernameDialog from '../dialog/change-username-dialog';
+import ChangePasswordDialog from '../dialog/change-password-dialog';
+import ChangeEmailDialog from '../dialog/change-email-dialog';
 
 
 type AccountInfoRowProps = {
   children: ReactNode,
   textStyle: CSSProperties,
   buttonStyle: CSSProperties,
-  onClick?: MouseEventHandler<HTMLButtonElement>,
+  onClick: MouseEventHandler<HTMLButtonElement>,
 }
 
 function AccountInfoRow(props: AccountInfoRowProps) {
@@ -35,7 +37,8 @@ function AccountInfoRow(props: AccountInfoRowProps) {
 function AccountCard() {
   const user = useAppSelector(state => state.account.user);
   const [isUsernameChanging, setUsernameChanging] = useState(false);
-
+  const [isPasswordChanging, setPasswordChanging] = useState(false);
+  const [isEmailChanging, setEmailChanging] = useState(false);
 
   return (
     <div style={AccountCardStyle}>
@@ -54,12 +57,14 @@ function AccountCard() {
         <AccountInfoRow
           textStyle={UserFieldTextStyle}
           buttonStyle={UserFieldRowStyle}
+          onClick={() => setEmailChanging(true)}
         >
           Email: {user.shortEmail}
         </AccountInfoRow>
         <AccountInfoRow
           textStyle={UserFieldTextStyle}
           buttonStyle={UserFieldRowStyle}
+          onClick={() => setPasswordChanging(true)}
         >
           Password: *********
         </AccountInfoRow>
@@ -71,6 +76,14 @@ function AccountCard() {
       <ChangeUsernameDialog
         open={isUsernameChanging}
         onClose={() => setUsernameChanging(false)}
+      />
+      <ChangePasswordDialog
+        open={isPasswordChanging}
+        onClose={() => setPasswordChanging(false)}
+      />
+      <ChangeEmailDialog
+        open={isEmailChanging}
+        onClose={() => setEmailChanging(false)}
       />
     </div>
   );
