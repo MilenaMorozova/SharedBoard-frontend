@@ -1,6 +1,6 @@
 import { TextField, TextFieldProps } from '@mui/material';
 import { Component } from 'react';
-import { BoardTextFieldStyle, errorTextFieldStyle } from './style';
+import { BoardTextFieldStyle, ErrorTextFieldStyle } from './style';
 
 
 export type BoardTextFieldProps =
@@ -38,7 +38,7 @@ class BoardTextField extends Component<BoardTextFieldProps> {
         error
         helperText={this.props.errorText}
         {...this.props}
-        sx={{ ...errorTextFieldStyle, ...this.props.sx }}
+        sx={{ ...ErrorTextFieldStyle, ...this.props.sx }}
       />
     );
   }

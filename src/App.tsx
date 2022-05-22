@@ -12,6 +12,7 @@ import LoginPage from './registration/login-page';
 import SignUpPage from './registration/sign-up-page';
 import ROUTE from './routers/routers';
 import AccountPage from './account/account-page';
+import Workspace from './workspace/workspace';
 
 
 class App extends Component {
@@ -21,10 +22,11 @@ class App extends Component {
         <Provider store={store}>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Navigate replace to={ROUTE.ACCOUNT} />} />
+              <Route path="/" element={<Navigate replace to={ROUTE.WORKSPACE} />} />
               <Route path={ROUTE.LOGIN} element={<LoginPage />} />
               <Route path={ROUTE.SIGN_UP} element={<SignUpPage />} />
               <Route path={ROUTE.ACCOUNT} element={<AccountPage />} />
+              <Route path={ROUTE.WORKSPACE} element={<Workspace />} />
             </Routes>
           </BrowserRouter>
         </Provider>

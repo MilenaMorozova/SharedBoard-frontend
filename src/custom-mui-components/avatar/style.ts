@@ -1,7 +1,7 @@
 import COLORS from '../../colors';
 import FONTS from '../../fonts';
 
-export const AvatarStyle = {
+export const CircleStyle = {
   ...FONTS.BODY,
 
   display: 'flex',
@@ -13,6 +13,6 @@ export const AvatarStyle = {
   color: COLORS.BACKGROUND_WHITE,
 };
 
-export const ShortUsernameStyle = {
+export const TextStyle = {
   margin: 'auto',
 };
