@@ -30,7 +30,7 @@ function BoardTable() {
             <BoardTypeChip boardType={BoardType.KANBAN} />
           </CustomTableCell>
           <CustomTableCell>
-            {board.boardName}
+            {board.name}
           </CustomTableCell>
           <CustomTableCell>
             {board.owner.username}

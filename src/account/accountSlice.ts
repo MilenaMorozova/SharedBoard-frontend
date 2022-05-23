@@ -36,7 +36,9 @@ export const AccountSlice = createSlice({
   },
 });
 
-export const { setUsername, setEmail } = AccountSlice.actions;
+export const {
+  setUsername, setEmail, setUser, setBoards,
+} = AccountSlice.actions;
 
 export const selectUser = (state: RootState) => state.account.user;
 

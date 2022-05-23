@@ -2,17 +2,23 @@ import { useState } from 'react';
 import BoardIcon from '../../../custom-mui-components/icon/board-icon';
 import EditableText from '../../../custom-mui-components/text-fields/editable-text/editable-text';
 import BoardType from '../../../entities/board-type';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { BoardIconStyle, BoardNameStyle, BoardTitleStyle } from './style';
-
+import { setBoardName } from '../../workspaceSlice';
 
 type BoardTitleProps = {
   boardType: BoardType,
 }
 
 function BoardTitle(props: BoardTitleProps) {
-  const [value, setValue] = useState('Untitled');
+  const boardName = useAppSelector(state => state.workspace.board.name);
+  const dispatch = useAppDispatch();
 
-  const onSave = () => {};
+  const [name, setName] = useState(boardName);
+
+  const onSave = () => {
+    dispatch(setBoardName(name));
+  };
 
   return (
     <div style={BoardTitleStyle}>
@@ -21,8 +27,8 @@ function BoardTitle(props: BoardTitleProps) {
         sx={BoardIconStyle}
       />
       <EditableText
-        value={value}
-        setValue={setValue}
+        value={name}
+        setValue={setName}
         onSave={onSave}
         width="100px"
         textStyle={BoardNameStyle}

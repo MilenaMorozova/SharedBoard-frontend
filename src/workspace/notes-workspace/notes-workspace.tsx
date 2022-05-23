@@ -2,7 +2,7 @@ import BoardType from '../../entities/board-type';
 import WorkspaceAppBar from '../app-bar/app-bar';
 
 function NotesWorkspace() {
-  const onSearch = () => {};
+  const onSearch = (text: string) => {};
 
   return (
     <WorkspaceAppBar

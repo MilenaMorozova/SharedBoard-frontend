@@ -4,10 +4,11 @@ import {
 } from './style';
 import BoardType from '../../entities/board-type';
 import SearchField from '../../custom-mui-components/text-fields/search-field';
-import User from '../../entities/user';
 import Avatar from '../../custom-mui-components/avatar/avatar';
 import Participants from './participants/participants';
 import BoardButton from '../../custom-mui-components/button/button';
+import { useAppSelector } from '../../store/hooks';
+import { selectCurrentUser } from '../workspaceSlice';
 
 
 type WorkspaceAppBarProps = {
@@ -17,7 +18,7 @@ type WorkspaceAppBarProps = {
 }
 
 function WorkspaceAppBar(props: WorkspaceAppBarProps) {
-  const currentUser: User = new User();
+  const currentUser = useAppSelector(selectCurrentUser);
 
   return (
     <div style={AppBarStyle}>

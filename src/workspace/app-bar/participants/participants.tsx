@@ -2,11 +2,12 @@ import COLORS from '../../../colors';
 import Avatar from '../../../custom-mui-components/avatar/avatar';
 import CircleWithText from '../../../custom-mui-components/avatar/circle-with-text';
 import User from '../../../entities/user';
+import { useAppSelector } from '../../../store/hooks';
 import { MovedLeftAvatarStyle, ParticipantsCounterStyle, ParticipantsStyle } from './style';
 
 
 function Participants() {
-  const users: Array<User> = [];
+  const users: Array<User> = useAppSelector(state => state.workspace.participants);
 
   return (
     <div style={ParticipantsStyle}>
