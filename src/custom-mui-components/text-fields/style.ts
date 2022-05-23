@@ -46,5 +46,5 @@ export const ErrorTextFieldStyle = {
 };
 
 export const SearchTextFieldStyle = {
-  height: "50px"
+  flexDirection: 'row' as 'row',
 };

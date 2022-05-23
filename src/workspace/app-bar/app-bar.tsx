@@ -1,5 +1,7 @@
 import BoardTitle from './board-title/board-title';
-import { AppBarStyle, LeftSideStyle, RightSideStyle, SearchFieldStyle, ShareBoardButtonStyle } from './style';
+import {
+  AppBarStyle, LeftSideStyle, RightSideStyle, SearchFieldStyle, ShareBoardButtonStyle,
+} from './style';
 import BoardType from '../../entities/board-type';
 import SearchField from '../../custom-mui-components/text-fields/search-field';
 import User from '../../entities/user';
@@ -9,26 +11,24 @@ import BoardButton from '../../custom-mui-components/button/button';
 
 
 type WorkspaceAppBarProps = {
-    boardType?: BoardType,
+    boardType: BoardType,
     placeholder: string,
-    search?: (text: string) => void,
+    search: (text: string) => void,
 }
 
 function WorkspaceAppBar(props: WorkspaceAppBarProps) {
-  const mockUser = new User();
-  mockUser.color = 'red';
-  mockUser.username = 'Milena';
+  const currentUser: User = new User();
 
   return (
     <div style={AppBarStyle}>
       <div style={LeftSideStyle}>
-        <BoardTitle boardType={BoardType.NOTES} />
-        <SearchField search={() => {}} sx={SearchFieldStyle} placeholder={props.placeholder} />
+        <BoardTitle boardType={props.boardType} />
+        <SearchField search={props.search} sx={SearchFieldStyle} placeholder={props.placeholder} />
       </div>
       <div style={RightSideStyle}>
         <Participants />
-        <BoardButton variant='contained' fullWidth={false} sx={ShareBoardButtonStyle}> SHARE BOARD </BoardButton>
-        <Avatar user={mockUser}/>
+        <BoardButton variant="contained" fullWidth={false} sx={ShareBoardButtonStyle}> SHARE BOARD </BoardButton>
+        <Avatar user={currentUser} />
       </div>
     </div>
   );

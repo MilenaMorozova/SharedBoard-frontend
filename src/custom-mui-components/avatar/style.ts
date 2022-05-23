@@ -11,6 +11,7 @@ export const CircleStyle = {
   height: 50,
 
   color: COLORS.BACKGROUND_WHITE,
+  border: '2px solid #FFFFFF',
 };
 
 export const TextStyle = {

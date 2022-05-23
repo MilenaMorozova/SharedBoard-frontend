@@ -33,9 +33,12 @@ function SearchField(props: SearchFieldProps) {
     <SearchOutlinedIcon />
   </InputAdornment>,
       }}
-      placeholder={props.placeholder}
+      placeholder={`${props.placeholder}...`}
       onKeyUp={onEnter}
-      size='small'
+      size="small"
+      margin="none"
+      helperText={null}
+      sx={{ ...SearchTextFieldStyle, ...props.sx }}
     />
   );
 }
