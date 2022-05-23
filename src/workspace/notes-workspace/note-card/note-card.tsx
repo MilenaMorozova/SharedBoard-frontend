@@ -4,12 +4,11 @@ import { Button, Collapse } from '@mui/material';
 import { useState } from 'react';
 import COLORS from '../../../colors';
 import Note from '../../../entities/note/note';
-import NoteTagChip from '../tag-chip/tag-chip';
 import {
-  CardTitleStyle, CardTitleTextStyle, DateRowStyle, DescriptionBlockStyle,
-  ExpandButonStyle, NoteCardStyle, NoteContentStyle, StripeStyle, TopNoteCardStyle,
+  DescriptionBlockStyle, ExpandButonStyle, NoteCardStyle, NoteContentStyle, StripeStyle,
 } from './style';
-import EditableText from '../../../custom-mui-components/text-fields/editable-text/editable-text';
+import EditableText from '../../../custom-mui-components/text-fields/editable-text';
+import TopNoteCard from './top-note-card/top-note-card';
 
 
 function NoteCard() {
@@ -21,36 +20,6 @@ function NoteCard() {
 
   const [expanded, setExpanded] = useState(false);
   const [description, setDescription] = useState(note.description);
-
-  function DateRow(props: {title: string, date: Date}) {
-    return (
-      <span style={DateRowStyle}>
-        {`${props.title}: 02.02.2020 15:35`}
-      </span>
-    );
-  }
-
-  function TopNoteCard() {
-    const [title, setTitle] = useState(note.title);
-
-    return (
-      <div style={TopNoteCardStyle}>
-        <div style={CardTitleStyle}>
-          <EditableText
-            value={title}
-            textStyle={CardTitleTextStyle}
-            setValue={setTitle}
-            onSave={() => { }}
-            multiline
-            width="100%"
-          />
-          <NoteTagChip label={note.tag} />
-        </div>
-        <DateRow title="Created" date={note.created} />
-        <DateRow title="Updated" date={note.updated} />
-      </div>
-    );
-  }
 
   function ExpandButton() {
     return (

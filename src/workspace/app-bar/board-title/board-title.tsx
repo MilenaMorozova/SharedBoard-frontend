@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import BoardIcon from '../../../custom-mui-components/icon/board-icon';
-import EditableText from '../../../custom-mui-components/text-fields/editable-text/editable-text';
+import EditableText from '../../../custom-mui-components/text-fields/editable-text';
 import BoardType from '../../../entities/board/board-type';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { BoardIconStyle, BoardNameStyle, BoardTitleStyle } from './style';

@@ -1,5 +1,5 @@
 import { Chip } from '@mui/material';
-import COLORS from '../../../colors';
+import COLORS from '../../../../colors';
 
 
 function NoteTagChip(props: {label: string}) {
