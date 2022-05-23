@@ -14,6 +14,8 @@ class BoardTextField extends Component<BoardTextFieldProps> {
   };
 
   BaseTextField() {
+    const { errorText, ...other } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+
     return (
       <TextField
         className="board-text-field"
@@ -21,13 +23,15 @@ class BoardTextField extends Component<BoardTextFieldProps> {
         fullWidth
         variant="outlined"
         margin="dense"
-        {...this.props}
+        {...other}
         sx={{ ...BoardTextFieldStyle, ...this.props.sx }}
       />
     );
   }
 
   ErrorTextField() {
+    const { errorText, ...other } = this.props;
+
     return (
       <TextField
         className="board-error-text-field"
@@ -36,8 +40,8 @@ class BoardTextField extends Component<BoardTextFieldProps> {
         variant="outlined"
         margin="dense"
         error
-        helperText={this.props.errorText}
-        {...this.props}
+        helperText={errorText}
+        {...other}
         sx={{ ...ErrorTextFieldStyle, ...this.props.sx }}
       />
     );
