@@ -20,7 +20,7 @@ export const NoteContentStyle = {
   flexDirection: 'column' as 'column',
   gap: '20px',
   backgroundColor: COLORS.BACKGROUND_WHITE,
-  minWidth: '290px',
+  width: '290px',
 
   padding: '10px 15px',
   border: '1px solid #F4EDEF',
@@ -36,7 +36,6 @@ export const TopNoteCardStyle = {
 export const CardTitleTextStyle = {
   ...FONTS.H3,
   color: COLORS.TEXT_DARK_GRAY,
-  width: '100%',
 };
 
 export const CardTitleStyle = {

@@ -20,6 +20,13 @@ function BoardTitle(props: BoardTitleProps) {
     dispatch(setBoardName(name));
   };
 
+  const getValue = (text: string) => {
+    if (text.length > 9) {
+      return `${text.slice(0, 7)}...`;
+    }
+    return text;
+  };
+
   return (
     <div style={BoardTitleStyle}>
       <BoardIcon
@@ -30,6 +37,7 @@ function BoardTitle(props: BoardTitleProps) {
         value={name}
         setValue={setName}
         onSave={onSave}
+        getValue={getValue}
         width="100px"
         textStyle={BoardNameStyle}
       />

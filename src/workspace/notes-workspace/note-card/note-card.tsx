@@ -9,6 +9,7 @@ import {
   CardTitleStyle, CardTitleTextStyle, DateRowStyle, DescriptionBlockStyle,
   ExpandButonStyle, NoteCardStyle, NoteContentStyle, StripeStyle, TopNoteCardStyle,
 } from './style';
+import EditableText from '../../../custom-mui-components/text-fields/editable-text/editable-text';
 
 
 function NoteCard() {
@@ -17,7 +18,9 @@ function NoteCard() {
   note.title = 'Create task';
   note.tag = 'patsvr-56';
   note.description = 'no description';
+
   const [expanded, setExpanded] = useState(false);
+  const [description, setDescription] = useState(note.description);
 
   function DateRow(props: {title: string, date: Date}) {
     return (
@@ -28,10 +31,19 @@ function NoteCard() {
   }
 
   function TopNoteCard() {
+    const [title, setTitle] = useState(note.title);
+
     return (
       <div style={TopNoteCardStyle}>
         <div style={CardTitleStyle}>
-          <div style={CardTitleTextStyle}>{note.title}</div>
+          <EditableText
+            value={title}
+            textStyle={CardTitleTextStyle}
+            setValue={setTitle}
+            onSave={() => { }}
+            multiline
+            width="100%"
+          />
           <NoteTagChip label={note.tag} />
         </div>
         <DateRow title="Created" date={note.created} />
@@ -59,7 +71,14 @@ function NoteCard() {
         <TopNoteCard />
         <ExpandButton />
         <Collapse in={expanded} timeout="auto" unmountOnExit sx={DescriptionBlockStyle}>
-          {note.description}
+          <EditableText
+            value={description}
+            setValue={setDescription}
+            textStyle={DescriptionBlockStyle}
+            width="100%"
+            multiline
+            onSave={() => {}}
+          />
         </Collapse>
       </div>
     </div>

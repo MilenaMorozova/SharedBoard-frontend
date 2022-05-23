@@ -5,20 +5,15 @@ import { CSSProperties, useState } from 'react';
 type EditableTextProps = {
     value: string,
     setValue: (text: string) => void,
+    getValue: (text: string) => string,
     textStyle: CSSProperties,
     width: string,
+    multiline: boolean,
     onSave: () => void,
 }
 
 function EditableText(props: EditableTextProps) {
   const [toggle, setToggle] = useState(true);
-
-  const getValue = () => {
-    if (props.value.length > 9) {
-      return `${props.value.slice(0, 7)}...`;
-    }
-    return props.value;
-  };
 
   const saveValue = () => {
     setToggle(true);
@@ -27,11 +22,12 @@ function EditableText(props: EditableTextProps) {
 
   return toggle ? (
     <span
-      style={{ ...props.textStyle, width: props.width }}
+      style={{ ...props.textStyle, width: props.width, wordBreak: 'break-all' }}
       onDoubleClick={() => {
         setToggle(false);
       }}
-    >{getValue()}
+    >
+      {props.getValue(props.value)}
     </span>
   ) : (
     <Input
@@ -49,9 +45,15 @@ function EditableText(props: EditableTextProps) {
           event.stopPropagation();
         }
       }}
+      multiline={props.multiline}
       onBlur={saveValue}
     />
   );
 }
+
+EditableText.defaultProps = {
+  getValue: (text: string) => text,
+  multiline: false,
+};
 
 export default EditableText;
