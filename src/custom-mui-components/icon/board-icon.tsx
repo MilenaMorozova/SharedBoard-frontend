@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
-import BoardType from '../../entities/board-type';
+import BoardType from '../../entities/board/board-type';
 import { KanbanBoardIconStyle, NoteBoardIconStyle } from './style';
 
 

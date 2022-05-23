@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import Board from '../entities/board';
-import User from '../entities/user';
+import Board from '../entities/board/board';
+import User from '../entities/user/user';
 import { RootState } from '../store/store';
 
 interface WorkspaceState {

@@ -1,7 +1,7 @@
 import COLORS from '../../../colors';
 import Avatar from '../../../custom-mui-components/avatar/avatar';
 import CircleWithText from '../../../custom-mui-components/avatar/circle-with-text';
-import User from '../../../entities/user';
+import User from '../../../entities/user/user';
 import { useAppSelector } from '../../../store/hooks';
 import { MovedLeftAvatarStyle, ParticipantsCounterStyle, ParticipantsStyle } from './style';
 

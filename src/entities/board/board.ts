@@ -1,5 +1,5 @@
+import User from '../user/user';
 import BoardType from './board-type';
-import User from './user';
 
 class Board {
   id = '';

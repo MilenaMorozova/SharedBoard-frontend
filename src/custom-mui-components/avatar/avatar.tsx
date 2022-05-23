@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import User from '../../entities/user';
+import User from '../../entities/user/user';
 import CircleWithText from './circle-with-text';
 
 

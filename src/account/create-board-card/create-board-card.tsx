@@ -6,7 +6,7 @@ import {
   CreateBoardBlockStyle, CreateBoardCardStyle,
 } from './style';
 import BoardIcon from '../../custom-mui-components/icon/board-icon';
-import BoardType from '../../entities/board-type';
+import BoardType from '../../entities/board/board-type';
 
 function CreateBoardCard(props: {boardName: string, boardDescription: string, boardIcon: ReactNode}) {
   return (

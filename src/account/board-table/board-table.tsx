@@ -1,8 +1,8 @@
 import {
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 } from '@mui/material';
-import Board from '../../entities/board';
-import BoardType from '../../entities/board-type';
+import Board from '../../entities/board/board';
+import BoardType from '../../entities/board/board-type';
 import { useAppSelector } from '../../store/hooks';
 import { ActionTableCell, CustomTableCell, DateTimeTableCell } from './board-table-cell';
 import BoardTypeChip from './board-type-chip';

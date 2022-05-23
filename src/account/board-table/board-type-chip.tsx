@@ -1,5 +1,5 @@
 import { Chip } from '@mui/material';
-import BoardType from '../../entities/board-type';
+import BoardType from '../../entities/board/board-type';
 import { BoardChipStyle, BoardChipTextStyle } from './style';
 
 

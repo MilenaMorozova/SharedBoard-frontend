@@ -1,4 +1,4 @@
-import BoardType from '../../entities/board-type';
+import BoardType from '../../entities/board/board-type';
 import ActionPanel from '../action-panel/action-panel';
 import WorkspaceAppBar from '../app-bar/app-bar';
 
