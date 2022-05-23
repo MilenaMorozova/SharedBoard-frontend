@@ -11,12 +11,12 @@ type SearchFieldProps = BoardTextFieldProps & {
 }
 
 function SearchField(props: SearchFieldProps) {
-  const { ref, ...other } = props; // eslint-disable-line @typescript-eslint/no-unused-vars
+  const { ref, search, ...other } = props; // eslint-disable-line @typescript-eslint/no-unused-vars
   const [value, setValue] = useState('');
 
   const onEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      props.search(value);
+      search(value);
     }
   };
 
