@@ -1,12 +1,12 @@
 class Note {
-    id: string = '';
-    title: string = '';
-    tag: string = '';
-    description: string = '';
-    created: Date | null = null;
-    updated: Date | null = null;
+  id = '';
+  title = '';
+  tag = '';
+  description = '';
+  created: Date = new Date();
+  updated: Date = new Date();
 
-    referenceToNote: Note | null = null;
+  referenceToNote: Note | null = null;
 }
 
 export default Note;

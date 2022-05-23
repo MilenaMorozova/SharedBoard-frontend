@@ -14,7 +14,7 @@ class BoardTextField extends Component<BoardTextFieldProps> {
   };
 
   BaseTextField() {
-    const {  ...other } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { ...other } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
 
     return (
       <TextField
