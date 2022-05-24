@@ -18,7 +18,7 @@ export const StripeStyle = {
 export const NoteContentStyle = {
   display: 'flex',
   flexDirection: 'column' as 'column',
-  gap: '20px',
+  gap: '10px',
   backgroundColor: COLORS.BACKGROUND_WHITE,
   width: '290px',
 
@@ -45,3 +45,8 @@ export const CardColorStyle = {
   [COLORS.CHIP_LABEL_RED]: COLORS.CHIP_LIGHT_RED,
   [COLORS.CHIP_LABEL_YELLOW]: COLORS.CHIP_LIGHT_YELLOW,
 };
+
+export const ReferenceStyle = {
+  color: COLORS.TEXT_DARK_GRAY,
+  ...FONTS.BODY,
+}

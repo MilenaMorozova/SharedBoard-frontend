@@ -11,6 +11,7 @@ import {
 } from './style';
 import EditableText from '../../../custom-mui-components/text-fields/editable-text';
 import TopNoteCard from './top-note-card';
+import Reference from './reference-to-note';
 
 
 function NoteCard(props: {note: Note}) {
@@ -37,6 +38,7 @@ function NoteCard(props: {note: Note}) {
         <div style={{ ...StripeStyle, backgroundColor: props.note.color }} />
         <div style={{ ...NoteContentStyle, borderColor: CardColorStyle[props.note.color] }}>
           <TopNoteCard note={props.note}/>
+          <Reference refNote={props.note.referenceToNote}/>
           <ExpandButton />
           <Collapse in={expanded} timeout="auto" unmountOnExit sx={DescriptionBlockStyle}>
             <EditableText
