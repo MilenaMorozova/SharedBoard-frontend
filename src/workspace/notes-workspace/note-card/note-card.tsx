@@ -4,7 +4,6 @@ import { Button, Collapse } from '@mui/material';
 import { useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { useXarrow } from 'react-xarrows';
-import COLORS from '../../../colors';
 import Note from '../../../entities/note/note';
 import {
   CardColorStyle,
@@ -17,6 +16,7 @@ import TopNoteCard from './top-note-card';
 function NoteCard(props: {note: Note}) {
   const [expanded, setExpanded] = useState(false);
   const [description, setDescription] = useState(props.note.description);
+  const nodeRef = useRef(null);
   const updateXarrow = useXarrow();
 
   function ExpandButton() {
@@ -32,8 +32,8 @@ function NoteCard(props: {note: Note}) {
   }
 
   return (
-    <Draggable onDrag={updateXarrow}>
-      <div id={props.note.id} style={NoteCardStyle}>
+    <Draggable onDrag={updateXarrow} nodeRef={nodeRef}>
+      <div id={props.note.id} style={NoteCardStyle} ref={nodeRef}>
         <div style={{ ...StripeStyle, backgroundColor: props.note.color }} />
         <div style={{ ...NoteContentStyle, borderColor: CardColorStyle[props.note.color] }}>
           <TopNoteCard note={props.note}/>
