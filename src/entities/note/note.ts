@@ -1,13 +1,13 @@
-class Note {
-  id = '';
-  title = '';
-  tag = '';
-  description = '';
-  created: Date = new Date();
-  updated: Date = new Date();
-  color = '';
+interface Note {
+  id: string,
+  title: string,
+  tag: string,
+  description: string,
+  created: Date,
+  updated: Date,
+  color: string,
 
-  referenceToNote: Note | null = null;
+  refTag: string,
 }
 
 export default Note;

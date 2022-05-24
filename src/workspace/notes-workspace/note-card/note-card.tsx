@@ -12,13 +12,22 @@ import {
 import EditableText from '../../../custom-mui-components/text-fields/editable-text';
 import TopNoteCard from './top-note-card';
 import Reference from './reference-to-note';
+import { useAppDispatch } from '../../../store/hooks';
+import { updateNote } from '../../workspaceSlice';
 
 
 function NoteCard(props: {note: Note}) {
   const [expanded, setExpanded] = useState(false);
-  const [description, setDescription] = useState(props.note.description);
+  const dispatch = useAppDispatch();
+
   const nodeRef = useRef(null);
   const updateXarrow = useXarrow();
+
+  const onSaveDescription = () => {};
+
+  const onUpdateDescription = (description: string) => {
+    dispatch(updateNote({ ...props.note, description }));
+  };
 
   function ExpandButton() {
     return (
@@ -34,20 +43,35 @@ function NoteCard(props: {note: Note}) {
 
   return (
     <Draggable onDrag={updateXarrow} nodeRef={nodeRef}>
-      <div id={props.note.id} style={NoteCardStyle} ref={nodeRef}>
-        <div style={{ ...StripeStyle, backgroundColor: props.note.color }} />
-        <div style={{ ...NoteContentStyle, borderColor: CardColorStyle[props.note.color] }}>
-          <TopNoteCard note={props.note}/>
-          <Reference refNote={props.note.referenceToNote}/>
+      <div
+        id={props.note.tag}
+        style={NoteCardStyle}
+        ref={nodeRef}
+      >
+        <div style={{
+          ...StripeStyle, backgroundColor: props.note.color,
+        }}
+        />
+        <div style={{
+          ...NoteContentStyle, borderColor: CardColorStyle[props.note.color],
+        }}
+        >
+          <TopNoteCard note={props.note} />
+          <Reference note={props.note} />
           <ExpandButton />
-          <Collapse in={expanded} timeout="auto" unmountOnExit sx={DescriptionBlockStyle}>
+          <Collapse
+            in={expanded}
+            timeout="auto"
+            unmountOnExit
+            sx={DescriptionBlockStyle}
+          >
             <EditableText
-              value={description}
-              setValue={setDescription}
+              value={props.note.description}
+              setValue={onUpdateDescription}
               textStyle={DescriptionBlockStyle}
               width="100%"
               multiline
-              onSave={() => {}}
+              onSave={onSaveDescription}
             />
           </Collapse>
         </div>

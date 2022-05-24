@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import COLORS from '../../../colors';
 import EditableText from '../../../custom-mui-components/text-fields/editable-text';
 import Note from '../../../entities/note/note';
 import { CardColorStyle } from './style';
@@ -7,6 +5,8 @@ import {
   CardTitleStyle, CardTitleTextStyle, DateRowStyle, TopNoteCardStyle,
 } from './chip-note-card/style';
 import NoteTagChip from './chip-note-card/tag-chip';
+import { useAppDispatch } from '../../../store/hooks';
+import { updateNote } from '../../workspaceSlice';
 
 function DateRow(props: {title: string, date: Date}) {
   return (
@@ -17,22 +17,28 @@ function DateRow(props: {title: string, date: Date}) {
 }
 
 function TopNoteCard(props: {note: Note}) {
-  const [title, setTitle] = useState('Create task');
+  const dispatch = useAppDispatch();
+
+  const onSaveTitle = () => {};
+
+  const onUpdateTitle = (title: string) => {
+    dispatch(updateNote({ ...props.note, title }));
+  };
 
   return (
     <div style={TopNoteCardStyle}>
       <div style={CardTitleStyle}>
         <EditableText
-          value={title}
+          value={props.note.title}
           textStyle={CardTitleTextStyle}
-          setValue={setTitle}
-          onSave={() => { }}
+          setValue={onUpdateTitle}
+          onSave={onSaveTitle}
           multiline
           width="100%"
         />
-        <NoteTagChip 
-          label={props.note.tag} 
-          sx={{ color: props.note.color, backgroundColor: CardColorStyle[props.note.color] }} 
+        <NoteTagChip
+          label={props.note.tag}
+          sx={{ color: props.note.color, backgroundColor: CardColorStyle[props.note.color] }}
         />
       </div>
       <DateRow title="Created" date={props.note.created} />

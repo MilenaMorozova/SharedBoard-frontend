@@ -49,4 +49,4 @@ export const CardColorStyle = {
 export const ReferenceStyle = {
   color: COLORS.TEXT_DARK_GRAY,
   ...FONTS.BODY,
-}
+};
