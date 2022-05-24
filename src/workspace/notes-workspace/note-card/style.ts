@@ -23,7 +23,7 @@ export const NoteContentStyle = {
   width: '290px',
 
   padding: '10px 15px',
-  border: '1px solid #F4EDEF',
+  border: '1px solid',
   borderRadius: '0px 10px 10px 0px',
 };
 
@@ -38,3 +38,10 @@ export const DescriptionBlockStyle = {
   color: COLORS.TEXT_DARK_GRAY,
   ...FONTS.BODY,
 };
+
+export const CardColorStyle = {
+  [COLORS.CHIP_LABEL_PURPLE]: COLORS.CHIP_LIGHT_PURPLE,
+  [COLORS.CHIP_LABEL_BLUE]: COLORS.CHIP_LIGHT_BLUE,
+  [COLORS.CHIP_LABEL_RED]: COLORS.CHIP_LIGHT_RED,
+  [COLORS.CHIP_LABEL_YELLOW]: COLORS.CHIP_LIGHT_YELLOW,
+}

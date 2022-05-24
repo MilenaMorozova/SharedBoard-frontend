@@ -5,6 +5,7 @@ class Note {
   description = '';
   created: Date = new Date();
   updated: Date = new Date();
+  color: string = '';
 
   referenceToNote: Note | null = null;
 }

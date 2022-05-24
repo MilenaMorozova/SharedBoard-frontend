@@ -1,12 +1,13 @@
 import { Chip } from '@mui/material';
+import { CSSProperties } from 'react';
 import COLORS from '../../../../colors';
 
 
-function NoteTagChip(props: {label: string}) {
+function NoteTagChip(props: {label: string, sx: CSSProperties}) {
   return (
     <Chip
       label={props.label}
-      sx={{ color: COLORS.CHIP_LABEL_PURPLE, backgroundColor: COLORS.CHIP_LIGHT_PURPLE }}
+      sx={props.sx}
     />
   );
 }

@@ -5,18 +5,19 @@ import { useState } from 'react';
 import COLORS from '../../../colors';
 import Note from '../../../entities/note/note';
 import {
+  CardColorStyle,
   DescriptionBlockStyle, ExpandButonStyle, NoteCardStyle, NoteContentStyle, StripeStyle,
 } from './style';
 import EditableText from '../../../custom-mui-components/text-fields/editable-text';
-import TopNoteCard from './top-note-card/top-note-card';
+import TopNoteCard from './top-note-card';
 
 
 function NoteCard() {
-  const color = COLORS.ICON_PURPLE;
   const note = new Note();
   note.title = 'Create task';
   note.tag = 'patsvr-56';
   note.description = 'no description';
+  note.color = COLORS.CHIP_LABEL_PURPLE;
 
   const [expanded, setExpanded] = useState(false);
   const [description, setDescription] = useState(note.description);
@@ -35,8 +36,8 @@ function NoteCard() {
 
   return (
     <div style={NoteCardStyle}>
-      <div style={{ ...StripeStyle, backgroundColor: color }} />
-      <div style={NoteContentStyle}>
+      <div style={{ ...StripeStyle, backgroundColor: note.color }} />
+      <div style={{...NoteContentStyle, borderColor: CardColorStyle[note.color]}}>
         <TopNoteCard />
         <ExpandButton />
         <Collapse in={expanded} timeout="auto" unmountOnExit sx={DescriptionBlockStyle}>
