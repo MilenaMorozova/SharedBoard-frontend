@@ -10,6 +10,7 @@ import {
 } from './style';
 import EditableText from '../../../custom-mui-components/text-fields/editable-text';
 import TopNoteCard from './top-note-card';
+import Draggable from 'react-draggable';
 
 
 function NoteCard() {
@@ -35,23 +36,25 @@ function NoteCard() {
   }
 
   return (
-    <div style={NoteCardStyle}>
-      <div style={{ ...StripeStyle, backgroundColor: note.color }} />
-      <div style={{...NoteContentStyle, borderColor: CardColorStyle[note.color]}}>
-        <TopNoteCard />
-        <ExpandButton />
-        <Collapse in={expanded} timeout="auto" unmountOnExit sx={DescriptionBlockStyle}>
-          <EditableText
-            value={description}
-            setValue={setDescription}
-            textStyle={DescriptionBlockStyle}
-            width="100%"
-            multiline
-            onSave={() => {}}
-          />
-        </Collapse>
+    <Draggable >
+      <div style={NoteCardStyle} >
+        <div style={{ ...StripeStyle, backgroundColor: note.color }} />
+        <div style={{...NoteContentStyle, borderColor: CardColorStyle[note.color]}}>
+          <TopNoteCard />
+          <ExpandButton />
+          <Collapse in={expanded} timeout="auto" unmountOnExit sx={DescriptionBlockStyle}>
+            <EditableText
+              value={description}
+              setValue={setDescription}
+              textStyle={DescriptionBlockStyle}
+              width="100%"
+              multiline
+              onSave={() => {}}
+            />
+          </Collapse>
+        </div>
       </div>
-    </div>
+    </Draggable>
   );
 }
 
