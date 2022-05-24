@@ -13,14 +13,11 @@ function NotesWorkspace() {
   const notes: Array<Note> = useAppSelector(selectNotes);
   const arrows: Map<string, string> = useAppSelector(selectArrows);
 
-  const onSearch = (text: string) => {};
-
   return (
     <>
       <WorkspaceAppBar
         placeholder="search note by tag"
         boardType={BoardType.NOTES}
-        search={onSearch}
       />
       <ActionPanel />
       <Xwrapper>

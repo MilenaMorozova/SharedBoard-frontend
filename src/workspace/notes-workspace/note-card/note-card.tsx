@@ -12,13 +12,14 @@ import {
 import EditableText from '../../../custom-mui-components/text-fields/editable-text';
 import TopNoteCard from './top-note-card';
 import Reference from './reference-to-note';
-import { useAppDispatch } from '../../../store/hooks';
-import { updateNote } from '../../workspaceSlice';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { selectSearchText, updateNote } from '../../workspaceSlice';
 
 
 function NoteCard(props: {note: Note}) {
   const [expanded, setExpanded] = useState(false);
   const dispatch = useAppDispatch();
+  const searchText = useAppSelector(selectSearchText);
 
   const nodeRef = useRef(null);
   const updateXarrow = useXarrow();
@@ -27,6 +28,16 @@ function NoteCard(props: {note: Note}) {
 
   const onUpdateDescription = (description: string) => {
     dispatch(updateNote({ ...props.note, description }));
+  };
+
+  const boarderWhenIsSearching = () => {
+    if (props.note.tag.startsWith(searchText) && searchText.length) {
+      return {
+        boxShadow: `0px 4px 12px ${props.note.color}`,
+        borderRadius: '10px',
+      };
+    }
+    return {};
   };
 
   function ExpandButton() {
@@ -45,7 +56,7 @@ function NoteCard(props: {note: Note}) {
     <Draggable onDrag={updateXarrow} nodeRef={nodeRef}>
       <div
         id={props.note.tag}
-        style={NoteCardStyle}
+        style={{ ...NoteCardStyle, ...boarderWhenIsSearching() }}
         ref={nodeRef}
       >
         <div style={{

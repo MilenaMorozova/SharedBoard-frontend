@@ -13,6 +13,7 @@ interface WorkspaceState {
 
   notes: Array<Note>,
   arrows: Map<string, string>,
+  searchText: string,
 }
 
 let b = new Board();
@@ -62,6 +63,7 @@ const initialState: WorkspaceState = {
 
   notes: mockNotes,
   arrows: createArrowDict(mockNotes),
+  searchText: '',
 };
 
 export const WorkspaceSlice = createSlice({
@@ -89,11 +91,14 @@ export const WorkspaceSlice = createSlice({
     updateArrows: (state: WorkspaceState) => {
       state.arrows = createArrowDict(state.notes);
     },
+    setSearchText: (state: WorkspaceState, { payload }: PayloadAction<string>) => {
+      state.searchText = payload;
+    },
   },
 });
 
 export const {
-  setUser, setParticipants, setBoardName, updateNote, updateArrows,
+  setUser, setParticipants, setBoardName, updateNote, updateArrows, setSearchText,
 } = WorkspaceSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.workspace.currentUser;
@@ -101,5 +106,6 @@ export const selectParticipants = (state: RootState) => state.workspace.particip
 export const selectBoard = (state: RootState) => state.workspace.board;
 export const selectNotes = (state: RootState) => state.workspace.notes;
 export const selectArrows = (state: RootState) => state.workspace.arrows;
+export const selectSearchText = (state: RootState) => state.workspace.searchText;
 
 export default WorkspaceSlice.reducer;
