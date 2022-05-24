@@ -1,7 +1,7 @@
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import { Button, Collapse } from '@mui/material';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { useXarrow } from 'react-xarrows';
 import COLORS from '../../../colors';
@@ -14,16 +14,9 @@ import EditableText from '../../../custom-mui-components/text-fields/editable-te
 import TopNoteCard from './top-note-card';
 
 
-function NoteCard(props: {id: string}) {
-  const note = new Note();
-  note.title = 'Create task';
-  note.tag = 'patsvr-56';
-  note.description = 'no description';
-  note.color = COLORS.CHIP_LABEL_PURPLE;
-  note.id = props.id;
-
+function NoteCard(props: {note: Note}) {
   const [expanded, setExpanded] = useState(false);
-  const [description, setDescription] = useState(note.description);
+  const [description, setDescription] = useState(props.note.description);
   const updateXarrow = useXarrow();
 
   function ExpandButton() {
@@ -40,10 +33,10 @@ function NoteCard(props: {id: string}) {
 
   return (
     <Draggable onDrag={updateXarrow}>
-      <div id={note.id} style={NoteCardStyle}>
-        <div style={{ ...StripeStyle, backgroundColor: note.color }} />
-        <div style={{ ...NoteContentStyle, borderColor: CardColorStyle[note.color] }}>
-          <TopNoteCard />
+      <div id={props.note.id} style={NoteCardStyle}>
+        <div style={{ ...StripeStyle, backgroundColor: props.note.color }} />
+        <div style={{ ...NoteContentStyle, borderColor: CardColorStyle[props.note.color] }}>
+          <TopNoteCard note={props.note}/>
           <ExpandButton />
           <Collapse in={expanded} timeout="auto" unmountOnExit sx={DescriptionBlockStyle}>
             <EditableText

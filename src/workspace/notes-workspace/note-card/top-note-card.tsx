@@ -16,13 +16,7 @@ function DateRow(props: {title: string, date: Date}) {
   );
 }
 
-function TopNoteCard() {
-  const note = new Note();
-  note.title = 'Create task';
-  note.tag = 'patsvr-56';
-  note.description = 'no description';
-  note.color = COLORS.CHIP_LABEL_PURPLE;
-
+function TopNoteCard(props: {note: Note}) {
   const [title, setTitle] = useState('Create task');
 
   return (
@@ -36,10 +30,13 @@ function TopNoteCard() {
           multiline
           width="100%"
         />
-        <NoteTagChip label={note.tag} sx={{ color: note.color, backgroundColor: CardColorStyle[note.color] }} />
+        <NoteTagChip 
+          label={props.note.tag} 
+          sx={{ color: props.note.color, backgroundColor: CardColorStyle[props.note.color] }} 
+        />
       </div>
-      <DateRow title="Created" date={note.created} />
-      <DateRow title="Updated" date={note.updated} />
+      <DateRow title="Created" date={props.note.created} />
+      <DateRow title="Updated" date={props.note.updated} />
     </div>
   );
 }

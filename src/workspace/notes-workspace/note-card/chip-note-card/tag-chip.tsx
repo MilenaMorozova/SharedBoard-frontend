@@ -1,6 +1,5 @@
 import { Chip } from '@mui/material';
 import { CSSProperties } from 'react';
-import COLORS from '../../../../colors';
 
 
 function NoteTagChip(props: {label: string, sx: CSSProperties}) {
