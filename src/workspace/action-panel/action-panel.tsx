@@ -4,7 +4,9 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { IconButtonStyle, ActionPanelStyle } from './style';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { deleteSelectedNotes } from '../workspaceSlice';
+import { addNote, deleteSelectedNotes } from '../workspaceSlice';
+import Note from '../../entities/note/note';
+import COLORS from '../../colors';
 
 
 function ActionIconButton(props: {icon: ReactNode, onClick: () => void, disabled?: boolean}) {
@@ -31,11 +33,28 @@ function ActionPanel() {
     dispatch(deleteSelectedNotes());
   };
 
+  const onCreate = () => {
+    const mockNote: Note = {
+      id: '51',
+      title: 'New task',
+      tag: 'patsvr-59',
+      description: 'no description',
+      color: COLORS.CHIP_LABEL_YELLOW,
+      created: new Date(),
+      updated: new Date(),
+      posX: 200,
+      posY: 200,
+      refTag: '',
+    };
+    
+    dispatch(addNote(mockNote));
+  }
+
   return (
     <div style={ActionPanelStyle}>
       <ActionIconButton
         icon={<AddOutlinedIcon />}
-        onClick={() => {}}
+        onClick={onCreate}
       />
       <ActionIconButton
         icon={<DeleteOutlinedIcon />}

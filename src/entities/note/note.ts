@@ -6,6 +6,8 @@ interface Note {
   created: Date,
   updated: Date,
   color: string,
+  posX: number,
+  posY: number,
 
   refTag: string,
 }

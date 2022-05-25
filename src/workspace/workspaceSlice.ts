@@ -28,6 +28,8 @@ let mockNote1: Note = {
   color: COLORS.CHIP_LABEL_PURPLE,
   created: new Date(),
   updated: new Date(),
+  posX: 34,
+  posY: 34,
   refTag: '',
 };
 
@@ -39,6 +41,8 @@ let mockNote2: Note = {
   color: COLORS.CHIP_LABEL_RED,
   created: new Date(),
   updated: new Date(),
+  posX: 66,
+  posY: 66,
   refTag: mockNote1.tag,
 };
 
@@ -83,6 +87,7 @@ export const WorkspaceSlice = createSlice({
       copiedBoard.name = action.payload;
       state.board = copiedBoard;
     },
+
     setNotes: (state: WorkspaceState, action: PayloadAction<Array<Note>>) => {
       state.notes = action.payload;
       state.arrows = createArrowDict(state.notes);
@@ -90,6 +95,10 @@ export const WorkspaceSlice = createSlice({
     updateNote: (state: WorkspaceState, { payload }: PayloadAction<Note>) => {
       state.notes = state.notes.map((note) => (note.id === payload.id ? payload : note));
     },
+    addNote: (state: WorkspaceState, { payload }: PayloadAction<Note>) => {
+      state.notes = state.notes.concat(payload);
+    },
+
     updateArrows: (state: WorkspaceState) => {
       state.arrows = createArrowDict(state.notes);
     },
@@ -112,7 +121,7 @@ export const WorkspaceSlice = createSlice({
 });
 
 export const {
-  setUser, setParticipants, setBoardName, updateNote, updateArrows,
+  setUser, setParticipants, setBoardName, updateNote, addNote, updateArrows,
   setSearchText, addSelectedNote, deselectSelectedNotes, deleteSelectedNotes,
 } = WorkspaceSlice.actions;
 
