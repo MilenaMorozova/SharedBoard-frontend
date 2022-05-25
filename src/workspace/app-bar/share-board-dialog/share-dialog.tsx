@@ -30,7 +30,7 @@ function AccessToBoardDialog(props: AccessToBoardDialogProps) {
       <div style={DialogContextStyle}>
         <BoardTextField
           placeholder="Link"
-          value="Link fo r you"
+          value="Link for you"
           onChange={() => {}}
           sx={{ width: '100%' }}
           InputProps={{ endAdornment: <AccessSelect defaultValue={Access.EDITOR} /> }}

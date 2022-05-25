@@ -1,19 +1,16 @@
 import { MenuItem, Select } from '@mui/material';
-import { useState } from 'react';
 import Access from '../../../entities/user/access';
 import { AccessSelectStyle, MenuItemStyle } from './style';
 
 
-function AccessSelect(props: {defaultValue: Access}) {
-  const [access, setAccess] = useState(props.defaultValue);
-
+function AccessSelect(props: {value: Access, onChange: (access: Access) => void}) {
   return (
     <Select
       sx={AccessSelectStyle}
       size="small"
       variant="standard"
-      value={access}
-      onChange={(event) => setAccess(event.target.value as Access)}
+      value={props.value}
+      onChange={(event) => props.onChange(event.target.value as Access)}
       displayEmpty
       disableUnderline
     >

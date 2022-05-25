@@ -1,5 +1,8 @@
 import Avatar from '../../../custom-mui-components/avatar/avatar';
+import Access from '../../../entities/user/access';
 import User from '../../../entities/user/user';
+import { useAppDispatch } from '../../../store/hooks';
+import { updateUser } from '../../workspaceSlice';
 import AccessSelect from './access-select';
 import {
   CurrentUserAccessStyle, ParticipantAvatarStyle, ParticipantRowStyle, UsernameStyle,
@@ -7,6 +10,13 @@ import {
 
 
 function ParticipantRow(props: {user: User, isCurrentUser?: boolean}) {
+  const dispatch = useAppDispatch();
+
+  const onChange = (access: Access) => {
+    props.user.access = access;
+    dispatch(updateUser(props.user));
+  }
+
   return (
     <div style={ParticipantRowStyle}>
       <div style={ParticipantAvatarStyle}>
@@ -19,7 +29,10 @@ function ParticipantRow(props: {user: User, isCurrentUser?: boolean}) {
             (props.isCurrentUser) ? (
               <span style={CurrentUserAccessStyle}>{props.user.access}</span>
             ) : (
-              <AccessSelect defaultValue={props.user.access} />
+              <AccessSelect 
+                value={props.user.access}
+                onChange={onChange} 
+              />
             )
         }
     </div>

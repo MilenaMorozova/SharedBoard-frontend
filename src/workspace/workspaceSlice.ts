@@ -94,6 +94,9 @@ export const WorkspaceSlice = createSlice({
     setParticipants: (state: WorkspaceState, action: PayloadAction<Array<User>>) => {
       state.participants = action.payload;
     },
+    updateUser: (state: WorkspaceState, {payload}: PayloadAction<User>) => {
+      state.participants = state.participants.map(participant => participant.id === payload.id ? payload : participant)
+    },
     setBoardName: (state: WorkspaceState, action: PayloadAction<string>) => {
       let copiedBoard = state.board.copy();
       copiedBoard.name = action.payload;
@@ -133,7 +136,7 @@ export const WorkspaceSlice = createSlice({
 });
 
 export const {
-  setUser, setParticipants, setBoardName, updateNote, addNote, updateArrows,
+  setUser, setParticipants, updateUser, setBoardName, updateNote, addNote, updateArrows,
   setSearchText, addSelectedNote, deselectSelectedNotes, deleteSelectedNotes,
 } = WorkspaceSlice.actions;
 
