@@ -1,30 +1,32 @@
 import User, { newUser } from '../user/user';
 import BoardType from './board-type';
 
-class Board {
-  id = '';
-  name = '';
-  type: BoardType | null = null;
-  createdDate: Date | null = null;
-  updatedDate: Date | null = null;
-  participants: Array<User> = [];
+interface Board {
+  id: string;
+  name: string;
+  type: BoardType;
+  createdDate: Date;
+  updatedDate: Date;
+  participants: Array<User>;
 
-  get owner(): User {
-    const user = newUser();
-    user.username = 'Milena Sergeevna';
-    return user;
-  }
+  getOwner(): User;
+}
 
-  copy() {
-    let copiedBoard = new Board();
-    copiedBoard.id = this.id;
-    copiedBoard.name = this.name;
-    copiedBoard.type = this.type;
-    copiedBoard.createdDate = this.createdDate;
-    copiedBoard.updatedDate = this.updatedDate;
-    copiedBoard.participants = this.participants;
-    return copiedBoard;
-  }
+export function newBoard(): Board {
+  return {
+    id: '',
+    name: '',
+    type: BoardType.NOTES,
+    createdDate: new Date(),
+    updatedDate: new Date(),
+    participants: [],
+
+    getOwner() {
+      const user = newUser();
+      user.username = 'Milena Sergeevna';
+      return user;
+    },
+  };
 }
 
 export default Board;

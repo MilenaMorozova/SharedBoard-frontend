@@ -33,7 +33,7 @@ function BoardTable() {
             {board.name}
           </CustomTableCell>
           <CustomTableCell>
-            {board.owner.username}
+            {board.getOwner().username}
           </CustomTableCell>
           <DateTimeTableCell date="02.02.2022" time="13:34" />
           <DateTimeTableCell date="03.03.2002" time="16:34" />

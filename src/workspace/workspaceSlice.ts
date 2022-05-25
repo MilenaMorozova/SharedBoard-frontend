@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import COLORS from '../colors';
-import Board from '../entities/board/board';
+import Board, { newBoard } from '../entities/board/board';
 import Note from '../entities/note/note';
 import User, { newUser } from '../entities/user/user';
 import { RootState } from '../store/store';
@@ -17,8 +17,10 @@ interface WorkspaceState {
   selectedNotesIds: Set<string>,
 }
 
-let b = new Board();
-b.name = 'Untitled';
+let b = {
+  ...newBoard(),
+  name: 'Untitled',
+};
 
 let mockNote1: Note = {
   id: '1',
@@ -103,10 +105,8 @@ export const WorkspaceSlice = createSlice({
         participant => (participant.id === payload.id ? payload : participant),
       );
     },
-    setBoardName: (state: WorkspaceState, action: PayloadAction<string>) => {
-      let copiedBoard = state.board.copy();
-      copiedBoard.name = action.payload;
-      state.board = copiedBoard;
+    setBoardName: (state: WorkspaceState, { payload }: PayloadAction<string>) => {
+      state.board = { ...state.board, name: payload };
     },
 
     setNotes: (state: WorkspaceState, action: PayloadAction<Array<Note>>) => {
