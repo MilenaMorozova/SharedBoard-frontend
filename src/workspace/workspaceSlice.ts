@@ -14,6 +14,7 @@ interface WorkspaceState {
   notes: Array<Note>,
   arrows: Map<string, string>,
   searchText: string,
+  selectedNotesIds: Set<string>,
 }
 
 let b = new Board();
@@ -64,6 +65,7 @@ const initialState: WorkspaceState = {
   notes: mockNotes,
   arrows: createArrowDict(mockNotes),
   searchText: '',
+  selectedNotesIds: new Set(),
 };
 
 export const WorkspaceSlice = createSlice({
@@ -94,17 +96,31 @@ export const WorkspaceSlice = createSlice({
     setSearchText: (state: WorkspaceState, { payload }: PayloadAction<string>) => {
       state.searchText = payload;
     },
+
+    addSelectedNote: (state: WorkspaceState, { payload }: PayloadAction<string>) => {
+      state.selectedNotesIds = new Set(state.selectedNotesIds.add(payload));
+    },
+    deselectSelectedNotes: (state: WorkspaceState) => {
+      state.selectedNotesIds = new Set();
+    },
+    deleteSelectedNotes: (state: WorkspaceState) => {
+      state.notes = state.notes.filter(note => !state.selectedNotesIds.has(note.id));
+      state.arrows = createArrowDict(state.notes);
+      state.selectedNotesIds = new Set();
+    },
   },
 });
 
 export const {
-  setUser, setParticipants, setBoardName, updateNote, updateArrows, setSearchText,
+  setUser, setParticipants, setBoardName, updateNote, updateArrows,
+  setSearchText, addSelectedNote, deselectSelectedNotes, deleteSelectedNotes,
 } = WorkspaceSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.workspace.currentUser;
 export const selectParticipants = (state: RootState) => state.workspace.participants;
 export const selectBoard = (state: RootState) => state.workspace.board;
 export const selectNotes = (state: RootState) => state.workspace.notes;
+export const selectSelectedNotes = (state: RootState) => state.workspace.selectedNotesIds;
 export const selectArrows = (state: RootState) => state.workspace.arrows;
 export const selectSearchText = (state: RootState) => state.workspace.searchText;
 

@@ -23,8 +23,9 @@ function EditableText(props: EditableTextProps) {
   return toggle ? (
     <span
       style={{ ...props.textStyle, width: props.width, wordBreak: 'break-all' }}
-      onDoubleClick={() => {
+      onDoubleClick={(event) => {
         setToggle(false);
+        event.stopPropagation();
       }}
     >
       {props.getValue(props.value)}

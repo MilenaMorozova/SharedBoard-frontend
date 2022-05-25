@@ -22,6 +22,7 @@
     "eslint-config-import": "^0.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "immer": "^9.0.14",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-draggable": "^4.4.5",

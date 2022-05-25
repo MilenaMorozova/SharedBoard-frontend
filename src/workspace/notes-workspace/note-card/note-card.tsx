@@ -13,15 +13,17 @@ import EditableText from '../../../custom-mui-components/text-fields/editable-te
 import TopNoteCard from './top-note-card';
 import Reference from './reference-to-note';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { selectSearchText, updateNote } from '../../workspaceSlice';
+import { addSelectedNote, selectSearchText, updateNote } from '../../workspaceSlice';
 
 
 function NoteCard(props: {note: Note}) {
   const [expanded, setExpanded] = useState(false);
-  const dispatch = useAppDispatch();
-  const searchText = useAppSelector(selectSearchText);
+  const isSelected = useAppSelector(state => state.workspace.selectedNotesIds.has(props.note.id));
 
+  const searchText = useAppSelector(selectSearchText);
   const nodeRef = useRef(null);
+
+  const dispatch = useAppDispatch();
   const updateXarrow = useXarrow();
 
   const onSaveDescription = () => {};
@@ -35,6 +37,17 @@ function NoteCard(props: {note: Note}) {
       return {
         boxShadow: `0px 4px 12px ${props.note.color}`,
         borderRadius: '10px',
+      };
+    }
+    return {};
+  };
+
+  const borderWhenIsSelected = () => {
+    if (isSelected) {
+      return {
+        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+        borderRadius: '10px',
+        border: `2px dashed ${props.note.color}`,
       };
     }
     return {};
@@ -56,8 +69,9 @@ function NoteCard(props: {note: Note}) {
     <Draggable onDrag={updateXarrow} nodeRef={nodeRef}>
       <div
         id={props.note.tag}
-        style={{ ...NoteCardStyle, ...boarderWhenIsSearching() }}
+        style={{ ...NoteCardStyle, ...boarderWhenIsSearching(), ...borderWhenIsSelected() }}
         ref={nodeRef}
+        onDoubleClick={() => { dispatch(addSelectedNote(props.note.id)); }}
       >
         <div style={{
           ...StripeStyle, backgroundColor: props.note.color,

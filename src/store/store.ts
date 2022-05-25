@@ -1,8 +1,12 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { enableMapSet } from 'immer';
 import loginReducer from '../registration/form/login/loginSlice';
 import signUpReducer from '../registration/form/signUp/signUpSlice';
 import accountReducer from '../account/accountSlice';
 import workspaceReducer from '../workspace/workspaceSlice';
+
+
+enableMapSet();
 
 export const store = configureStore({
   reducer: {
