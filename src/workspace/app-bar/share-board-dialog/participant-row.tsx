@@ -13,9 +13,8 @@ function ParticipantRow(props: {user: User, isCurrentUser?: boolean}) {
   const dispatch = useAppDispatch();
 
   const onChange = (access: Access) => {
-    props.user.access = access;
-    dispatch(updateUser(props.user));
-  }
+    dispatch(updateUser({ ...props.user, access }));
+  };
 
   return (
     <div style={ParticipantRowStyle}>
@@ -29,14 +28,18 @@ function ParticipantRow(props: {user: User, isCurrentUser?: boolean}) {
             (props.isCurrentUser) ? (
               <span style={CurrentUserAccessStyle}>{props.user.access}</span>
             ) : (
-              <AccessSelect 
+              <AccessSelect
                 value={props.user.access}
-                onChange={onChange} 
+                onChange={onChange}
               />
             )
         }
     </div>
   );
 }
+
+ParticipantRow.defaultProps = {
+  isCurrentUser: false,
+};
 
 export default ParticipantRow;

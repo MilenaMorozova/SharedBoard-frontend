@@ -19,7 +19,7 @@ function Reference(props: {note: Note}) {
       return;
     }
     if (notes.find((note) => note.tag === props.note.refTag) === undefined) {
-      alert('No such tag');
+      alert('No such tag'); // eslint-disable-line  no-alert
     }
   };
 

@@ -29,7 +29,7 @@ export function ActionTableCell() {
 
   return (
     <CustomTableCell sx={TableCellStyle}>
-      {user.isOwnerOfThisBoard ? <ErrorButton>DELETE</ErrorButton> : <SecondaryButton>LEAVE</SecondaryButton>}
+      {user.isOwnerOfThisBoard() ? <ErrorButton>DELETE</ErrorButton> : <SecondaryButton>LEAVE</SecondaryButton>}
     </CustomTableCell>
   );
 }

@@ -59,7 +59,7 @@ function AccountCard() {
           buttonStyle={UserFieldRowStyle}
           onClick={() => setEmailChanging(true)}
         >
-          Email: {user.shortEmail}
+          Email: {user.getShortEmail()}
         </AccountInfoRow>
         <AccountInfoRow
           textStyle={UserFieldTextStyle}

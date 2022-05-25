@@ -1,35 +1,34 @@
 import Access from './access';
 
-class User {
-  id = '';
-  color = '';
-  username = '';
-  email = '';
-  access: Access = Access.OWNER;
+interface User {
+  id: string;
+  color: string;
+  username: string;
+  email: string;
+  access: Access;
 
-  get shortUsername(): string {
-    return this.username[0];
-  }
+  getShortName() : string;
+  getShortEmail() : string;
+  isOwnerOfThisBoard(): boolean;
+}
 
-  get shortEmail(): string {
-    if (this.email.length > 35) {
-      return `${this.email.slice(0, 35)}...`;
-    }
-    return this.email;
-  }
+export function newUser(): User {
+  return {
+    id: ' ',
+    color: ' ',
+    username: ' ',
+    email: ' ',
+    access: Access.EDITOR,
 
-  get isOwnerOfThisBoard(): boolean {
-    return false;
-  }
-
-  copy() {
-    let copiedUser = new User();
-    copiedUser.id = this.id;
-    copiedUser.color = this.color;
-    copiedUser.email = this.email;
-    copiedUser.username = this.username;
-    return copiedUser;
-  }
+    getShortName() { return this.username[0]; },
+    getShortEmail() {
+      if (this.email.length > 35) {
+        return `${this.email.slice(0, 35)}...`;
+      }
+      return this.email;
+    },
+    isOwnerOfThisBoard() { return false; },
+  };
 }
 
 export default User;

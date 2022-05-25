@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import COLORS from '../colors';
 import Board from '../entities/board/board';
 import Note from '../entities/note/note';
-import User from '../entities/user/user';
+import User, { newUser } from '../entities/user/user';
 import { RootState } from '../store/store';
 
 
@@ -48,15 +48,19 @@ let mockNote2: Note = {
 
 let mockNotes = [mockNote1, mockNote2];
 
-const mockUser = new User();
-mockUser.id = '1';
-mockUser.color = COLORS.CHIP_LABEL_BLUE;
-mockUser.username = 'Milena';
+const mockUser = {
+  ...newUser(),
+  id: '1',
+  color: COLORS.CHIP_LABEL_BLUE,
+  username: 'Milena',
+};
 
-const mockUser2 = new User();
-mockUser2.id = '1';
-mockUser2.color = COLORS.CHIP_LABEL_RED;
-mockUser2.username = 'Carl';
+const mockUser2 = {
+  ...newUser(),
+  id: '1',
+  color: COLORS.CHIP_LABEL_RED,
+  username: 'Carl',
+};
 
 let participants = [mockUser, mockUser2, mockUser, mockUser2, mockUser, mockUser2,
   mockUser, mockUser2, mockUser, mockUser2];
@@ -75,7 +79,7 @@ function createArrowDict(notes: Array<Note>): Map<string, string> {
 
 const initialState: WorkspaceState = {
   board: b,
-  currentUser: new User(),
+  currentUser: newUser(),
   participants,
 
   notes: mockNotes,
@@ -94,8 +98,10 @@ export const WorkspaceSlice = createSlice({
     setParticipants: (state: WorkspaceState, action: PayloadAction<Array<User>>) => {
       state.participants = action.payload;
     },
-    updateUser: (state: WorkspaceState, {payload}: PayloadAction<User>) => {
-      state.participants = state.participants.map(participant => participant.id === payload.id ? payload : participant)
+    updateUser: (state: WorkspaceState, { payload }: PayloadAction<User>) => {
+      state.participants = state.participants.map(
+        participant => (participant.id === payload.id ? payload : participant),
+      );
     },
     setBoardName: (state: WorkspaceState, action: PayloadAction<string>) => {
       let copiedBoard = state.board.copy();

@@ -1,5 +1,6 @@
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { useState } from 'react';
 import Dialog from '../../../custom-mui-components/dialog/dialog';
 import Access from '../../../entities/user/access';
 import BoardTextField from '../../../custom-mui-components/text-fields/text-field';
@@ -19,6 +20,8 @@ function AccessToBoardDialog(props: AccessToBoardDialogProps) {
   const participants = useAppSelector(selectParticipants);
   const currentUser = useAppSelector(selectCurrentUser);
 
+  const [linkAccess, setLinkAccess] = useState(Access.EDITOR);
+
   return (
     <Dialog
       title="ShareBoard"
@@ -33,7 +36,7 @@ function AccessToBoardDialog(props: AccessToBoardDialogProps) {
           value="Link for you"
           onChange={() => {}}
           sx={{ width: '100%' }}
-          InputProps={{ endAdornment: <AccessSelect defaultValue={Access.EDITOR} /> }}
+          InputProps={{ endAdornment: <AccessSelect value={linkAccess} onChange={setLinkAccess} /> }}
         />
         <Scrollbars
           thumbSize={90}

@@ -11,7 +11,7 @@ type AvatarProps = {
 function Avatar(props: AvatarProps) {
   return (
     <CircleWithText
-      text={props.user.shortUsername}
+      text={props.user.getShortName()}
       color={props.user.color}
       style={props.style}
     />

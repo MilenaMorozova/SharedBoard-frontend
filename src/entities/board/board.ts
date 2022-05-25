@@ -1,4 +1,4 @@
-import User from '../user/user';
+import User, { newUser } from '../user/user';
 import BoardType from './board-type';
 
 class Board {
@@ -10,7 +10,7 @@ class Board {
   participants: Array<User> = [];
 
   get owner(): User {
-    const user = new User();
+    const user = newUser();
     user.username = 'Milena Sergeevna';
     return user;
   }

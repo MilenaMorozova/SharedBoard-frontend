@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Board from '../entities/board/board';
-import User from '../entities/user/user';
+import User, { newUser } from '../entities/user/user';
 import { RootState } from '../store/store';
 
 interface AccountState {
@@ -9,7 +9,7 @@ interface AccountState {
 }
 
 const initialState: AccountState = {
-  user: new User(),
+  user: newUser(),
   boards: [],
 };
 
@@ -20,15 +20,11 @@ export const AccountSlice = createSlice({
     setUser: (state: AccountState, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
-    setUsername: (state: AccountState, action: PayloadAction<string>) => {
-      let copiedUser = state.user.copy();
-      copiedUser.username = action.payload;
-      state.user = copiedUser;
+    setUsername: (state: AccountState, { payload }: PayloadAction<string>) => {
+      state.user = { ...state.user, username: payload };
     },
-    setEmail: (state: AccountState, action: PayloadAction<string>) => {
-      let copiedUser = state.user.copy();
-      copiedUser.email = action.payload;
-      state.user = copiedUser;
+    setEmail: (state: AccountState, { payload }: PayloadAction<string>) => {
+      state.user = { ...state.user, email: payload };
     },
     setBoards: (state: AccountState, action: PayloadAction<Array<Board>>) => {
       state.boards = action.payload;
