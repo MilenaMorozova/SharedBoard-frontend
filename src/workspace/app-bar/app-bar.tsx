@@ -10,7 +10,7 @@ import Participants from './participants/participants';
 import BoardButton from '../../custom-mui-components/button/button';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentUser, setSearchText } from '../workspaceSlice';
-import AccessToBoardDialog from './participants/share-dialog';
+import AccessToBoardDialog from './share-board-dialog/share-dialog';
 
 
 type WorkspaceAppBarProps = {
