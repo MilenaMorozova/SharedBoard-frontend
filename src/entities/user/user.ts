@@ -1,8 +1,11 @@
+import Access from './access';
+
 class User {
   id = '';
   color = '';
   username = '';
   email = '';
+  access: Access = Access.OWNER;
 
   get shortUsername(): string {
     return this.username[0];

@@ -46,9 +46,9 @@ function ActionPanel() {
       posY: 200,
       refTag: '',
     };
-    
+
     dispatch(addNote(mockNote));
-  }
+  };
 
   return (
     <div style={ActionPanelStyle}>

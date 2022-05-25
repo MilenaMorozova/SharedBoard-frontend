@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import BoardTitle from './board-title/board-title';
 import {
   AppBarStyle, LeftSideStyle, RightSideStyle, SearchFieldStyle, ShareBoardButtonStyle,
@@ -9,6 +10,7 @@ import Participants from './participants/participants';
 import BoardButton from '../../custom-mui-components/button/button';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentUser, setSearchText } from '../workspaceSlice';
+import AccessToBoardDialog from './participants/share-dialog';
 
 
 type WorkspaceAppBarProps = {
@@ -17,6 +19,7 @@ type WorkspaceAppBarProps = {
 }
 
 function WorkspaceAppBar(props: WorkspaceAppBarProps) {
+  const [isSharingBoard, setSharingBoard] = useState(false);
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
 
@@ -45,10 +48,15 @@ function WorkspaceAppBar(props: WorkspaceAppBarProps) {
           variant="contained"
           fullWidth={false}
           sx={ShareBoardButtonStyle}
+          onClick={() => setSharingBoard(true)}
         > SHARE BOARD
         </BoardButton>
         <Avatar user={currentUser} />
       </div>
+      <AccessToBoardDialog
+        open={isSharingBoard}
+        onClose={() => setSharingBoard(false)}
+      />
     </div>
   );
 }

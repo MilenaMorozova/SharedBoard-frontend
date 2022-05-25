@@ -46,8 +46,20 @@ let mockNote2: Note = {
   refTag: mockNote1.tag,
 };
 
-
 let mockNotes = [mockNote1, mockNote2];
+
+const mockUser = new User();
+mockUser.id = '1';
+mockUser.color = COLORS.CHIP_LABEL_BLUE;
+mockUser.username = 'Milena';
+
+const mockUser2 = new User();
+mockUser2.id = '1';
+mockUser2.color = COLORS.CHIP_LABEL_RED;
+mockUser2.username = 'Carl';
+
+let participants = [mockUser, mockUser2, mockUser, mockUser2, mockUser, mockUser2,
+  mockUser, mockUser2, mockUser, mockUser2];
 
 function createArrowDict(notes: Array<Note>): Map<string, string> {
   let arrowDict = new Map();
@@ -64,7 +76,7 @@ function createArrowDict(notes: Array<Note>): Map<string, string> {
 const initialState: WorkspaceState = {
   board: b,
   currentUser: new User(),
-  participants: [],
+  participants,
 
   notes: mockNotes,
   arrows: createArrowDict(mockNotes),
