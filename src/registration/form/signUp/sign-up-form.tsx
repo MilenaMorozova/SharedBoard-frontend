@@ -56,12 +56,13 @@ function SignUpForm() {
           onChange={handleChangeEmail}
           errorText={emailErrorText}
         />
-        <BoardButton 
-          id="SignUpPage_BoardButton_signUp" 
-          variant="contained" 
+        <BoardButton
+          id="SignUpPage_BoardButton_signUp"
+          variant="contained"
           type="submit"
         >
-          Sign Up</BoardButton>
+          Sign Up
+        </BoardButton>
       </div>
     </form>
   );

@@ -8,7 +8,7 @@ type EditableTextProps = {
     getValue: (text: string) => string,
     textStyle: CSSProperties,
     width: string,
-    multiline: boolean,
+    multiline?: boolean,
     onSave: () => void,
 }
 

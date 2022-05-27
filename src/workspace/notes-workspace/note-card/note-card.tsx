@@ -21,10 +21,6 @@ function NoteCard(props: {note: Note}) {
   const isSelected = useAppSelector(state => state.workspace.selectedNotesIds.has(props.note.id));
   const blockedNoteIds: Array<string> = [];
 
-  function logic() {
-
-  }
-
   const searchText = useAppSelector(selectSearchText);
   const nodeRef = useRef(null);
 
@@ -71,9 +67,9 @@ function NoteCard(props: {note: Note}) {
   }
 
   return (
-    <Draggable 
-      disabled={blockedNoteIds.includes(props.note.id)} 
-      onDrag={updateXarrow} 
+    <Draggable
+      disabled={blockedNoteIds.includes(props.note.id)}
+      onDrag={updateXarrow}
       nodeRef={nodeRef}
     >
       <div

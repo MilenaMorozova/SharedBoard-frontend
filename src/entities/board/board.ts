@@ -1,5 +1,5 @@
 import Access from '../user/access';
-import User, { newUser } from '../user/user';
+import User from '../user/user';
 import BoardType from './board-type';
 
 interface Board {

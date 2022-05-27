@@ -15,10 +15,10 @@ class LoginPage extends Component<LoginPageProps> {
         signPageActionName="Login"
       >
         <LoginForm />
-        <PageReference 
-          preamble="New in Share Board?" 
-          pageAction="Sign Up" 
-          href={ROUTE.SIGN_UP} 
+        <PageReference
+          preamble="New in Share Board?"
+          pageAction="Sign Up"
+          href={ROUTE.SIGN_UP}
         />
       </BaseSignPage>
     );

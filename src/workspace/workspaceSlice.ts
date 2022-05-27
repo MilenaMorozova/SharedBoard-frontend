@@ -56,7 +56,7 @@ const mockUser = {
   id: '1',
   color: COLORS.CHIP_LABEL_BLUE,
   username: 'Milena',
-  access: Access.VIEWER
+  access: Access.VIEWER,
 };
 
 const mockUser2 = {
@@ -83,7 +83,9 @@ function createArrowDict(notes: Array<Note>): Map<string, string> {
 
 const initialState: WorkspaceState = {
   board: b,
-  currentUser: {...newUser(), username: "Igor", color: COLORS.CHIP_LABEL_YELLOW, access: Access.OWNER},
+  currentUser: {
+    ...newUser(), username: 'Igor', color: COLORS.CHIP_LABEL_YELLOW, access: Access.OWNER,
+  },
   participants,
 
   notes: mockNotes,
