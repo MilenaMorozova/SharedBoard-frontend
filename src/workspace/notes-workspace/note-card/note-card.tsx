@@ -19,6 +19,11 @@ import { addSelectedNote, selectSearchText, updateNote } from '../../workspaceSl
 function NoteCard(props: {note: Note}) {
   const [expanded, setExpanded] = useState(false);
   const isSelected = useAppSelector(state => state.workspace.selectedNotesIds.has(props.note.id));
+  const blockedNoteIds: Array<string> = [];
+
+  function logic() {
+
+  }
 
   const searchText = useAppSelector(selectSearchText);
   const nodeRef = useRef(null);
@@ -66,7 +71,11 @@ function NoteCard(props: {note: Note}) {
   }
 
   return (
-    <Draggable onDrag={updateXarrow} nodeRef={nodeRef}>
+    <Draggable 
+      disabled={blockedNoteIds.includes(props.note.id)} 
+      onDrag={updateXarrow} 
+      nodeRef={nodeRef}
+    >
       <div
         id={props.note.tag}
         style={{ ...NoteCardStyle, ...boarderWhenIsSearching(), ...borderWhenIsSelected() }}

@@ -11,7 +11,7 @@ type PageReferenceProps = {
 class PageReference extends Component<PageReferenceProps> {
   render() {
     return (
-      <div style={questionStyle}>
+      <div id="SignUp_pageReference" style={questionStyle}>
         {this.props.preamble}
         {' '}
         <Link to={this.props.href} style={pageReferenceStyle}>

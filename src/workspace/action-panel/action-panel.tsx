@@ -51,7 +51,7 @@ function ActionPanel() {
   };
 
   return (
-    <div style={ActionPanelStyle}>
+    <div id="Workspace_AcionPanel" style={ActionPanelStyle}>
       <ActionIconButton
         icon={<AddOutlinedIcon />}
         onClick={onCreate}

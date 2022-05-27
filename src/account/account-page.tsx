@@ -6,7 +6,7 @@ import { AccountCardLocationStyle, AccountPageStyle, BoardBlockStyle } from './s
 
 function AccountPage() {
   return (
-    <div style={AccountPageStyle}>
+    <div id="AccountPage" style={AccountPageStyle}>
       <div style={AccountCardLocationStyle}>
         <AccountCard />
         <div style={BoardBlockStyle}>

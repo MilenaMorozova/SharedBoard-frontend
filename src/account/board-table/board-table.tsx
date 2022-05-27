@@ -33,7 +33,7 @@ function BoardTable() {
             {board.name}
           </CustomTableCell>
           <CustomTableCell>
-            {board.getOwner().username}
+            {board.getOwner()?.username}
           </CustomTableCell>
           <DateTimeTableCell date="02.02.2022" time="13:34" />
           <DateTimeTableCell date="03.03.2002" time="16:34" />
@@ -50,7 +50,7 @@ function BoardTable() {
   }
 
   return (
-    <TableContainer component={Paper} sx={{ boxShadow: 0 }}>
+    <TableContainer id="AccountPage_BoardTable" component={Paper} sx={{ boxShadow: 0 }}>
       <Table>
         <TableHead>
           <TableRow>

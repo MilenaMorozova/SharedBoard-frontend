@@ -15,7 +15,7 @@ function CreateBoardCard(props: {boardName: string, boardDescription: string, bo
       endIcon={<AddOutlinedIcon sx={AddIconStyle} />}
       sx={CreateBoardCardStyle}
     >
-      <div style={CardBoardInfoStyle}>
+      <div id="AccountPage_CreateBoardCard" style={CardBoardInfoStyle}>
         <div style={CardHeaderTextStyle}>New {props.boardName}</div>
         <div style={CardDescriptionTextStyle}>{props.boardDescription}</div>
       </div>

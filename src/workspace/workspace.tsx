@@ -3,7 +3,7 @@ import { WorkspaceStyle } from './style';
 
 function Workspace() {
   return (
-    <div style={WorkspaceStyle}>
+    <div id="Workspace_div" style={WorkspaceStyle}>
       <NotesWorkspace />
     </div>
   );

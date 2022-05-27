@@ -1,3 +1,4 @@
+import Access from '../user/access';
 import User, { newUser } from '../user/user';
 import BoardType from './board-type';
 
@@ -9,7 +10,7 @@ interface Board {
   updatedDate: Date;
   participants: Array<User>;
 
-  getOwner(): User;
+  getOwner(): User | undefined;
 }
 
 export function newBoard(): Board {
@@ -22,9 +23,7 @@ export function newBoard(): Board {
     participants: [],
 
     getOwner() {
-      const user = newUser();
-      user.username = 'Milena Sergeevna';
-      return user;
+      return this.participants.find(user => user.access === Access.OWNER);
     },
   };
 }

@@ -32,28 +32,36 @@ function SignUpForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form id="SignUp_form" onSubmit={handleSubmit}>
       <div style={SignFormStyle}>
         <BoardTextField
+          id="SignUpPage_BoardTextField_username"
           label="Username"
           value={username}
           onChange={handleChangeUsername}
           errorText={usernameErrorText}
         />
         <BoardPasswordTextField
+          id="SignUpPage_BoardTextField_password"
           label="Password"
           value={password}
           onChange={handleChangePassword}
           errorText={passwordErrorText}
         />
         <BoardTextField
+          id="SignUpPage_BoardTextField_email"
           label="Email"
           type="email"
           value={email}
           onChange={handleChangeEmail}
           errorText={emailErrorText}
         />
-        <BoardButton variant="contained" type="submit">Sign Up</BoardButton>
+        <BoardButton 
+          id="SignUpPage_BoardButton_signUp" 
+          variant="contained" 
+          type="submit"
+        >
+          Sign Up</BoardButton>
       </div>
     </form>
   );

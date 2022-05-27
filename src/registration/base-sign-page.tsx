@@ -13,7 +13,7 @@ type BaseSignPageProps = {
 class BaseSignPage extends Component<BaseSignPageProps> {
   render() {
     return (
-      <div style={SignInPageStyle}>
+      <div id="BaseSignPage_div" style={SignInPageStyle}>
         <div style={LogoBlockStyle}>
           <Logo />
           <div>{this.props.signPageActionName} Share Board</div>

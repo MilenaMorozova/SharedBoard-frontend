@@ -41,15 +41,33 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form id="Login_form" onSubmit={handleSubmit}>
       <div style={SignFormStyle}>
         { (errorText === null) ? null : <ErrorBlock /> }
-        <BoardTextField label="Username" value={username} onChange={handleChangeUsername} />
-        <BoardPasswordTextField label="Password" value={password} onChange={handleChangePassword} />
-        <div style={FullWidthStyle}>
+        <BoardTextField 
+          id="Login_BoardTextField_username" 
+          label="Username" 
+          value={username} 
+          onChange={handleChangeUsername} 
+        />
+        <BoardPasswordTextField 
+          id="Login_BoardPasswordTextField" 
+          label="Password" 
+          value={password} 
+          onChange={handleChangePassword}
+        />
+        <div 
+          id="Login_Reference_forgotPassword" 
+          style={FullWidthStyle}
+        >
           <a href="#1" style={ForgotPasswordStyle}>Forgot password?</a>
         </div>
-        <BoardButton variant="contained" type="submit">LOGIN</BoardButton>
+        <BoardButton 
+          id="Login_BoardButton_login" 
+          variant="contained" 
+          type="submit"
+        >LOGIN
+        </BoardButton>
       </div>
     </form>
   );

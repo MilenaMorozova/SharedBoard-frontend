@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import COLORS from '../colors';
 import Board, { newBoard } from '../entities/board/board';
 import Note from '../entities/note/note';
+import Access from '../entities/user/access';
 import User, { newUser } from '../entities/user/user';
 import { RootState } from '../store/store';
 
@@ -55,11 +56,12 @@ const mockUser = {
   id: '1',
   color: COLORS.CHIP_LABEL_BLUE,
   username: 'Milena',
+  access: Access.VIEWER
 };
 
 const mockUser2 = {
   ...newUser(),
-  id: '1',
+  id: '2',
   color: COLORS.CHIP_LABEL_RED,
   username: 'Carl',
 };
@@ -81,7 +83,7 @@ function createArrowDict(notes: Array<Note>): Map<string, string> {
 
 const initialState: WorkspaceState = {
   board: b,
-  currentUser: newUser(),
+  currentUser: {...newUser(), username: "Igor", color: COLORS.CHIP_LABEL_YELLOW, access: Access.OWNER},
   participants,
 
   notes: mockNotes,

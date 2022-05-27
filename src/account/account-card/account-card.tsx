@@ -41,7 +41,7 @@ function AccountCard() {
   const [isEmailChanging, setEmailChanging] = useState(false);
 
   return (
-    <div style={AccountCardStyle}>
+    <div id="AccountPage_AccountCard" style={AccountCardStyle}>
       <div style={AvatarBlockStyle}>
         <Avatar user={user} style={AvatarStyle} />
         <AccountInfoRow
