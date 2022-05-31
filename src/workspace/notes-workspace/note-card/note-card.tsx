@@ -2,7 +2,7 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import { Button, Collapse } from '@mui/material';
 import { useRef, useState } from 'react';
-import Draggable from 'react-draggable';
+import Draggable, { DraggableEvent } from 'react-draggable';
 import { useXarrow } from 'react-xarrows';
 import Note from '../../../entities/note/note';
 import {
@@ -32,6 +32,15 @@ function NoteCard(props: {note: Note}) {
   const onUpdateDescription = (description: string) => {
     dispatch(updateNote({ ...props.note, description }));
   };
+
+  const onDrag = (event: DraggableEvent) => {
+    updateXarrow();
+  }
+
+  const onStop = (event: DraggableEvent) => {
+    let mouseEvent = event as MouseEvent;
+    dispatch(updateNote({...props.note, posX: mouseEvent.pageX, posY: mouseEvent.pageY}));
+  }
 
   const boarderWhenIsSearching = () => {
     if (props.note.tag.startsWith(searchText) && searchText.length) {
@@ -69,7 +78,8 @@ function NoteCard(props: {note: Note}) {
   return (
     <Draggable
       disabled={blockedNoteIds.includes(props.note.id)}
-      onDrag={updateXarrow}
+      onDrag={onDrag}
+      onStop={onStop}
       nodeRef={nodeRef}
       bounds="parent"
     >
