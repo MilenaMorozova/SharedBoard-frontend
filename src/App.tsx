@@ -22,7 +22,7 @@ class App extends Component {
         <Provider store={store}>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Navigate replace to={ROUTE.WORKSPACE} />} />
+              <Route path="/" element={<Navigate replace to={ROUTE.LOGIN} />} />
               <Route path={ROUTE.LOGIN} element={<LoginPage />} />
               <Route path={ROUTE.SIGN_UP} element={<SignUpPage />} />
               <Route path={ROUTE.ACCOUNT} element={<AccountPage />} />

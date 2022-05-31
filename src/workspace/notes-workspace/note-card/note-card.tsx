@@ -35,12 +35,12 @@ function NoteCard(props: {note: Note}) {
 
   const onDrag = (event: DraggableEvent) => {
     updateXarrow();
-  }
+  };
 
   const onStop = (event: DraggableEvent) => {
     let mouseEvent = event as MouseEvent;
-    dispatch(updateNote({...props.note, posX: mouseEvent.pageX, posY: mouseEvent.pageY}));
-  }
+    dispatch(updateNote({ ...props.note, posX: mouseEvent.pageX, posY: mouseEvent.pageY }));
+  };
 
   const boarderWhenIsSearching = () => {
     if (props.note.tag.startsWith(searchText) && searchText.length) {
