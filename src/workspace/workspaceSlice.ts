@@ -31,8 +31,8 @@ let mockNote1: Note = {
   color: COLORS.CHIP_LABEL_PURPLE,
   created: new Date(),
   updated: new Date(),
-  posX: 34,
-  posY: 34,
+  posX: 334,
+  posY: 334,
   refTag: '',
 };
 
@@ -44,8 +44,8 @@ let mockNote2: Note = {
   color: COLORS.CHIP_LABEL_RED,
   created: new Date(),
   updated: new Date(),
-  posX: 66,
-  posY: 66,
+  posX: 366,
+  posY: 366,
   refTag: mockNote1.tag,
 };
 

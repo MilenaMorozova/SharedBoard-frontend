@@ -16,6 +16,7 @@ export const ActionPanelStyle = {
   borderRadius: '10px',
 
   position: 'absolute' as 'absolute',
+  zIndex: 11,
   left: '30px',
   top: '260px',
 };

@@ -30,23 +30,29 @@ function NotesWorkspace() {
       style={{ width: '100%', height: '100vh' }}
       onClick={onClickBackground}
     >
-      <WorkspaceAppBar
-        placeholder="search note by tag"
-        boardType={BoardType.NOTES}
-      />
-      <ActionPanel />
-      <Xwrapper>
-        {
-          notes.map(note => (
-            <NoteCard key={note.id} note={note} />
-          ))
-        }
-        {
-          Array.from(arrows.entries()).map(([key, value]) => (
-            <Arrow key={key} start={key} end={value} />
-          ))
-        }
-      </Xwrapper>
+      <div
+        style={{ width: '100%', position: 'absolute', zIndex: 11 }}
+      >
+        <WorkspaceAppBar
+          placeholder="search note by tag"
+          boardType={BoardType.NOTES}
+        />
+      </div>
+      <div style={{ width: '100%', height: '100vh' }}>
+        <ActionPanel />
+        <Xwrapper>
+          {
+            notes.map(note => (
+              <NoteCard key={note.id} note={note} />
+            ))
+          }
+          {
+            Array.from(arrows.entries()).map(([key, value]) => (
+              <Arrow key={key} start={key} end={value} />
+            ))
+          }
+        </Xwrapper>
+      </div>
     </div>
   );
 }

@@ -32,7 +32,7 @@ function WorkspaceAppBar(props: WorkspaceAppBarProps) {
   };
 
   return (
-    <div id="Workspace_AppBar" style={AppBarStyle}>
+    <div id="Workspace_AppBar" style={{ ...AppBarStyle }}>
       <div style={LeftSideStyle}>
         <BoardTitle boardType={props.boardType} />
         <SearchField

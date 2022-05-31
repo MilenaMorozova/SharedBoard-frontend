@@ -71,6 +71,7 @@ function NoteCard(props: {note: Note}) {
       disabled={blockedNoteIds.includes(props.note.id)}
       onDrag={updateXarrow}
       nodeRef={nodeRef}
+      bounds="parent"
     >
       <div
         id={props.note.tag}
