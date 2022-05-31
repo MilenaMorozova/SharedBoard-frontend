@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react';
-import User from '../../entities/user';
-import { AvatarStyle, ShortUsernameStyle } from './style';
+import User from '../../entities/user/user';
+import CircleWithText from './circle-with-text';
+
 
 type AvatarProps = {
   user: User,
@@ -9,9 +10,11 @@ type AvatarProps = {
 
 function Avatar(props: AvatarProps) {
   return (
-    <div style={{ ...AvatarStyle, background: props.user.color, ...props.style }}>
-      <span style={ShortUsernameStyle}>{props.user.shortUsername}</span>
-    </div>
+    <CircleWithText
+      text={props.user.getShortName()}
+      color={props.user.color}
+      style={props.style}
+    />
   );
 }
 

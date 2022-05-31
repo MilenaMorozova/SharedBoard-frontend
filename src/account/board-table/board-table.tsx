@@ -1,8 +1,8 @@
 import {
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 } from '@mui/material';
-import Board from '../../entities/board';
-import BoardType from '../../entities/board-type';
+import Board from '../../entities/board/board';
+import BoardType from '../../entities/board/board-type';
 import { useAppSelector } from '../../store/hooks';
 import { ActionTableCell, CustomTableCell, DateTimeTableCell } from './board-table-cell';
 import BoardTypeChip from './board-type-chip';
@@ -30,10 +30,10 @@ function BoardTable() {
             <BoardTypeChip boardType={BoardType.KANBAN} />
           </CustomTableCell>
           <CustomTableCell>
-            {board.boardName}
+            {board.name}
           </CustomTableCell>
           <CustomTableCell>
-            {board.owner.username}
+            {board.getOwner()?.username}
           </CustomTableCell>
           <DateTimeTableCell date="02.02.2022" time="13:34" />
           <DateTimeTableCell date="03.03.2002" time="16:34" />
@@ -50,7 +50,7 @@ function BoardTable() {
   }
 
   return (
-    <TableContainer component={Paper} sx={{ boxShadow: 0 }}>
+    <TableContainer id="AccountPage_BoardTable" component={Paper} sx={{ boxShadow: 0 }}>
       <Table>
         <TableHead>
           <TableRow>

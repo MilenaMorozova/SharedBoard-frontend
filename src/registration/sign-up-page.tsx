@@ -15,7 +15,11 @@ class SignUpPage extends Component<SignUpPageProps> {
         signPageActionName="Sign Up"
       >
         <SignUpForm />
-        <PageReference preamble="Already have an account?" pageAction="Login" href={ROUTE.LOGIN} />
+        <PageReference
+          preamble="Already have an account?"
+          pageAction="Login"
+          href={ROUTE.LOGIN}
+        />
       </BaseSignPage>
     );
   }

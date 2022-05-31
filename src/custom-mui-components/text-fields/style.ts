@@ -26,7 +26,7 @@ export const BoardTextFieldStyle = {
   ...BoardInputLabelStyle,
 };
 
-export const errorInputLabelStyle = {
+export const ErrorInputLabelStyle = {
   '& .MuiInputLabel-root': {
     color: COLORS.TEXT_RED,
   },
@@ -35,12 +35,16 @@ export const errorInputLabelStyle = {
   },
 };
 
-export const errorTextFieldStyle = {
+export const ErrorTextFieldStyle = {
   ...BoardTextFieldStyle,
 
   paddingBottom: '15px',
   '& .Mui-focused fieldset': {
     borderColor: `${COLORS.TEXT_RED} !important`,
   },
-  ...errorInputLabelStyle,
+  ...ErrorInputLabelStyle,
+};
+
+export const SearchTextFieldStyle = {
+  flexDirection: 'row' as 'row',
 };

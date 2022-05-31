@@ -1,14 +1,12 @@
 import { Button } from '@mui/material';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import { ReactNode } from 'react';
 import {
   AddIconStyle, BoardIconStyle, CardBoardInfoStyle, CardDescriptionTextStyle, CardHeaderTextStyle,
-  CreateBoardBlockStyle,
-  CreateBoardCardStyle,
+  CreateBoardBlockStyle, CreateBoardCardStyle,
 } from './style';
-import COLORS from '../../colors';
+import BoardIcon from '../../custom-mui-components/icon/board-icon';
+import BoardType from '../../entities/board/board-type';
 
 function CreateBoardCard(props: {boardName: string, boardDescription: string, boardIcon: ReactNode}) {
   return (
@@ -17,7 +15,7 @@ function CreateBoardCard(props: {boardName: string, boardDescription: string, bo
       endIcon={<AddOutlinedIcon sx={AddIconStyle} />}
       sx={CreateBoardCardStyle}
     >
-      <div style={CardBoardInfoStyle}>
+      <div id="AccountPage_CreateBoardCard" style={CardBoardInfoStyle}>
         <div style={CardHeaderTextStyle}>New {props.boardName}</div>
         <div style={CardDescriptionTextStyle}>{props.boardDescription}</div>
       </div>
@@ -31,12 +29,12 @@ function CreateBoardsBlock() {
       <CreateBoardCard
         boardName="Kanban Board"
         boardDescription="Create template board for such propose"
-        boardIcon={<DashboardOutlinedIcon sx={{ ...BoardIconStyle, color: COLORS.ICON_PURPLE }} />}
+        boardIcon={<BoardIcon boardType={BoardType.KANBAN} sx={BoardIconStyle} />}
       />
       <CreateBoardCard
         boardName="Board for notes"
         boardDescription="Create board for notes"
-        boardIcon={<StickyNote2OutlinedIcon sx={{ ...BoardIconStyle, color: COLORS.ICON_BLUE }} />}
+        boardIcon={<BoardIcon boardType={BoardType.NOTES} sx={BoardIconStyle} />}
       />
     </div>
   );

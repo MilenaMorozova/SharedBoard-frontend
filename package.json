@@ -22,12 +22,16 @@
     "eslint-config-import": "^0.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "immer": "^9.0.14",
     "react": "^18.0.0",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^18.0.0",
     "react-draggable": "^4.4.5",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "react-xarrows": "^2.0.2",
+    "redux-mock-store": "^1.5.4",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
@@ -37,7 +41,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
-    "eslint:fix": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix"
+    "eslint:fix": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix",
+    "coverage": "npm test -- --coverage --watchAll"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +63,8 @@
     ]
   },
   "devDependencies": {
+    "@types/react-custom-scrollbars": "^4.0.10",
+    "@types/redux-mock-store": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "eslint": "^8.13.0",

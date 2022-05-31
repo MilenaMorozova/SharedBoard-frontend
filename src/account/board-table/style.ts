@@ -1,5 +1,5 @@
 import COLORS from '../../colors';
-import BoardType from '../../entities/board-type';
+import BoardType from '../../entities/board/board-type';
 import FONTS from '../../fonts';
 
 export const HeaderCellStyle = {
