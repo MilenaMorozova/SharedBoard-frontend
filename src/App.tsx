@@ -14,24 +14,27 @@ import ROUTE from './routers/routers';
 import AccountPage from './account/account-page';
 import Workspace from './workspace/workspace';
 import EmailActivatePage from './registration/email-activaion-page';
+import BoardSnackbarProvider from './custom-mui-components/snackbar/snack-provider';
 
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Provider store={store}>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Navigate replace to={ROUTE.LOGIN} />} />
-              <Route path={ROUTE.LOGIN} element={<LoginPage />} />
-              <Route path={ROUTE.SIGN_UP} element={<SignUpPage />} />
-              <Route path={ROUTE.ACCOUNT} element={<AccountPage />} />
-              <Route path={ROUTE.WORKSPACE} element={<Workspace />} />
-              <Route path={ROUTE.ACTIVATION} element={<EmailActivatePage />} />
-            </Routes>
-          </BrowserRouter>
-        </Provider>
+        <BoardSnackbarProvider>
+          <Provider store={store}>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Navigate replace to={ROUTE.LOGIN} />} />
+                <Route path={ROUTE.LOGIN} element={<LoginPage />} />
+                <Route path={ROUTE.SIGN_UP} element={<SignUpPage />} />
+                <Route path={ROUTE.ACCOUNT} element={<AccountPage />} />
+                <Route path={ROUTE.WORKSPACE} element={<Workspace />} />
+                <Route path={ROUTE.ACTIVATION} element={<EmailActivatePage />} />
+              </Routes>
+            </BrowserRouter>
+          </Provider>
+        </BoardSnackbarProvider>
       </div>
     );
   }

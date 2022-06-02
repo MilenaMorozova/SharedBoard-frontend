@@ -38,7 +38,7 @@ class AuthController {
     }
 
     signUp(username: string, email: string, password: string) {
-        AUTH_SERVICE.signUp(username, email, password)
+        return AUTH_SERVICE.signUp(username, email, password)
         .then(response => {
             this.setSignUpErrors(undefined, undefined, undefined);
             return response;
