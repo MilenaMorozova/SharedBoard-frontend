@@ -1,6 +1,6 @@
 import { setErrorText } from "../../registration/form/login/loginSlice";
 import { setEmailErrorText, setPasswordErrorText, setUsernameErrorText } from "../../registration/form/signUp/signUpSlice";
-import AUTH_SERVICE from "../../service/auth/AuthService";
+import AUTH_SERVICE from "../../service/AuthService";
 import { CustomError } from "../../service/exception";
 import { store } from "../../store/store";
 
@@ -20,6 +20,7 @@ class AuthController {
             if (customError.status === 401) {
                 store.dispatch(setErrorText('Username or password incorrect'));
             }
+            throw error;
       });
     }
 

@@ -1,15 +1,15 @@
-import { AuthRoute } from '../../routers/serverRouters';
-import { post } from '../requestTemplate';
+import { ServerRoute } from '../routers/serverRouters';
+import { authGet, post } from './requestTemplate';
 
 class AuthService {
   private setTokensToLocalStorage(access: string, refresh: string) {
-      localStorage.set("access", access)
-      localStorage.set("refresh", refresh)
+      localStorage.setItem("access", access)
+      localStorage.setItem("refresh", refresh)
   }
 
   login(username: string, password: string) {
     return post(
-      AuthRoute.LOG_IN_URL,
+      ServerRoute.LOG_IN_URL,
       JSON.stringify({ username, password }),
     )
     .then(response => response.json())
@@ -23,7 +23,7 @@ class AuthService {
     let refresh = localStorage.getItem("refresh");
     
     return post(
-      AuthRoute.REFRESH_TOKEN_URL,
+      ServerRoute.REFRESH_TOKEN_URL,
       JSON.stringify({ refresh }),
     )
     .then(response => response.json())
@@ -35,28 +35,28 @@ class AuthService {
 
   activateAccount(uid: string, token: string) {
     return post(
-      AuthRoute.USER_ACTIVATE_URL,
+      ServerRoute.USER_ACTIVATE_URL,
       JSON.stringify({ uid, token }),
     );
   }
 
   signUp(username: string, email: string, password: string) {
     return post(
-      AuthRoute.SIGN_UP_URL,
+      ServerRoute.SIGN_UP_URL,
       JSON.stringify({ username, email, password }),
     );
   }
 
   resetPassword(email: string) {
     return post(
-      AuthRoute.RESET_PASSWORD_URL,
+      ServerRoute.RESET_PASSWORD_URL,
       JSON.stringify({ email }),
     );
   }
 
   confirmPasswordReset(uid: string, token: string, newPassword: string, reNewPassword: string) {
     return post(
-      AuthRoute.CONFIRM_RESET_PASSWORD_URL,
+      ServerRoute.CONFIRM_RESET_PASSWORD_URL,
       JSON.stringify({
         uid,
         token,
@@ -68,16 +68,16 @@ class AuthService {
 
   checkUsername(username: string) {
     return post(
-      AuthRoute.CHECK_USERNAME_URL,
-      JSON.stringify({ username }),
+    ServerRoute.CHECK_USERNAME_URL,
+    JSON.stringify({ username }),
     );
-  }
+    }
 
   checkEmail(email: string) {
-    return post(
-      AuthRoute.CHECK_EMAIL_URL,
-      JSON.stringify({ email }),
-    );
+  return post(
+      ServerRoute.CHECK_EMAIL_URL,
+    JSON.stringify({ email }),
+  );
   }
 }
 

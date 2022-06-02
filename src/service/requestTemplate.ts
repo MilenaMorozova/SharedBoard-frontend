@@ -1,4 +1,4 @@
-import AUTH_SERVICE from './auth/AuthService';
+import AUTH_SERVICE from './AuthService';
 import { ClientError, ServerError } from './exception';
 
 
@@ -34,8 +34,7 @@ function getAuthorizationHeader(): {[key: string]: string} {
 }
 
 function handleUnathorizedResponse(originalMethod: () => Promise<Response>) {
-  return () => {
-    originalMethod()
+  return originalMethod()
     .catch(error => {
       if (error.status === 401) {
         AUTH_SERVICE.refreshToken();
@@ -43,9 +42,24 @@ function handleUnathorizedResponse(originalMethod: () => Promise<Response>) {
       }
       throw error;
      })
-    }
 }
 
 export function authPost(url: string, body: string) {
   return handleUnathorizedResponse(() => post(url, body, getAuthorizationHeader()));
+}
+
+export function get(url: string, headers: {[key: string]: string} = {}) {
+  let request = fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+      ...headers
+    },
+  })
+
+  return transferErrorResponseToCustomErrors(request);
+}
+
+export function authGet(url: string) {
+  return handleUnathorizedResponse(() => get(url, getAuthorizationHeader()));
 }
