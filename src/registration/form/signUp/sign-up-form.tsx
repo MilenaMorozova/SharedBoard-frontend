@@ -1,4 +1,6 @@
+import { useSnackbar } from 'notistack';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import AUTH_CONTROLLER from '../../../controller/auth/AuthController';
 import BoardButton from '../../../custom-mui-components/button/button';
 import BoardPasswordTextField from '../../../custom-mui-components/text-fields/password-text-field';
 import BoardTextField from '../../../custom-mui-components/text-fields/text-field';
@@ -14,9 +16,11 @@ function SignUpForm() {
   const usernameErrorText = useAppSelector(state => state.signUp.usernameErrorText);
   const passwordErrorText = useAppSelector(state => state.signUp.passwordErrorText);
   const emailErrorText = useAppSelector(state => state.signUp.emailErrorText);
-
+  const { enqueueSnackbar } = useSnackbar();
+   
   const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
+    AUTH_CONTROLLER.checkUsername(event.target.value);
   };
 
   const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,10 +29,15 @@ function SignUpForm() {
 
   const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+    AUTH_CONTROLLER.checkEmail(event.target.value);
   };
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
+    AUTH_CONTROLLER.signUp(username, email, password)
+    .then(() => {
+      enqueueSnackbar({ text: 'Activation email was sended!', type: 'success' });
+    });
   };
 
   return (

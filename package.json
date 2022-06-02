@@ -23,6 +23,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "immer": "^9.0.14",
+    "notistack": "^2.0.5",
     "react": "^18.0.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^18.0.0",
