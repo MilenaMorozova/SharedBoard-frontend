@@ -2,17 +2,34 @@ import { AuthRoute } from '../routers/serverRouters';
 import { post } from './requestTemplate';
 
 class AuthService {
+  private setTokensToLocalStorage(access: string, refresh: string) {
+      localStorage.set("access", access)
+      localStorage.set("refresh", refresh)
+  }
+
   login(username: string, password: string) {
     return post(
       AuthRoute.LOG_IN_URL,
       JSON.stringify({ username, password }),
-    );
+    )
+    .then(response => response.json())
+    .then(jsonResponse => {
+        this.setTokensToLocalStorage(jsonResponse.access, jsonResponse.refresh)
+        return jsonResponse;
+    })
   }
 
-  refreshToken(refresh: string) {
+  refreshToken() {
+    let refresh = localStorage.getItem("refresh");
+    
     return post(
       AuthRoute.REFRESH_TOKEN_URL,
       JSON.stringify({ refresh }),
+    )
+    .then(response => response.json())
+    .then(jsonResponse => {
+            this.setTokensToLocalStorage(jsonResponse.access, jsonResponse.refresh)
+        }
     );
   }
 

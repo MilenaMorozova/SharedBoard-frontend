@@ -9,9 +9,7 @@ import {
   ForgotPasswordStyle, FullWidthStyle, LoginErrorBlockStyle, SignFormStyle,
 } from '../style';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import AUTH_SERVICE from '../../../service/AuthService';
-import { setErrorText } from './loginSlice';
-import { CustomError } from '../../../service/exception';
+import AUTH_CONTROLLER from '../../../controller/AuthController';
 
 
 function ErrorBlock() {
@@ -30,7 +28,6 @@ function LoginForm() {
   const [password, setPassword] = useState('');
 
   const errorText = useAppSelector(state => state.login.errorText);
-  const dispatch = useAppDispatch();
 
   const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -42,14 +39,7 @@ function LoginForm() {
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-
-    AUTH_SERVICE.login(username, password)
-      .catch((error) => {
-        let customError = error as CustomError;
-        if (customError.status === 401) {
-          dispatch(setErrorText('Username or password incorrect'));
-        }
-      });
+    AUTH_CONTROLLER.login(username, password);
   };
 
   return (

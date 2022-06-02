@@ -20,7 +20,7 @@ const FONTS = {
   CAPTION: {
     fontFamily: 'Heebo', fontStyle: 'normal', fontSize: 13, fontWeight: 'normal', lineHeight: '19px',
   },
-  MAIL_ACTIVATE_TITLE: {
+  EMAIL_ACTIVATE_TITLE: {
     fontFamily: 'Lato', fontStyle: 'normal', fontSize: 40, fontWeight: 400, lineHeight: '48px',
   },
   AVATAR: {

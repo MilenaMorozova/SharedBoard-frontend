@@ -1,4 +1,5 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import AUTH_CONTROLLER from '../../../controller/AuthController';
 import BoardButton from '../../../custom-mui-components/button/button';
 import BoardPasswordTextField from '../../../custom-mui-components/text-fields/password-text-field';
 import BoardTextField from '../../../custom-mui-components/text-fields/text-field';
@@ -17,6 +18,7 @@ function SignUpForm() {
 
   const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
+    AUTH_CONTROLLER.checkUsername(event.target.value);
   };
 
   const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,10 +27,12 @@ function SignUpForm() {
 
   const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+    AUTH_CONTROLLER.checkEmail(event.target.value);
   };
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
+    AUTH_CONTROLLER.signUp(username, email, password);
   };
 
   return (
