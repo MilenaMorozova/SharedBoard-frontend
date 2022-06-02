@@ -9,7 +9,9 @@ import {
   ForgotPasswordStyle, FullWidthStyle, LoginErrorBlockStyle, SignFormStyle,
 } from '../style';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import AUTH_CONTROLLER from '../../../controller/AuthController';
+import AUTH_CONTROLLER from '../../../controller/auth/AuthController';
+import { useNavigate } from 'react-router-dom';
+import ROUTE from '../../../routers/routers';
 
 
 function ErrorBlock() {
@@ -28,7 +30,8 @@ function LoginForm() {
   const [password, setPassword] = useState('');
 
   const errorText = useAppSelector(state => state.login.errorText);
-
+  let navigate = useNavigate();
+  
   const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };
@@ -39,7 +42,10 @@ function LoginForm() {
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    AUTH_CONTROLLER.login(username, password);
+    AUTH_CONTROLLER.login(username, password)
+    .then( response =>{
+      navigate(ROUTE.ACCOUNT);
+    });
   };
 
   return (

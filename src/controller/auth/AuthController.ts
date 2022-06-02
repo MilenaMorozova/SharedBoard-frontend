@@ -1,15 +1,19 @@
-import { setErrorText } from "../registration/form/login/loginSlice";
-import { setEmailErrorText, setPasswordErrorText, setUsernameErrorText } from "../registration/form/signUp/signUpSlice";
-import AUTH_SERVICE from "../service/AuthService";
-import { CustomError } from "../service/exception";
-import { store } from "../store/store";
+import { setErrorText } from "../../registration/form/login/loginSlice";
+import { setEmailErrorText, setPasswordErrorText, setUsernameErrorText } from "../../registration/form/signUp/signUpSlice";
+import AUTH_SERVICE from "../../service/auth/AuthService";
+import { CustomError } from "../../service/exception";
+import { store } from "../../store/store";
 
 
 type ErrorArray = Array<string> | undefined;
 
 class AuthController {
     login(username: string, password: string) {
-        AUTH_SERVICE.login(username, password)
+        return AUTH_SERVICE.login(username, password)
+        .then(response => {
+            store.dispatch(setErrorText(null));
+            return response;
+        })
         .catch((error) => {
             let customError = error as CustomError;
 

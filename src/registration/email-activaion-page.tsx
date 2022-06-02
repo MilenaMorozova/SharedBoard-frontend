@@ -1,21 +1,20 @@
 import { useEffect } from 'react';
 import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined';
 import { EmailActivationPageStyle, EmailActivationTextStyle, EmailActivationTitleStyle, EmailIconStyle, EmailIconWithTextBlockStyle, EmailTextBlock } from './style';
-import AUTH_CONTROLLER from '../controller/AuthController';
+import AUTH_CONTROLLER from '../controller/auth/AuthController';
 import urlParamUtils from '../utils/UrlParamUtils';
 import { useNavigate } from 'react-router-dom';
 import ROUTE from '../routers/routers';
 
 
 function EmailActivatePage() {
-    let navigate = useNavigate();
+  let navigate = useNavigate();
 
   async function redirect() {
     AUTH_CONTROLLER.activateAccount(
         urlParamUtils.getParamByName('uid'), 
         urlParamUtils.getParamByName('token')
     );
-
     navigate(ROUTE.ACCOUNT);
   }
 

@@ -1,5 +1,5 @@
-import { AuthRoute } from '../routers/serverRouters';
-import { post } from './requestTemplate';
+import { AuthRoute } from '../../routers/serverRouters';
+import { post } from '../requestTemplate';
 
 class AuthService {
   private setTokensToLocalStorage(access: string, refresh: string) {
