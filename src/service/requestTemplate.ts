@@ -63,3 +63,20 @@ export function get(url: string, headers: {[key: string]: string} = {}) {
 export function authGet(url: string) {
   return handleUnathorizedResponse(() => get(url, getAuthorizationHeader()));
 }
+
+export function patch(url: string, body: string, headers: {[key: string]: string} = {}) {
+  let request = fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json',
+      ...headers
+    },
+    body,
+  })
+
+  return transferErrorResponseToCustomErrors(request);
+}
+
+export function authPatch(url: string, body: string) {
+  return handleUnathorizedResponse(() => patch(url, body, getAuthorizationHeader()));
+}

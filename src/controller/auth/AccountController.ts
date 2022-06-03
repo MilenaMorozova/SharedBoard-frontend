@@ -1,4 +1,4 @@
-import { setBoards, setUser } from "../../account/accountSlice";
+import { setBoards, setEmail, setUser, setUsername } from "../../account/accountSlice";
 import boardDtoToEntityDto from "../../mapper/boardMapper";
 import userDtoToUserEntity from "../../mapper/userMapper";
 import ACCOUNT_SERVICE from "../../service/AccountService";
@@ -17,6 +17,20 @@ class AccountController {
         .then(response => response.json() as unknown as Array<Object>)
         .then(jsonResponse => jsonResponse.map(boardDtoToEntityDto))
         .then(boards => store.dispatch(setBoards(boards)));
+    }
+
+    changeUsername(newUsername: string, password: string) {
+        return ACCOUNT_SERVICE.changeUsername(newUsername, password)
+        .then(() => store.dispatch(setUsername(newUsername)))
+    }
+
+    changeEmail(newEmail: string) {
+        return ACCOUNT_SERVICE.changeEmail(newEmail)
+        .then(() => store.dispatch(setEmail(newEmail)));
+    }
+
+    changePassword(newPassword: string, oldPassword: string) {
+        return ACCOUNT_SERVICE.changePassword(newPassword, newPassword, oldPassword);
     }
 }
 

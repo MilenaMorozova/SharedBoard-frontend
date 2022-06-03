@@ -4,6 +4,8 @@ import DraggableDialog from '../../custom-mui-components/dialog/dialog';
 import TextButton from '../../custom-mui-components/button/text-button/text-button';
 import { ContentTextStyle, TextFieldsStyle, TextFieldStyle } from './style';
 import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
+import ACCOUNT_CONTROLLER from '../../controller/auth/AccountController';
+import { useSnackbar } from 'notistack';
 
 
 type ChangePasswordDialogProps = {
@@ -15,10 +17,17 @@ function ChangePasswordDialog(props: ChangePasswordDialogProps) {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
+  const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => { setOldPassword(''); setNewPassword(''); }, [props.open]);
 
   const onClick = () => {
-    props.onClose();
+    ACCOUNT_CONTROLLER.changePassword(newPassword, oldPassword)
+    .then(() => {props.onClose()})
+    .catch(error => enqueueSnackbar({ 
+      text: error.message, 
+      type: 'error' 
+    }));
   };
 
   function ActionPanel() {

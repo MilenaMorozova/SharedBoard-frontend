@@ -17,7 +17,6 @@ export const ServerRoute = {
   GET_USER_URL: `${MAIN_AUTH_URL}/users/me/`,
   CHANGE_PASSWOD_URL: `${MAIN_AUTH_URL}/users/set_password/`,
   CHANGE_USERNAME_URL: `${MAIN_AUTH_URL}/users/set_username/`,
-  CHANGE_EMAIL_URL: `${MAIN_AUTH_URL}/users/set_email/`,
 
   GET_MY_BOARDS_URL: `${MAIN_BOARD_URL}/my`,
   CREATE_FILE_URL: `${MAIN_BOARD_URL}/create_board/`,
