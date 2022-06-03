@@ -2,6 +2,7 @@ import { setBoards, setEmail, setUser, setUsername } from "../../account/account
 import boardDtoToEntityDto from "../../mapper/boardMapper";
 import userDtoToUserEntity from "../../mapper/userMapper";
 import ACCOUNT_SERVICE from "../../service/AccountService";
+import AUTH_SERVICE from "../../service/AuthService";
 import { store } from "../../store/store";
 
 class AccountController {
@@ -31,6 +32,10 @@ class AccountController {
 
     changePassword(newPassword: string, oldPassword: string) {
         return ACCOUNT_SERVICE.changePassword(newPassword, newPassword, oldPassword);
+    }
+
+    logout() {
+        AUTH_SERVICE.logout();
     }
 }
 

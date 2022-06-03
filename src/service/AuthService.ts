@@ -7,6 +7,11 @@ class AuthService {
       localStorage.setItem("refresh", refresh)
   }
 
+  private removeTokensFromLocalStorage() {
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+  }
+
   login(username: string, password: string) {
     return post(
       ServerRoute.LOG_IN_URL,
@@ -78,6 +83,10 @@ class AuthService {
       ServerRoute.CHECK_EMAIL_URL,
     JSON.stringify({ email }),
   );
+  }
+
+  logout() {
+    this.removeTokensFromLocalStorage();
   }
 }
 

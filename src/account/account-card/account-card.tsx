@@ -13,6 +13,10 @@ import { ErrorButton, SecondaryButton } from '../../custom-mui-components/button
 import ChangeUsernameDialog from '../dialog/change-username-dialog';
 import ChangePasswordDialog from '../dialog/change-password-dialog';
 import ChangeEmailDialog from '../dialog/change-email-dialog';
+import AUTH_CONTROLLER from '../../controller/auth/AuthController';
+import ACCOUNT_CONTROLLER from '../../controller/auth/AccountController';
+import { useNavigate } from 'react-router-dom';
+import ROUTE from '../../routers/routers';
 
 
 type AccountInfoRowProps = {
@@ -39,6 +43,13 @@ function AccountCard() {
   const [isUsernameChanging, setUsernameChanging] = useState(false);
   const [isPasswordChanging, setPasswordChanging] = useState(false);
   const [isEmailChanging, setEmailChanging] = useState(false);
+
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    ACCOUNT_CONTROLLER.logout();
+    navigate(ROUTE.LOGIN);
+  }
 
   return (
     <div id="AccountPage_AccountCard" style={AccountCardStyle}>
@@ -70,7 +81,7 @@ function AccountCard() {
         </AccountInfoRow>
       </div>
 
-      <SecondaryButton>LOG OUT</SecondaryButton>
+      <SecondaryButton onClick={onLogout}>LOG OUT</SecondaryButton>
       <ErrorButton>DELETE ACCOUNT</ErrorButton>
 
       <ChangeUsernameDialog
