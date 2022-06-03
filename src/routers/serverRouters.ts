@@ -19,8 +19,8 @@ export const ServerRoute = {
   CHANGE_USERNAME_URL: `${MAIN_AUTH_URL}/users/set_username/`,
 
   GET_MY_BOARDS_URL: `${MAIN_BOARD_URL}/my`,
-  CREATE_FILE_URL: `${MAIN_BOARD_URL}/create_board/`,
-  DELETE_FILE_URL: `${MAIN_BOARD_URL}/delete_board/`,
-  LEAVE_FILE_URL: `${MAIN_BOARD_URL}/leave_board/`,
-  OPEN_FILE_URL: `${MAIN_BOARD_URL}/open_board/`,
+  CREATE_BOARD_URL: `${MAIN_BOARD_URL}/create_board/`,
+  DELETE_BOARD_URL: `${MAIN_BOARD_URL}/delete_board/`,
+  LEAVE_BOARD_URL: `${MAIN_BOARD_URL}/leave_board/`,
+  OPEN_BOARD_URL: `${MAIN_BOARD_URL}/open_board/`,
 };

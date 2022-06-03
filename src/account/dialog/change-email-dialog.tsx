@@ -4,8 +4,7 @@ import DraggableDialog from '../../custom-mui-components/dialog/dialog';
 import BoardTextField from '../../custom-mui-components/text-fields/text-field';
 import TextButton from '../../custom-mui-components/button/text-button/text-button';
 import { ContentTextStyle, TextFieldStyle } from './style';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setEmail } from '../accountSlice';
+import { useAppSelector } from '../../store/hooks';
 import ACCOUNT_CONTROLLER from '../../controller/auth/AccountController';
 import { useSnackbar } from 'notistack';
 

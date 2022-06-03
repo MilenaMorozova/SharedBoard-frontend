@@ -17,6 +17,7 @@ import AUTH_CONTROLLER from '../../controller/auth/AuthController';
 import ACCOUNT_CONTROLLER from '../../controller/auth/AccountController';
 import { useNavigate } from 'react-router-dom';
 import ROUTE from '../../routers/routers';
+import DeleteAccountDialog from '../dialog/delete-account-dialog';
 
 
 type AccountInfoRowProps = {
@@ -43,6 +44,7 @@ function AccountCard() {
   const [isUsernameChanging, setUsernameChanging] = useState(false);
   const [isPasswordChanging, setPasswordChanging] = useState(false);
   const [isEmailChanging, setEmailChanging] = useState(false);
+  const [isAccountDeletion, setAcountDeletion] = useState(false);
 
   const navigate = useNavigate();
 
@@ -82,7 +84,7 @@ function AccountCard() {
       </div>
 
       <SecondaryButton onClick={onLogout}>LOG OUT</SecondaryButton>
-      <ErrorButton>DELETE ACCOUNT</ErrorButton>
+      <ErrorButton onClick={() => setAcountDeletion(true)}>DELETE ACCOUNT</ErrorButton>
 
       <ChangeUsernameDialog
         open={isUsernameChanging}
@@ -95,6 +97,10 @@ function AccountCard() {
       <ChangeEmailDialog
         open={isEmailChanging}
         onClose={() => setEmailChanging(false)}
+      />
+      <DeleteAccountDialog
+        open={isAccountDeletion}
+        onClose={() => setAcountDeletion(false)}
       />
     </div>
   );

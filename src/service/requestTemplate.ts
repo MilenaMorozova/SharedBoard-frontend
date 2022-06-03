@@ -80,3 +80,20 @@ export function patch(url: string, body: string, headers: {[key: string]: string
 export function authPatch(url: string, body: string) {
   return handleUnathorizedResponse(() => patch(url, body, getAuthorizationHeader()));
 }
+
+export function deleteRequest(url: string, body: string, headers: {[key: string]: string} = {}) {
+  let request = fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-type': 'application/json',
+      ...headers
+    },
+    body,
+  })
+
+  return transferErrorResponseToCustomErrors(request);
+}
+
+export function authDeleteRequest(url: string, body: string) {
+  return handleUnathorizedResponse(() => deleteRequest(url, body, getAuthorizationHeader()));
+}

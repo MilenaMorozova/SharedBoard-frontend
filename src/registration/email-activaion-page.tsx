@@ -15,7 +15,7 @@ function EmailActivatePage() {
         urlParamUtils.getParamByName('uid'), 
         urlParamUtils.getParamByName('token')
     );
-    navigate(ROUTE.ACCOUNT);
+    navigate(ROUTE.LOGIN);
   }
 
   useEffect(() => {

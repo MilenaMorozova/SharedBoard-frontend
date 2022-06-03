@@ -37,6 +37,10 @@ class AccountController {
     logout() {
         AUTH_SERVICE.logout();
     }
+
+    deleteAccount(password: string) {
+        return ACCOUNT_SERVICE.deleteAccount(password);
+    }
 }
 
 const ACCOUNT_CONTROLLER = new AccountController();

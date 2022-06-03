@@ -1,5 +1,5 @@
 import { ServerRoute } from "../routers/serverRouters";
-import { authGet, authPatch, authPost, post } from "./requestTemplate";
+import { authDeleteRequest, authGet, authPatch, authPost, post } from "./requestTemplate";
 
 class AccountService{
   getUser() {
@@ -33,6 +33,13 @@ class AccountService{
         current_password: currentPassword
       })
     );
+  }
+
+  deleteAccount(password: string) {
+    return authDeleteRequest(
+      ServerRoute.GET_USER_URL, 
+      JSON.stringify({current_password: password})
+    )
   }
 }
 
