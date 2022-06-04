@@ -60,6 +60,11 @@ class AccountController {
     return ACCOUNT_SERVICE.leaveBoard(boardId)
       .then(() => this.downloadBoards());
   }
+
+  getBoardUrl(boardId: string) {
+    return ACCOUNT_SERVICE.getBoardUrl(boardId)
+    .then(response => response.text());
+  }
 }
 
 const ACCOUNT_CONTROLLER = new AccountController();

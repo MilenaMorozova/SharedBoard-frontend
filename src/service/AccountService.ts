@@ -66,6 +66,13 @@ class AccountService {
       JSON.stringify({ board_id: boardId }),
     );
   }
+
+  getBoardUrl(boardId: string) {
+    return authPost(
+      ServerRoute.OPEN_BOARD_URL,
+      JSON.stringify({board_id: boardId})
+    );
+  }
 }
 
 const ACCOUNT_SERVICE = new AccountService();
