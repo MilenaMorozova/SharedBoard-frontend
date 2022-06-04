@@ -1,6 +1,6 @@
 enum BoardType {
-    KANBAN,
-    NOTES,
+    KANBAN = 'kanban',
+    NOTES = 'board_for_notes',
 }
 
 export default BoardType;

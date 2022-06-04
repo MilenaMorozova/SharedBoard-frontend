@@ -2,15 +2,15 @@ import {
   ChangeEvent, SyntheticEvent, useState,
 } from 'react';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
+import { useNavigate } from 'react-router-dom';
 import BoardButton from '../../../custom-mui-components/button/button';
 import BoardPasswordTextField from '../../../custom-mui-components/text-fields/password-text-field';
 import BoardTextField from '../../../custom-mui-components/text-fields/text-field';
 import {
   ForgotPasswordStyle, FullWidthStyle, LoginErrorBlockStyle, SignFormStyle,
 } from '../style';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import AUTH_CONTROLLER from '../../../controller/auth/AuthController';
-import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../../store/hooks';
+import AUTH_CONTROLLER from '../../../controller/AuthController';
 import ROUTE from '../../../routers/routers';
 
 
@@ -31,7 +31,7 @@ function LoginForm() {
 
   const errorText = useAppSelector(state => state.login.errorText);
   let navigate = useNavigate();
-  
+
   const handleChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };
@@ -43,9 +43,7 @@ function LoginForm() {
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
     AUTH_CONTROLLER.login(username, password)
-    .then( response =>{
-      navigate(ROUTE.ACCOUNT);
-    });
+      .then(() => navigate(ROUTE.ACCOUNT));
   };
 
   return (

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import { useSnackbar } from 'notistack';
 import DraggableDialog from '../../custom-mui-components/dialog/dialog';
 import BoardTextField from '../../custom-mui-components/text-fields/text-field';
 import TextButton from '../../custom-mui-components/button/text-button/text-button';
 import { ContentTextStyle, TextFieldStyle } from './style';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setEmail } from '../accountSlice';
+import { useAppSelector } from '../../store/hooks';
+import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 
 
 type ChangeEmailDialogProps = {
@@ -17,15 +18,21 @@ function ChangeEmailDialog(props: ChangeEmailDialogProps) {
   const email = useAppSelector(state => state.account.user.email);
   const [value, setValue] = useState(email);
 
-  const dispatch = useAppDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => { setValue(email); }, [props.open]);
 
   const onClick = () => {
     if (value !== email) {
-      dispatch(setEmail(value));
+      ACCOUNT_CONTROLLER.changeEmail(value)
+        .then(() => { props.onClose(); })
+        .catch(() => enqueueSnackbar({
+          text: 'Email not changed, because it is incorrect!',
+          type: 'error',
+        }));
+    } else {
+      props.onClose();
     }
-    props.onClose();
   };
 
   function ActionPanel() {
@@ -48,7 +55,12 @@ function ChangeEmailDialog(props: ChangeEmailDialogProps) {
       <div style={ContentTextStyle}>
         Entry new email
       </div>
-      <BoardTextField sx={TextFieldStyle} value={value} onChange={(event) => setValue(event.target.value)} />
+      <BoardTextField
+        type="email"
+        sx={TextFieldStyle}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+      />
     </DraggableDialog>
   );
 }

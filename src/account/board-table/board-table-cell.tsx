@@ -1,5 +1,7 @@
 import { TableCell, TableCellProps } from '@mui/material';
+import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 import { ErrorButton, SecondaryButton } from '../../custom-mui-components/button/secondary/secondary-button';
+import TableBoardItem from '../../entities/board/table-board-item';
 import { useAppSelector } from '../../store/hooks';
 import { DateTimeTableCellStyle, TableCellStyle } from './style';
 
@@ -12,24 +14,36 @@ export function CustomTableCell(props: TableCellProps) {
   );
 }
 
-export function DateTimeTableCell(props: {date: string, time: string}) {
+export function DateTimeTableCell(props: {date: Date}) {
   return (
     <CustomTableCell sx={TableCellStyle}>
       <div style={DateTimeTableCellStyle}>
-        {props.date}
+        {props.date.toLocaleDateString()}
         <br />
-        {props.time}
+        {props.date.toLocaleTimeString()}
       </div>
     </CustomTableCell>
   );
 }
 
-export function ActionTableCell() {
+export function ActionTableCell(props: {board: TableBoardItem}) {
   const user = useAppSelector(state => state.account.user);
+
+  const onDeleteBoard = () => {
+    ACCOUNT_CONTROLLER.deleteBoard(props.board.id);
+  };
+
+  const onLeaveBoard = () => {
+    ACCOUNT_CONTROLLER.leaveBoard(props.board.id);
+  };
 
   return (
     <CustomTableCell sx={TableCellStyle}>
-      {user.isOwnerOfThisBoard() ? <ErrorButton>DELETE</ErrorButton> : <SecondaryButton>LEAVE</SecondaryButton>}
+      {user.isOwnerOfThisBoard(props.board) ? (
+        <ErrorButton onClick={onDeleteBoard}>DELETE</ErrorButton>
+      ) : (
+        <SecondaryButton onClick={onLeaveBoard}>LEAVE</SecondaryButton>
+      )}
     </CustomTableCell>
   );
 }

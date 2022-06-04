@@ -1,11 +1,13 @@
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useEffect, useState } from 'react';
+import { useSnackbar } from 'notistack';
 import DraggableDialog from '../../custom-mui-components/dialog/dialog';
 import BoardTextField from '../../custom-mui-components/text-fields/text-field';
 import TextButton from '../../custom-mui-components/button/text-button/text-button';
-import { ContentTextStyle, TextFieldStyle } from './style';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setUsername } from '../accountSlice';
+import { ContentTextStyle, TextFieldsStyle, TextFieldStyle } from './style';
+import ACCOUNT_CONTROLLER from '../../controller/AccountController';
+import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
+import { useAppSelector } from '../../store/hooks';
 
 
 type ChangeUsernameDialogProps = {
@@ -16,16 +18,23 @@ type ChangeUsernameDialogProps = {
 function ChangeUsernameDialog(props: ChangeUsernameDialogProps) {
   const username = useAppSelector(state => state.account.user.username);
   const [value, setValue] = useState(username);
+  const [password, setPassword] = useState('');
 
-  const dispatch = useAppDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => { setValue(username); }, [props.open]);
 
   const onClick = () => {
     if (value !== username) {
-      dispatch(setUsername(value));
+      ACCOUNT_CONTROLLER.changeUsername(value, password)
+        .then(() => { props.onClose(); })
+        .catch(() => enqueueSnackbar({
+          text: 'Username not changed, because it is incorrect!',
+          type: 'error',
+        }));
+    } else {
+      props.onClose();
     }
-    props.onClose();
   };
 
   function ActionPanel() {
@@ -46,9 +55,22 @@ function ChangeUsernameDialog(props: ChangeUsernameDialogProps) {
       onClose={props.onClose}
     >
       <div style={ContentTextStyle}>
-        Entry new username
+        Entry new username and current password
       </div>
-      <BoardTextField sx={TextFieldStyle} value={value} onChange={(event) => setValue(event.target.value)} />
+      <div style={TextFieldsStyle}>
+        <BoardTextField
+          label="New username"
+          sx={TextFieldStyle}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+        />
+        <BoardPasswordTextField
+          label="Password"
+          sx={TextFieldStyle}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </div>
     </DraggableDialog>
   );
 }

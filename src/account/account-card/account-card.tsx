@@ -3,6 +3,7 @@ import {
   CSSProperties, MouseEventHandler, ReactNode, useState,
 } from 'react';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '../../custom-mui-components/avatar/avatar';
 import { useAppSelector } from '../../store/hooks';
 import {
@@ -13,6 +14,9 @@ import { ErrorButton, SecondaryButton } from '../../custom-mui-components/button
 import ChangeUsernameDialog from '../dialog/change-username-dialog';
 import ChangePasswordDialog from '../dialog/change-password-dialog';
 import ChangeEmailDialog from '../dialog/change-email-dialog';
+import ACCOUNT_CONTROLLER from '../../controller/AccountController';
+import ROUTE from '../../routers/routers';
+import DeleteAccountDialog from '../dialog/delete-account-dialog';
 
 
 type AccountInfoRowProps = {
@@ -39,6 +43,14 @@ function AccountCard() {
   const [isUsernameChanging, setUsernameChanging] = useState(false);
   const [isPasswordChanging, setPasswordChanging] = useState(false);
   const [isEmailChanging, setEmailChanging] = useState(false);
+  const [isAccountDeletion, setAcountDeletion] = useState(false);
+
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    ACCOUNT_CONTROLLER.logout();
+    navigate(ROUTE.LOGIN);
+  };
 
   return (
     <div id="AccountPage_AccountCard" style={AccountCardStyle}>
@@ -70,8 +82,8 @@ function AccountCard() {
         </AccountInfoRow>
       </div>
 
-      <SecondaryButton>LOG OUT</SecondaryButton>
-      <ErrorButton>DELETE ACCOUNT</ErrorButton>
+      <SecondaryButton onClick={onLogout}>LOG OUT</SecondaryButton>
+      <ErrorButton onClick={() => setAcountDeletion(true)}>DELETE ACCOUNT</ErrorButton>
 
       <ChangeUsernameDialog
         open={isUsernameChanging}
@@ -84,6 +96,10 @@ function AccountCard() {
       <ChangeEmailDialog
         open={isEmailChanging}
         onClose={() => setEmailChanging(false)}
+      />
+      <DeleteAccountDialog
+        open={isAccountDeletion}
+        onClose={() => setAcountDeletion(false)}
       />
     </div>
   );

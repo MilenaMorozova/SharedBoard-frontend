@@ -15,7 +15,7 @@ function Participants() {
       {
         users.slice(0, 5).map((user, i) => (
           <Avatar
-            key={user.id + i}
+            key={user.id}
             user={user}
             style={(i === 0 ? {} : MovedLeftAvatarStyle)}
           />
