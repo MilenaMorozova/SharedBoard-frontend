@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useSnackbar } from 'notistack';
 import DraggableDialog from '../../custom-mui-components/dialog/dialog';
 import TextButton from '../../custom-mui-components/button/text-button/text-button';
 import { ContentTextStyle, TextFieldsStyle, TextFieldStyle } from './style';
 import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
 import ACCOUNT_CONTROLLER from '../../controller/AccountController';
-import { useSnackbar } from 'notistack';
 
 
 type ChangePasswordDialogProps = {
@@ -23,11 +23,11 @@ function ChangePasswordDialog(props: ChangePasswordDialogProps) {
 
   const onClick = () => {
     ACCOUNT_CONTROLLER.changePassword(newPassword, oldPassword)
-    .then(() => {props.onClose()})
-    .catch(error => enqueueSnackbar({ 
-      text: error.message, 
-      type: 'error' 
-    }));
+      .then(() => { props.onClose(); })
+      .catch(error => enqueueSnackbar({
+        text: error.message,
+        type: 'error',
+      }));
   };
 
   function ActionPanel() {

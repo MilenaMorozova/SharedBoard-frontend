@@ -31,18 +31,18 @@ export function ActionTableCell(props: {board: TableBoardItem}) {
 
   const onDeleteBoard = () => {
     ACCOUNT_CONTROLLER.deleteBoard(props.board.id);
-  }
+  };
 
   const onLeaveBoard = () => {
     ACCOUNT_CONTROLLER.leaveBoard(props.board.id);
-  }
+  };
 
   return (
     <CustomTableCell sx={TableCellStyle}>
       {user.isOwnerOfThisBoard(props.board) ? (
-      <ErrorButton onClick={onDeleteBoard}>DELETE</ErrorButton>
-      ) : ( 
-      <SecondaryButton onClick={onLeaveBoard}>LEAVE</SecondaryButton>
+        <ErrorButton onClick={onDeleteBoard}>DELETE</ErrorButton>
+      ) : (
+        <SecondaryButton onClick={onLeaveBoard}>LEAVE</SecondaryButton>
       )}
     </CustomTableCell>
   );

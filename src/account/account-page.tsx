@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import ACCOUNT_CONTROLLER from '../controller/AccountController';
-import AUTH_CONTROLLER from '../controller/AuthController';
 import AccountCard from './account-card/account-card';
 import BoardTable from './board-table/board-table';
 import CreateBoardsBlock from './create-board-card/create-board-card';
@@ -11,7 +10,7 @@ function AccountPage() {
   useEffect(() => {
     ACCOUNT_CONTROLLER.downloadUser();
     ACCOUNT_CONTROLLER.downloadBoards();
-  }, [])
+  }, []);
 
   return (
     <div id="AccountPage" style={AccountPageStyle}>

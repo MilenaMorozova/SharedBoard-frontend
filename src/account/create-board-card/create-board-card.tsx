@@ -9,7 +9,15 @@ import BoardIcon from '../../custom-mui-components/icon/board-icon';
 import BoardType from '../../entities/board/board-type';
 import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 
-function CreateBoardCard(props: {boardName: string, boardDescription: string, boardIcon: ReactNode, onClick: () => void}) {
+
+type CreateBoardCardProps = {
+  boardName: string,
+  boardDescription: string,
+  boardIcon: ReactNode,
+  onClick: () => void
+}
+
+function CreateBoardCard(props: CreateBoardCardProps) {
   return (
     <Button
       startIcon={props.boardIcon}
@@ -28,7 +36,7 @@ function CreateBoardCard(props: {boardName: string, boardDescription: string, bo
 function CreateBoardsBlock() {
   const onCreateBoard = (boardType: BoardType) => {
     ACCOUNT_CONTROLLER.createBoard(boardType);
-  }
+  };
 
   return (
     <div style={CreateBoardBlockStyle}>

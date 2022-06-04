@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import Board from '../entities/board/board';
 import TableBoardItem from '../entities/board/table-board-item';
 import User, { newUser } from '../entities/user/user';
 import { RootState } from '../store/store';

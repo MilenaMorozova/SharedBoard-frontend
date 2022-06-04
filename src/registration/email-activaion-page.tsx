@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined';
-import { EmailActivationPageStyle, EmailActivationTextStyle, EmailActivationTitleStyle, EmailIconStyle, EmailIconWithTextBlockStyle, EmailTextBlock } from './style';
+import { useNavigate } from 'react-router-dom';
+import {
+  EmailActivationPageStyle, EmailActivationTextStyle, EmailActivationTitleStyle,
+  EmailIconStyle, EmailIconWithTextBlockStyle, EmailTextBlock,
+} from './style';
 import AUTH_CONTROLLER from '../controller/AuthController';
 import urlParamUtils from '../utils/UrlParamUtils';
-import { useNavigate } from 'react-router-dom';
 import ROUTE from '../routers/routers';
 
 
@@ -12,8 +15,8 @@ function EmailActivatePage() {
 
   async function redirect() {
     AUTH_CONTROLLER.activateAccount(
-        urlParamUtils.getParamByName('uid'), 
-        urlParamUtils.getParamByName('token')
+      urlParamUtils.getParamByName('uid'),
+      urlParamUtils.getParamByName('token'),
     );
     navigate(ROUTE.LOGIN);
   }
@@ -26,14 +29,14 @@ function EmailActivatePage() {
     <div style={EmailActivationPageStyle}>
       <div style={EmailIconWithTextBlockStyle}>
         <div>
-            <MarkEmailReadOutlinedIcon style={EmailIconStyle}/>
+          <MarkEmailReadOutlinedIcon style={EmailIconStyle} />
         </div>
         <div style={EmailTextBlock}>
-            <span style={EmailActivationTitleStyle}>
+          <span style={EmailActivationTitleStyle}>
             Your mail has been activated!
           </span>
           <span style={EmailActivationTextStyle}>
-            Don't panic, now you will be redirected to another page.
+            Don&apot panic, now you will be redirected to another page.
             <br />
             If this does not happen click
             {' '}

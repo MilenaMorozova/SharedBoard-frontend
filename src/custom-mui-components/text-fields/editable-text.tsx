@@ -5,7 +5,7 @@ import { CSSProperties, useState } from 'react';
 type EditableTextProps = {
     value: string,
     setValue: (text: string) => void,
-    getValue: (text: string) => string,
+    getValue: (text: string) => string, // eslint-disable-line react/require-default-props
     textStyle: CSSProperties,
     width: string,
     multiline?: boolean,

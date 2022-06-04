@@ -35,9 +35,9 @@ function BoardTable() {
           <CustomTableCell>
             {board.owner.username}
           </CustomTableCell>
-          <DateTimeTableCell date={board.createdDate} /> 
+          <DateTimeTableCell date={board.createdDate} />
           <DateTimeTableCell date={board.updatedDate} />
-          <ActionTableCell board={board}/>
+          <ActionTableCell board={board} />
         </TableRow>
       ));
     }

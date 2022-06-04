@@ -1,15 +1,15 @@
 import { ServerRoute } from '../routers/serverRouters';
-import { authGet, post } from './requestTemplate';
+import { post } from './requestTemplate';
 
 class AuthService {
   private setTokensToLocalStorage(access: string, refresh: string) {
-      localStorage.setItem("access", access)
-      localStorage.setItem("refresh", refresh)
+    localStorage.setItem('access', access);
+    localStorage.setItem('refresh', refresh);
   }
 
   private removeTokensFromLocalStorage() {
-    localStorage.removeItem("access");
-    localStorage.removeItem("refresh");
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
   }
 
   login(username: string, password: string) {
@@ -17,25 +17,24 @@ class AuthService {
       ServerRoute.LOG_IN_URL,
       JSON.stringify({ username, password }),
     )
-    .then(response => response.json())
-    .then(jsonResponse => {
-        this.setTokensToLocalStorage(jsonResponse.access, jsonResponse.refresh)
+      .then(response => response.json())
+      .then(jsonResponse => {
+        this.setTokensToLocalStorage(jsonResponse.access, jsonResponse.refresh);
         return jsonResponse;
-    })
+      });
   }
 
   refreshToken() {
-    let refresh = localStorage.getItem("refresh");
-    
+    let refresh = localStorage.getItem('refresh');
+
     return post(
       ServerRoute.REFRESH_TOKEN_URL,
       JSON.stringify({ refresh }),
     )
-    .then(response => response.json())
-    .then(jsonResponse => {
-            this.setTokensToLocalStorage(jsonResponse.access, jsonResponse.refresh)
-        }
-    );
+      .then(response => response.json())
+      .then(jsonResponse => {
+        this.setTokensToLocalStorage(jsonResponse.access, jsonResponse.refresh);
+      });
   }
 
   activateAccount(uid: string, token: string) {
@@ -73,16 +72,16 @@ class AuthService {
 
   checkUsername(username: string) {
     return post(
-    ServerRoute.CHECK_USERNAME_URL,
-    JSON.stringify({ username }),
+      ServerRoute.CHECK_USERNAME_URL,
+      JSON.stringify({ username }),
     );
-    }
+  }
 
   checkEmail(email: string) {
-  return post(
+    return post(
       ServerRoute.CHECK_EMAIL_URL,
-    JSON.stringify({ email }),
-  );
+      JSON.stringify({ email }),
+    );
   }
 
   logout() {

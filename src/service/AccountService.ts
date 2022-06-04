@@ -1,9 +1,11 @@
-import BoardType from "../entities/board/board-type";
-import { ServerRoute } from "../routers/serverRouters";
-import { authDeleteRequest, authGet, authPatch, authPost, post } from "./requestTemplate";
+import BoardType from '../entities/board/board-type';
+import { ServerRoute } from '../routers/serverRouters';
+import {
+  authDeleteRequest, authGet, authPatch, authPost,
+} from './requestTemplate';
 
 
-class AccountService{
+class AccountService {
   getUser() {
     return authGet(ServerRoute.GET_USER_URL);
   }
@@ -14,55 +16,55 @@ class AccountService{
 
   changeUsername(newUsername: string, password: string) {
     return authPost(
-      ServerRoute.CHANGE_USERNAME_URL, 
-      JSON.stringify({new_username: newUsername, current_password: password})
+      ServerRoute.CHANGE_USERNAME_URL,
+      JSON.stringify({ new_username: newUsername, current_password: password }),
     );
   }
 
   changeEmail(newEmail: string) {
     return authPatch(
-      ServerRoute.GET_USER_URL, 
-      JSON.stringify({email: newEmail})
+      ServerRoute.GET_USER_URL,
+      JSON.stringify({ email: newEmail }),
     );
   }
 
   changePassword(newPassword: string, reNewPassword: string, currentPassword: string) {
     return authPost(
-      ServerRoute.CHANGE_PASSWOD_URL, 
+      ServerRoute.CHANGE_PASSWOD_URL,
       JSON.stringify({
-        new_password: newPassword, 
-        re_new_password: reNewPassword, 
-        current_password: currentPassword
-      })
+        new_password: newPassword,
+        re_new_password: reNewPassword,
+        current_password: currentPassword,
+      }),
     );
   }
 
   deleteAccount(password: string) {
     return authDeleteRequest(
-      ServerRoute.GET_USER_URL, 
-      JSON.stringify({current_password: password})
-    )
+      ServerRoute.GET_USER_URL,
+      JSON.stringify({ current_password: password }),
+    );
   }
 
   createBoard(boardType: BoardType) {
     return authPost(
       ServerRoute.CREATE_BOARD_URL,
-      JSON.stringify({board_type: boardType})
-    )
+      JSON.stringify({ board_type: boardType }),
+    );
   }
 
   deleteBoard(boardId: string) {
     return authPost(
-      ServerRoute.DELETE_BOARD_URL, 
-      JSON.stringify({board_id: boardId})
-    )
+      ServerRoute.DELETE_BOARD_URL,
+      JSON.stringify({ board_id: boardId }),
+    );
   }
 
   leaveBoard(boardId: string) {
     return authPost(
-      ServerRoute.LEAVE_BOARD_URL, 
-      JSON.stringify({board_id: boardId})
-    )
+      ServerRoute.LEAVE_BOARD_URL,
+      JSON.stringify({ board_id: boardId }),
+    );
   }
 }
 

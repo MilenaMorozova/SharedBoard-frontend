@@ -28,7 +28,7 @@ export function newUser(): User {
       }
       return this.email;
     },
-    isOwnerOfThisBoard(board: TableBoardItem) { return board.owner.id === this.id },
+    isOwnerOfThisBoard(board: TableBoardItem) { return board.owner.id === this.id; },
   };
 }
 

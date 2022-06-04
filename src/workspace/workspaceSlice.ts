@@ -1,4 +1,4 @@
-import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import COLORS from '../colors';
 import Board, { newBoard } from '../entities/board/board';
 import Note from '../entities/note/note';
