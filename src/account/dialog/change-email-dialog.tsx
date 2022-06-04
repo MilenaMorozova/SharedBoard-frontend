@@ -5,7 +5,7 @@ import BoardTextField from '../../custom-mui-components/text-fields/text-field';
 import TextButton from '../../custom-mui-components/button/text-button/text-button';
 import { ContentTextStyle, TextFieldStyle } from './style';
 import { useAppSelector } from '../../store/hooks';
-import ACCOUNT_CONTROLLER from '../../controller/auth/AccountController';
+import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 import { useSnackbar } from 'notistack';
 
 

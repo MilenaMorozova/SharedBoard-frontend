@@ -1,9 +1,11 @@
-import { setBoards, setEmail, setUser, setUsername } from "../../account/accountSlice";
-import boardDtoToEntityDto from "../../mapper/boardMapper";
-import userDtoToUserEntity from "../../mapper/userMapper";
-import ACCOUNT_SERVICE from "../../service/AccountService";
-import AUTH_SERVICE from "../../service/AuthService";
-import { store } from "../../store/store";
+import { setBoards, setEmail, setUser, setUsername } from "../account/accountSlice";
+import BoardType from "../entities/board/board-type";
+import boardDtoToTableBoardEntity from "../mapper/boardMapper";
+import userDtoToUserEntity from "../mapper/userMapper";
+import ACCOUNT_SERVICE from "../service/AccountService";
+import AUTH_SERVICE from "../service/AuthService";
+import { store } from "../store/store";
+
 
 class AccountController {
     downloadUser() {
@@ -15,8 +17,8 @@ class AccountController {
 
     downloadBoards() {
         ACCOUNT_SERVICE.getUserBoards()
-        .then(response => response.json() as unknown as Array<Object>)
-        .then(jsonResponse => jsonResponse.map(boardDtoToEntityDto))
+        .then(response => response.json() as unknown as Array<{ [key: string]: any; }>)
+        .then(jsonResponse => jsonResponse.map(boardDtoToTableBoardEntity))
         .then(boards => store.dispatch(setBoards(boards)));
     }
 
@@ -41,6 +43,23 @@ class AccountController {
     deleteAccount(password: string) {
         return ACCOUNT_SERVICE.deleteAccount(password);
     }
+
+    createBoard(boardType: BoardType) {
+        return ACCOUNT_SERVICE.createBoard(boardType)
+        .then((resp) => console.log(resp))
+        .then(() => this.downloadBoards());
+    }
+
+    deleteBoard(boardId: string) {
+        return ACCOUNT_SERVICE.deleteBoard(boardId)
+        .then(() => this.downloadBoards());
+    }
+
+    leaveBoard(boardId: string) {
+        return ACCOUNT_SERVICE.leaveBoard(boardId)
+        .then(() => this.downloadBoards());
+    }
+
 }
 
 const ACCOUNT_CONTROLLER = new AccountController();

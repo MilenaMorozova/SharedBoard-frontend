@@ -1,5 +1,7 @@
+import BoardType from "../entities/board/board-type";
 import { ServerRoute } from "../routers/serverRouters";
 import { authDeleteRequest, authGet, authPatch, authPost, post } from "./requestTemplate";
+
 
 class AccountService{
   getUser() {
@@ -39,6 +41,27 @@ class AccountService{
     return authDeleteRequest(
       ServerRoute.GET_USER_URL, 
       JSON.stringify({current_password: password})
+    )
+  }
+
+  createBoard(boardType: BoardType) {
+    return authPost(
+      ServerRoute.CREATE_BOARD_URL,
+      JSON.stringify({board_type: boardType})
+    )
+  }
+
+  deleteBoard(boardId: string) {
+    return authPost(
+      ServerRoute.DELETE_BOARD_URL, 
+      JSON.stringify({board_id: boardId})
+    )
+  }
+
+  leaveBoard(boardId: string) {
+    return authPost(
+      ServerRoute.LEAVE_BOARD_URL, 
+      JSON.stringify({board_id: boardId})
     )
   }
 }

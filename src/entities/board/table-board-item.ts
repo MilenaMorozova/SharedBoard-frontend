@@ -1,25 +1,27 @@
 import Access from '../user/access';
-import User from '../user/user';
+import User, { newUser } from '../user/user';
 import BoardType from './board-type';
 
-interface Board {
+interface TableBoardItem {
   id: string;
   name: string;
   type: BoardType;
   createdDate: Date;
   updatedDate: Date;
-  participants: Array<User>;
+  currentUserAccess: Access;
+  owner: User;
 }
 
-export function newBoard(): Board {
+export function newTableBoardItem(): TableBoardItem {
   return {
     id: '',
     name: '',
     type: BoardType.NOTES,
     createdDate: new Date(),
     updatedDate: new Date(),
-    participants: [],
+    currentUserAccess: Access.VIEWER,
+    owner: newUser(),
   };
 }
 
-export default Board;
+export default TableBoardItem;

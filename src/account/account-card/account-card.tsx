@@ -13,8 +13,8 @@ import { ErrorButton, SecondaryButton } from '../../custom-mui-components/button
 import ChangeUsernameDialog from '../dialog/change-username-dialog';
 import ChangePasswordDialog from '../dialog/change-password-dialog';
 import ChangeEmailDialog from '../dialog/change-email-dialog';
-import AUTH_CONTROLLER from '../../controller/auth/AuthController';
-import ACCOUNT_CONTROLLER from '../../controller/auth/AccountController';
+import AUTH_CONTROLLER from '../../controller/AuthController';
+import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 import { useNavigate } from 'react-router-dom';
 import ROUTE from '../../routers/routers';
 import DeleteAccountDialog from '../dialog/delete-account-dialog';

@@ -4,7 +4,7 @@ import TextButton from '../../custom-mui-components/button/text-button/text-butt
 import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
 import { ContentTextStyle, TextFieldStyle } from './style';
 import { useState } from 'react';
-import ACCOUNT_CONTROLLER from '../../controller/auth/AccountController';
+import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import ROUTE from '../../routers/routers';

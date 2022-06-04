@@ -1,3 +1,4 @@
+import TableBoardItem from '../board/table-board-item';
 import Access from './access';
 
 interface User {
@@ -9,7 +10,7 @@ interface User {
 
   getShortName() : string;
   getShortEmail() : string;
-  isOwnerOfThisBoard(): boolean;
+  isOwnerOfThisBoard(board: TableBoardItem): boolean;
 }
 
 export function newUser(): User {
@@ -27,7 +28,7 @@ export function newUser(): User {
       }
       return this.email;
     },
-    isOwnerOfThisBoard() { return false; },
+    isOwnerOfThisBoard(board: TableBoardItem) { return board.owner.id === this.id },
   };
 }
 

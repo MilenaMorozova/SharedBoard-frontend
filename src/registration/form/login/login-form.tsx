@@ -9,7 +9,7 @@ import {
   ForgotPasswordStyle, FullWidthStyle, LoginErrorBlockStyle, SignFormStyle,
 } from '../style';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import AUTH_CONTROLLER from '../../../controller/auth/AuthController';
+import AUTH_CONTROLLER from '../../../controller/AuthController';
 import { useNavigate } from 'react-router-dom';
 import ROUTE from '../../../routers/routers';
 

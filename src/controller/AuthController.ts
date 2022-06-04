@@ -1,8 +1,8 @@
-import { setErrorText } from "../../registration/form/login/loginSlice";
-import { setEmailErrorText, setPasswordErrorText, setUsernameErrorText } from "../../registration/form/signUp/signUpSlice";
-import AUTH_SERVICE from "../../service/AuthService";
-import { CustomError } from "../../service/exception";
-import { store } from "../../store/store";
+import { setErrorText } from "../registration/form/login/loginSlice";
+import { setEmailErrorText, setPasswordErrorText, setUsernameErrorText } from "../registration/form/signUp/signUpSlice";
+import AUTH_SERVICE from "../service/AuthService";
+import { CustomError } from "../service/exception";
+import { store } from "../store/store";
 
 
 type ErrorArray = Array<string> | undefined;

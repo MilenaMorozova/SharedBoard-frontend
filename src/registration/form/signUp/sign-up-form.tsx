@@ -1,6 +1,6 @@
 import { useSnackbar } from 'notistack';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
-import AUTH_CONTROLLER from '../../../controller/auth/AuthController';
+import AUTH_CONTROLLER from '../../../controller/AuthController';
 import BoardButton from '../../../custom-mui-components/button/button';
 import BoardPasswordTextField from '../../../custom-mui-components/text-fields/password-text-field';
 import BoardTextField from '../../../custom-mui-components/text-fields/text-field';

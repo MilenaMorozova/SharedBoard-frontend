@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import ACCOUNT_CONTROLLER from '../controller/auth/AccountController';
-import AUTH_CONTROLLER from '../controller/auth/AuthController';
+import ACCOUNT_CONTROLLER from '../controller/AccountController';
+import AUTH_CONTROLLER from '../controller/AuthController';
 import AccountCard from './account-card/account-card';
 import BoardTable from './board-table/board-table';
 import CreateBoardsBlock from './create-board-card/create-board-card';

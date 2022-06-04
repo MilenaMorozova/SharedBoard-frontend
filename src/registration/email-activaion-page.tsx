@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined';
 import { EmailActivationPageStyle, EmailActivationTextStyle, EmailActivationTitleStyle, EmailIconStyle, EmailIconWithTextBlockStyle, EmailTextBlock } from './style';
-import AUTH_CONTROLLER from '../controller/auth/AuthController';
+import AUTH_CONTROLLER from '../controller/AuthController';
 import urlParamUtils from '../utils/UrlParamUtils';
 import { useNavigate } from 'react-router-dom';
 import ROUTE from '../routers/routers';

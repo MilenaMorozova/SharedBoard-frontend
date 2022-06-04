@@ -4,7 +4,7 @@ import DraggableDialog from '../../custom-mui-components/dialog/dialog';
 import TextButton from '../../custom-mui-components/button/text-button/text-button';
 import { ContentTextStyle, TextFieldsStyle, TextFieldStyle } from './style';
 import BoardPasswordTextField from '../../custom-mui-components/text-fields/password-text-field';
-import ACCOUNT_CONTROLLER from '../../controller/auth/AccountController';
+import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 import { useSnackbar } from 'notistack';
 
 
