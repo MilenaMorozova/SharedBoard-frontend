@@ -31,3 +31,12 @@ export function changeUserAccess(userId: string, newAccess: Access) {
         "new_access": accesssNumber,
     })
 }
+
+export function changeBoardName(newBoardName: string) {
+    WEBSOCKET_CONNECTION.send({
+        "type": "change_board_config",
+        "config": {
+            "name": newBoardName,
+        }
+    })
+}

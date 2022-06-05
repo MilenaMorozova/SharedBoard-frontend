@@ -63,6 +63,7 @@ const MESSAGE_TYPES: {[key: string]: (body: any) => void} = {
     "new_user": newActiveUser,
     "delete_user": remActiveUser,
     "change_user_access": changeUserAccess,
+    "change_board_config": boardInfo,
 
     "board_nodes": boardNodes,
 }

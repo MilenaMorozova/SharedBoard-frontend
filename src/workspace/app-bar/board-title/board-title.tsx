@@ -5,6 +5,8 @@ import BoardType from '../../../entities/board/board-type';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { BoardIconStyle, BoardNameStyle, BoardTitleStyle } from './style';
 import { setBoardName } from '../../workspaceSlice';
+import { changeBoardName } from '../../../service/websocket/websocket-sender';
+import Access from '../../../entities/user/access';
 
 type BoardTitleProps = {
   boardType: BoardType,
@@ -12,13 +14,20 @@ type BoardTitleProps = {
 
 function BoardTitle(props: BoardTitleProps) {
   const boardName = useAppSelector(state => state.workspace.board.name);
+  const currentUserAccess = useAppSelector(state => state.workspace.currentUser.access);
   const dispatch = useAppDispatch();
 
-  const [name, setName] = useState(boardName);
-
   const onSave = () => {
-    dispatch(setBoardName(name));
+    changeBoardName(boardName);
   };
+
+  const setValue = (name: string) => {
+    dispatch(setBoardName(name));
+  }
+
+  const setDisabled = () => {
+    return currentUserAccess === Access.VIEWER;
+  }
 
   const getValue = (text: string) => {
     if (text.length > 9) {
@@ -34,8 +43,9 @@ function BoardTitle(props: BoardTitleProps) {
         sx={BoardIconStyle}
       />
       <EditableText
-        value={name}
-        setValue={setName}
+        value={boardName}
+        setValue={setValue}
+        disabled={setDisabled()}
         onSave={onSave}
         getValue={getValue}
         width="100px"

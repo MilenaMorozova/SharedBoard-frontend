@@ -9,6 +9,7 @@ type EditableTextProps = {
     textStyle: CSSProperties,
     width: string,
     multiline?: boolean,
+    disabled?: boolean,
     onSave: () => void,
 }
 
@@ -24,7 +25,9 @@ function EditableText(props: EditableTextProps) {
     <span
       style={{ ...props.textStyle, width: props.width, wordBreak: 'break-all' }}
       onDoubleClick={(event) => {
-        setToggle(false);
+        if (!props.disabled) {
+          setToggle(false);
+        }
         event.stopPropagation();
       }}
     >
@@ -55,6 +58,7 @@ function EditableText(props: EditableTextProps) {
 EditableText.defaultProps = {
   getValue: (text: string) => text,
   multiline: false,
+  disabled: false,
 };
 
 export default EditableText;
