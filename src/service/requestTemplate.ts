@@ -2,6 +2,8 @@ import AUTH_SERVICE from './AuthService';
 import { ClientError, ServerError } from './exception';
 
 
+let refreshResponse: Promise<any> | null = null;
+
 function transferErrorResponseToCustomErrors(promise: Promise<Response>) {
   return promise
     .then(async response => {
@@ -35,9 +37,13 @@ function getAuthorizationHeader(): {[key: string]: string} {
 
 function handleUnathorizedResponse(originalMethod: () => Promise<Response>) {
   return originalMethod()
-    .catch(error => {
+    .catch(async error => {
       if (error.status === 401) {
-        AUTH_SERVICE.refreshToken();
+        if (refreshResponse === null) {
+          refreshResponse = AUTH_SERVICE.refreshToken()
+        }
+        await refreshResponse;
+        refreshResponse = null;
         return originalMethod();
       }
       throw error;
