@@ -2,6 +2,7 @@ import Avatar from '../../../custom-mui-components/avatar/avatar';
 import Access from '../../../entities/user/access';
 import User from '../../../entities/user/user';
 import { changeUserAccess } from '../../../service/websocket/websocket-sender';
+import { useAppSelector } from '../../../store/hooks';
 import AccessSelect from './access-select';
 import {
   CurrentUserAccessStyle, ParticipantAvatarStyle, ParticipantRowStyle, UsernameStyle,
@@ -9,10 +10,15 @@ import {
 
 
 function ParticipantRow(props: {user: User, isCurrentUser?: boolean}) {
+  const currentUserAccess = useAppSelector(state => state.workspace.currentUser.access);
 
   const onChange = (access: Access) => {
     changeUserAccess(props.user.id, access);
   };
+
+  const setAccessDisabled = () => {
+    return currentUserAccess !== Access.OWNER;
+  }
 
   return (
     <div style={ParticipantRowStyle}>
@@ -29,6 +35,7 @@ function ParticipantRow(props: {user: User, isCurrentUser?: boolean}) {
               <AccessSelect
                 value={props.user.access}
                 onChange={onChange}
+                disabled={setAccessDisabled()}
               />
             )
         }

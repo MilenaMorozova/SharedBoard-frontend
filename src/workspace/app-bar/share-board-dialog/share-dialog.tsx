@@ -25,6 +25,10 @@ function AccessToBoardDialog(props: AccessToBoardDialogProps) {
     changeLinkAccess(access);
   }
 
+  const setAccessDisabled = () => {
+    return currentUser.access !== Access.OWNER;
+  }
+
   return (
     <Dialog
       title="ShareBoard"
@@ -39,7 +43,9 @@ function AccessToBoardDialog(props: AccessToBoardDialogProps) {
           value={window.location.href}
           onChange={() => {}}
           sx={{ width: '100%' }}
-          InputProps={{ endAdornment: <AccessSelect value={linkAccess} onChange={setLinkAccess} /> }}
+          InputProps={{ 
+            endAdornment: <AccessSelect value={linkAccess} onChange={setLinkAccess} disabled={setAccessDisabled()}/> 
+          }}
         />
         <Scrollbars
           thumbSize={90}

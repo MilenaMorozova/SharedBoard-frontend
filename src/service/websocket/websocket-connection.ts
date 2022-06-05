@@ -41,7 +41,7 @@ class WebsocketConnection {
     onClose(event: CloseEvent) {
         if (event.code === 4401) {
             AUTH_SERVICE.refreshToken()
-            .then(this.connect);
+            .then(WEBSOCKET_CONNECTION.connect);
         }
     }
 

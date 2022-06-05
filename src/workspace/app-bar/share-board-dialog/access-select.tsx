@@ -3,10 +3,17 @@ import Access from '../../../entities/user/access';
 import { AccessFormControlStyle, AccessSelectStyle, MenuItemStyle } from './style';
 
 
-function AccessSelect(props: {value: Access, onChange: (access: Access) => void}) {
+type AccessSelectProps = {
+  value: Access, 
+  onChange: (access: Access) => void, 
+  disabled?: boolean,
+}
+
+function AccessSelect(props: AccessSelectProps) {
   return (
     <FormControl sx={AccessFormControlStyle}>
       <Select
+        disabled={props.disabled}
         sx={AccessSelectStyle}
         size="small"
         variant="standard"
@@ -15,11 +22,26 @@ function AccessSelect(props: {value: Access, onChange: (access: Access) => void}
         displayEmpty
         disableUnderline
       >
-        <MenuItem sx={MenuItemStyle} value={Access.VIEWER}>{Access.VIEWER}</MenuItem>
-        <MenuItem sx={MenuItemStyle} value={Access.EDITOR}>{Access.EDITOR}</MenuItem>
+      <MenuItem sx={MenuItemStyle} value={Access.VIEWER}>
+        {Access.VIEWER}
+      </MenuItem>
+      <MenuItem sx={MenuItemStyle} value={Access.EDITOR}>
+        {Access.EDITOR}
+      </MenuItem>
+      { props.value === Access.OWNER ? (
+        <MenuItem sx={MenuItemStyle} value={Access.OWNER}>
+          {Access.OWNER}
+        </MenuItem>        
+      ) : (
+        null
+      )}
       </Select>
     </FormControl>
   );
 }
+
+AccessSelect.defaultProps = {
+  disabled: false,
+};
 
 export default AccessSelect;
