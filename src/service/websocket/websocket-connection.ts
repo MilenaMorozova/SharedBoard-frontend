@@ -1,16 +1,17 @@
 import { ServerRoute } from "../../routers/serverRouters";
 import urlParamUtils from "../../utils/UrlParamUtils";
+import AUTH_SERVICE from "../AuthService";
 import receive from "./websocket-receiver";
 
 
 class WebsocketConnection {
     socket: any;
-    user: any;
+    channelName: string;
     queueMessage: Array<any>;
 
     constructor() {
         this.socket = null;
-        this.user = null;
+        this.channelName = '';
         this.queueMessage = [];
     }
 
@@ -32,17 +33,24 @@ class WebsocketConnection {
         const url = this.getWebsocketUrl();
         this.socket = new WebSocket(url);
         this.socket.onopen = () => this.send();
-        this.socket.onclose = () => {};
+        this.socket.onclose = this.onClose;
         this.socket.onmessage = this.onMessage;
         this.socket.onerror = () => {};
     }
 
-    send(content = null) {
+    onClose(event: CloseEvent) {
+        if (event.code === 4401) {
+            AUTH_SERVICE.refreshToken()
+            .then(this.connect);
+        }
+    }
+
+    send(content: any = null) {
         if (content) {
           this.queueMessage.push(content);
         }
         if (this.isConnect) {
-          this.queueMessage.forEach((item) => this.socket.send(item));
+          this.queueMessage.forEach((item) => this.socket.send(JSON.stringify(item)));
           this.queueMessage = [];
         }
     }

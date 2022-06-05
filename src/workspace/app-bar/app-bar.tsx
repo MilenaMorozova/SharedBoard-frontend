@@ -6,7 +6,7 @@ import {
 import BoardType from '../../entities/board/board-type';
 import SearchField from '../../custom-mui-components/text-fields/search-field';
 import Avatar from '../../custom-mui-components/avatar/avatar';
-import Participants from './participants/participants';
+import Collaborators from './participants/participants';
 import BoardButton from '../../custom-mui-components/button/button';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentUser, setSearchText } from '../workspaceSlice';
@@ -43,7 +43,7 @@ function WorkspaceAppBar(props: WorkspaceAppBarProps) {
         />
       </div>
       <div style={RightSideStyle}>
-        <Participants />
+        <Collaborators />
         <BoardButton
           variant="contained"
           fullWidth={false}

@@ -16,7 +16,6 @@ function AccessSelect(props: {value: Access, onChange: (access: Access) => void}
     >
       <MenuItem sx={MenuItemStyle} value={Access.VIEWER}>{Access.VIEWER}</MenuItem>
       <MenuItem sx={MenuItemStyle} value={Access.EDITOR}>{Access.EDITOR}</MenuItem>
-      <MenuItem sx={MenuItemStyle} value={Access.OWNER}>{Access.OWNER}</MenuItem>
     </Select>
   );
 }

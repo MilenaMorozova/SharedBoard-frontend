@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import COLORS from '../colors';
 import Board, { newBoard } from '../entities/board/board';
 import Note from '../entities/note/note';
-import Access from '../entities/user/access';
 import User, { newUser } from '../entities/user/user';
 import { RootState } from '../store/store';
 
@@ -10,64 +8,14 @@ import { RootState } from '../store/store';
 interface WorkspaceState {
   board: Board,
   currentUser: User,
-  participants: Array<User>,
+  collaborators: Array<User>,
+  activeCollaborators: Array<User>,  
 
   notes: Array<Note>,
   arrows: Map<string, string>,
   searchText: string,
   selectedNotesIds: Set<string>,
 }
-
-let b = {
-  ...newBoard(),
-  name: 'Untitled',
-};
-
-let mockNote1: Note = {
-  id: '1',
-  title: 'Create task',
-  tag: 'patsvr-56',
-  description: 'no description',
-  color: COLORS.CHIP_LABEL_PURPLE,
-  created: new Date(),
-  updated: new Date(),
-  posX: 334,
-  posY: 334,
-  refTag: '',
-};
-
-let mockNote2: Note = {
-  id: '2',
-  title: 'Create task',
-  tag: 'patsvr-57',
-  description: 'no description',
-  color: COLORS.CHIP_LABEL_RED,
-  created: new Date(),
-  updated: new Date(),
-  posX: 366,
-  posY: 366,
-  refTag: mockNote1.tag,
-};
-
-let mockNotes = [mockNote1, mockNote2];
-
-const mockUser = {
-  ...newUser(),
-  id: '1',
-  color: COLORS.CHIP_LABEL_BLUE,
-  username: 'Milena',
-  access: Access.VIEWER,
-};
-
-const mockUser2 = {
-  ...newUser(),
-  id: '2',
-  color: COLORS.CHIP_LABEL_RED,
-  username: 'Carl',
-};
-
-let participants = [mockUser, mockUser2, mockUser, mockUser2, mockUser, mockUser2,
-  mockUser, mockUser2, mockUser, mockUser2];
 
 function createArrowDict(notes: Array<Note>): Map<string, string> {
   let arrowDict = new Map();
@@ -82,14 +30,13 @@ function createArrowDict(notes: Array<Note>): Map<string, string> {
 }
 
 const initialState: WorkspaceState = {
-  board: b,
-  currentUser: {
-    ...newUser(), username: 'Igor', color: COLORS.CHIP_LABEL_YELLOW, access: Access.OWNER,
-  },
-  participants,
+  board: newBoard(),
+  currentUser: newUser(),
+  collaborators: [],
+  activeCollaborators: [],
 
-  notes: mockNotes,
-  arrows: createArrowDict(mockNotes),
+  notes: [],
+  arrows: new Map(),
   searchText: '',
   selectedNotesIds: new Set(),
 };
@@ -101,13 +48,21 @@ export const WorkspaceSlice = createSlice({
     setUser: (state: WorkspaceState, action: PayloadAction<User>) => {
       state.currentUser = action.payload;
     },
-    setParticipants: (state: WorkspaceState, action: PayloadAction<Array<User>>) => {
-      state.participants = action.payload;
-    },
     updateUser: (state: WorkspaceState, { payload }: PayloadAction<User>) => {
-      state.participants = state.participants.map(
+      state.collaborators = state.collaborators.map(
         participant => (participant.id === payload.id ? payload : participant),
       );
+    },
+
+    setCollaborators: (state: WorkspaceState, action: PayloadAction<Array<User>>) => {
+      state.collaborators = action.payload.filter(user => user.id !== state.currentUser.id);
+    },
+    setActiveCollaborators: (state: WorkspaceState, action: PayloadAction<Array<User>>) => {
+      state.activeCollaborators = action.payload.filter(user => user.id !== state.currentUser.id);
+    },
+
+    setBoard: (state: WorkspaceState, {payload}: PayloadAction<Board>) => {
+      state.board = payload;
     },
     setBoardName: (state: WorkspaceState, { payload }: PayloadAction<string>) => {
       state.board = { ...state.board, name: payload };
@@ -146,12 +101,13 @@ export const WorkspaceSlice = createSlice({
 });
 
 export const {
-  setUser, setParticipants, updateUser, setBoardName, updateNote, addNote, updateArrows,
+  setUser, setCollaborators, setActiveCollaborators, updateUser, setBoard, setBoardName, updateNote, addNote, updateArrows,
   setSearchText, addSelectedNote, deselectSelectedNotes, deleteSelectedNotes,
 } = WorkspaceSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.workspace.currentUser;
-export const selectParticipants = (state: RootState) => state.workspace.participants;
+export const selectCollaborators = (state: RootState) => state.workspace.collaborators;
+export const selectActiveCollaborators = (state: RootState) => state.workspace.activeCollaborators;
 export const selectBoard = (state: RootState) => state.workspace.board;
 export const selectNotes = (state: RootState) => state.workspace.notes;
 export const selectSelectedNotes = (state: RootState) => state.workspace.selectedNotesIds;

@@ -1,14 +1,14 @@
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { useState } from 'react';
 import Dialog from '../../../custom-mui-components/dialog/dialog';
 import Access from '../../../entities/user/access';
 import BoardTextField from '../../../custom-mui-components/text-fields/text-field';
 import { DialogContextStyle } from './style';
-import { selectCurrentUser, selectParticipants } from '../../workspaceSlice';
+import { selectCollaborators, selectCurrentUser } from '../../workspaceSlice';
 import { useAppSelector } from '../../../store/hooks';
 import AccessSelect from './access-select';
 import ParticipantRow from './participant-row';
+import { changeLinkAccess } from '../../../service/websocket/websocket-sender';
 
 
 export type AccessToBoardDialogProps = {
@@ -17,10 +17,13 @@ export type AccessToBoardDialogProps = {
 }
 
 function AccessToBoardDialog(props: AccessToBoardDialogProps) {
-  const participants = useAppSelector(selectParticipants);
+  const collaborators = useAppSelector(selectCollaborators);
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const [linkAccess, setLinkAccess] = useState(Access.EDITOR);
+  const linkAccess = useAppSelector(state => state.workspace.board.linkAccess);
+  const setLinkAccess = (access: Access) => {
+    changeLinkAccess(access);
+  }
 
   return (
     <Dialog
@@ -33,7 +36,7 @@ function AccessToBoardDialog(props: AccessToBoardDialogProps) {
       <div style={DialogContextStyle}>
         <BoardTextField
           placeholder="Link"
-          value="Link for you"
+          value={window.location.href}
           onChange={() => {}}
           sx={{ width: '100%' }}
           InputProps={{ endAdornment: <AccessSelect value={linkAccess} onChange={setLinkAccess} /> }}
@@ -50,7 +53,7 @@ function AccessToBoardDialog(props: AccessToBoardDialogProps) {
             isCurrentUser
           />
           {
-            participants.map(user => <ParticipantRow key={user.id} user={user} />)
+            collaborators.map(user => <ParticipantRow key={user.id} user={user} />)
           }
         </Scrollbars>
       </div>
