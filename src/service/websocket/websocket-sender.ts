@@ -22,3 +22,12 @@ export function getAllActiveUsers() {
         "type": "active_users",
     })
 }
+
+export function changeUserAccess(userId: string, newAccess: Access) {
+    const accesssNumber = accessEnumToAccessNumber(newAccess);
+    WEBSOCKET_CONNECTION.send({
+        "type": "change_user_access",
+        "another_user_id": userId,
+        "new_access": accesssNumber,
+    })
+}

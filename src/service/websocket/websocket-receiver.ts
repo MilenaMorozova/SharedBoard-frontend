@@ -1,7 +1,7 @@
 import { accessNumberToAccessEnum, boardInfoDtoToBoardEntity } from "../../mapper/boardMapper";
 import { boardUserDtoToUserEntity } from "../../mapper/userMapper";
 import { store } from "../../store/store";
-import { setActiveCollaborators, setBoard, setCollaborators, setUser } from "../../workspace/workspaceSlice";
+import { addActiveUser, removeActiveUser, setActiveCollaborators, setBoard, setCollaborators, setUser, updateUser } from "../../workspace/workspaceSlice";
 import WEBSOCKET_CONNECTION from "./websocket-connection";
 
 
@@ -37,7 +37,19 @@ function getActiveUsers({users}: {users: any}) {
     store.dispatch(setActiveCollaborators(activeUsers));
 }
 
-function newUser() {}
+function newActiveUser({user}: {user: any}) {
+    let newUser = boardUserDtoToUserEntity(user);
+    store.dispatch(addActiveUser(newUser));
+}
+
+function remActiveUser({user_id}: {user_id: string}) {
+    store.dispatch(removeActiveUser(user_id));
+}
+
+function changeUserAccess({user}: {user: any}) {
+    let changedUser = boardUserDtoToUserEntity(user);
+    store.dispatch(updateUser(changedUser));
+}
 
 function boardNodes({nodes}: {nodes: Array<PayloadType>}) {}
 
@@ -48,8 +60,10 @@ const MESSAGE_TYPES: {[key: string]: (body: any) => void} = {
     "change_link_access": changeLinkAccess,
     "all_users": getAllUsers,
     "active_users": getActiveUsers,
+    "new_user": newActiveUser,
+    "delete_user": remActiveUser,
+    "change_user_access": changeUserAccess,
 
-    "new_user": newUser,
     "board_nodes": boardNodes,
 }
 

@@ -49,9 +49,13 @@ export const WorkspaceSlice = createSlice({
       state.currentUser = action.payload;
     },
     updateUser: (state: WorkspaceState, { payload }: PayloadAction<User>) => {
-      state.collaborators = state.collaborators.map(
-        participant => (participant.id === payload.id ? payload : participant),
-      );
+      if (state.currentUser.id === payload.id) {
+        state.currentUser = payload;
+      } else {
+        state.collaborators = state.collaborators.map(
+          collaborator => (collaborator.id === payload.id ? payload : collaborator),
+        );
+      }      
     },
 
     setCollaborators: (state: WorkspaceState, action: PayloadAction<Array<User>>) => {
@@ -59,6 +63,12 @@ export const WorkspaceSlice = createSlice({
     },
     setActiveCollaborators: (state: WorkspaceState, action: PayloadAction<Array<User>>) => {
       state.activeCollaborators = action.payload.filter(user => user.id !== state.currentUser.id);
+    },
+    addActiveUser: (state: WorkspaceState, {payload}: PayloadAction<User>) => {
+      state.activeCollaborators = state.activeCollaborators.concat(payload);
+    },
+    removeActiveUser: (state: WorkspaceState, {payload}: PayloadAction<string>) => {
+      state.activeCollaborators = state.activeCollaborators.filter(user => user.id !== payload);
     },
 
     setBoard: (state: WorkspaceState, {payload}: PayloadAction<Board>) => {
@@ -101,8 +111,12 @@ export const WorkspaceSlice = createSlice({
 });
 
 export const {
-  setUser, setCollaborators, setActiveCollaborators, updateUser, setBoard, setBoardName, updateNote, addNote, updateArrows,
-  setSearchText, addSelectedNote, deselectSelectedNotes, deleteSelectedNotes,
+  setUser, updateUser,
+  setCollaborators, setActiveCollaborators, addActiveUser, removeActiveUser,
+  setBoard, setBoardName, 
+  updateNote, addNote, addSelectedNote, deselectSelectedNotes, deleteSelectedNotes,
+  updateArrows,
+  setSearchText, 
 } = WorkspaceSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.workspace.currentUser;
