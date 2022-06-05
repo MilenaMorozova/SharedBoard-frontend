@@ -19,7 +19,6 @@ import { addSelectedNote, selectSearchText, updateNote } from '../../workspaceSl
 function NoteCard(props: {note: Note}) {
   const [expanded, setExpanded] = useState(false);
   const isSelected = useAppSelector(state => state.workspace.selectedNotesIds.has(props.note.id));
-  const blockedNoteIds: Array<string> = [];
 
   const searchText = useAppSelector(selectSearchText);
   const nodeRef = useRef(null);
@@ -39,7 +38,8 @@ function NoteCard(props: {note: Note}) {
 
   const onStop = (event: DraggableEvent) => {
     let mouseEvent = event as MouseEvent;
-    dispatch(updateNote({ ...props.note, posX: mouseEvent.pageX, posY: mouseEvent.pageY }));
+    // TODO problem: descrition can not be expanded
+    // dispatch(updateNote({ ...props.note, posX: mouseEvent.pageX, posY: mouseEvent.pageY }));
   };
 
   const boarderWhenIsSearching = () => {
@@ -77,7 +77,6 @@ function NoteCard(props: {note: Note}) {
 
   return (
     <Draggable
-      disabled={blockedNoteIds.includes(props.note.id)}
       onDrag={onDrag}
       onStop={onStop}
       nodeRef={nodeRef}
