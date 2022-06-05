@@ -3,10 +3,9 @@ import { ReactNode } from 'react';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { IconButtonStyle, ActionPanelStyle } from './style';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { addNote, deleteSelectedNotes } from '../workspaceSlice';
-import Note from '../../entities/note/note';
-import COLORS from '../../colors';
+import { useAppSelector } from '../../store/hooks';
+import { createNote, removeNote } from '../../service/websocket/websocket-sender';
+import { store } from '../../store/store';
 
 
 function ActionIconButton(props: {icon: ReactNode, onClick: () => void, disabled?: boolean}) {
@@ -27,27 +26,13 @@ ActionIconButton.defaultProps = {
 
 function ActionPanel() {
   const hasSelectedNotes = useAppSelector(state => state.workspace.selectedNotesIds.size > 0);
-  const dispatch = useAppDispatch();
 
   const onDelete = () => {
-    dispatch(deleteSelectedNotes());
+    store.getState().workspace.selectedNotesIds.forEach(removeNote);
   };
 
   const onCreate = () => {
-    const mockNote: Note = {
-      id: '51',
-      title: 'New task',
-      tag: 'patsvr-59',
-      description: 'no description',
-      color: COLORS.CHIP_LABEL_YELLOW,
-      created: new Date(),
-      updated: new Date(),
-      posX: 200,
-      posY: 200,
-      refTag: '',
-    };
-
-    dispatch(addNote(mockNote));
+    createNote();
   };
 
   return (

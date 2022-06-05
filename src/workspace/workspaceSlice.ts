@@ -102,10 +102,12 @@ export const WorkspaceSlice = createSlice({
     deselectSelectedNotes: (state: WorkspaceState) => {
       state.selectedNotesIds = new Set();
     },
-    deleteSelectedNotes: (state: WorkspaceState) => {
-      state.notes = state.notes.filter(note => !state.selectedNotesIds.has(note.id));
+    deleteSelectedNote: (state: WorkspaceState, {payload}: PayloadAction<string>) => {
+      state.notes = state.notes.filter(note => note.id !== payload);
       state.arrows = createArrowDict(state.notes);
-      state.selectedNotesIds = new Set();
+      if (state.selectedNotesIds.delete(payload)) {
+        state.selectedNotesIds = new Set(state.selectedNotesIds);
+      }
     },
   },
 });
@@ -114,7 +116,7 @@ export const {
   setUser, updateUser,
   setCollaborators, setActiveCollaborators, addActiveUser, removeActiveUser,
   setBoard, setBoardName, 
-  updateNote, addNote, addSelectedNote, deselectSelectedNotes, deleteSelectedNotes,
+  updateNote, setNotes, addNote, addSelectedNote, deselectSelectedNotes, deleteSelectedNote,
   updateArrows,
   setSearchText, 
 } = WorkspaceSlice.actions;

@@ -10,6 +10,7 @@ interface Note {
   posY: number,
 
   refTag: string,
+  blockedBy: string | null,
 }
 
 export default Note;

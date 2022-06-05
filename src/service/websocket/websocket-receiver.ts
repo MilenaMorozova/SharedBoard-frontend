@@ -1,7 +1,10 @@
 import { accessNumberToAccessEnum, boardInfoDtoToBoardEntity } from "../../mapper/boardMapper";
+import { noteDtoToNoteEntity } from "../../mapper/noteMapper";
 import { boardUserDtoToUserEntity } from "../../mapper/userMapper";
 import { store } from "../../store/store";
-import { addActiveUser, removeActiveUser, setActiveCollaborators, setBoard, setCollaborators, setUser, updateUser } from "../../workspace/workspaceSlice";
+import { addActiveUser, addNote, deleteSelectedNote, removeActiveUser, 
+    setActiveCollaborators, setBoard, setCollaborators, 
+    setNotes, setUser, updateNote, updateUser } from "../../workspace/workspaceSlice";
 import WEBSOCKET_CONNECTION from "./websocket-connection";
 
 
@@ -51,7 +54,24 @@ function changeUserAccess({user}: {user: any}) {
     store.dispatch(updateUser(changedUser));
 }
 
-function boardNodes({nodes}: {nodes: Array<PayloadType>}) {}
+function newNote({node}: {node: PayloadType}) {
+    const newNote = noteDtoToNoteEntity(node);
+    store.dispatch(addNote(newNote));
+}
+
+function boardNodes({nodes}: {nodes: Array<PayloadType>}) {
+    const boardNotes = nodes.map(note => noteDtoToNoteEntity(note));
+    store.dispatch(setNotes(boardNotes))
+}
+
+function getRemovedNote({node_id}: {node_id: string}) {
+    store.dispatch(deleteSelectedNote(node_id));
+}
+
+function getNoteChanges({node}: {node: PayloadType}) {
+    const updatedNote = noteDtoToNoteEntity(node);
+    store.dispatch(updateNote(updatedNote));
+}
 
 const MESSAGE_TYPES: {[key: string]: (body: any) => void} = {
     "channel_name": channelName,
@@ -64,6 +84,9 @@ const MESSAGE_TYPES: {[key: string]: (body: any) => void} = {
     "delete_user": remActiveUser,
     "change_user_access": changeUserAccess,
     "change_board_config": boardInfo,
+    "node_created": newNote,
+    "node_deleted": getRemovedNote,
+    "node_changed": getNoteChanges,
 
     "board_nodes": boardNodes,
 }

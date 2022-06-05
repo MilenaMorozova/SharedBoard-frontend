@@ -2,7 +2,9 @@ import { MouseEvent } from 'react';
 import { Xwrapper } from 'react-xarrows';
 import BoardType from '../../entities/board/board-type';
 import Note from '../../entities/note/note';
+import { enableNoteForOthers } from '../../service/websocket/websocket-sender';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { store } from '../../store/store';
 import ActionPanel from '../action-panel/action-panel';
 import WorkspaceAppBar from '../app-bar/app-bar';
 import { deselectSelectedNotes, selectArrows, selectNotes } from '../workspaceSlice';
@@ -20,6 +22,7 @@ function NotesWorkspace() {
   const onClickBackground = (event: MouseEvent<HTMLDivElement>) => {
     let element = event.target as HTMLElement;
     if (element.id === 'NotesWorkspace_board') {
+      store.getState().workspace.selectedNotesIds.forEach(enableNoteForOthers);
       dispatch(deselectSelectedNotes());
     }
   };
@@ -36,6 +39,7 @@ function NotesWorkspace() {
         <WorkspaceAppBar
           placeholder="search note by tag"
           boardType={BoardType.NOTES}
+          key="appbar"
         />
       </div>
       <div 

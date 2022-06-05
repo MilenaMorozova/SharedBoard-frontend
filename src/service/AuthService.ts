@@ -39,6 +39,7 @@ class AuthService {
       .then(response => response.json())
       .then(jsonResponse => {
         this.setTokensToLocalStorage(jsonResponse.access, jsonResponse.refresh);
+        return jsonResponse;
       })
       .catch(error => {
         this.removeTokensFromLocalStorage();

@@ -14,11 +14,21 @@ import TopNoteCard from './top-note-card';
 import Reference from './reference-to-note';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { addSelectedNote, selectSearchText, updateNote } from '../../workspaceSlice';
+import { disableNoteForOthers, enableNoteForOthers } from '../../../service/websocket/websocket-sender';
+import React from 'react';
 
+type propsType = {note: Note};
 
-function NoteCard(props: {note: Note}) {
+function areEqual(prevProps: propsType, nextProps: propsType){
+  const res = prevProps.note.posX === nextProps.note.posX && prevProps.note.posY === nextProps.note.posY ;
+  return res;
+}
+
+const NoteCard = React.memo(function NoteCard(props: propsType) {
+  console.log(props.note.tag)
   const [expanded, setExpanded] = useState(false);
   const isSelected = useAppSelector(state => state.workspace.selectedNotesIds.has(props.note.id));
+  const currentUserId = useAppSelector(state => state.workspace.currentUser.id);
 
   const searchText = useAppSelector(selectSearchText);
   const nodeRef = useRef(null);
@@ -32,15 +42,39 @@ function NoteCard(props: {note: Note}) {
     dispatch(updateNote({ ...props.note, description }));
   };
 
+  const onStart = () => {
+    disableNoteForOthers(props.note.id);
+  }
+
   const onDrag = (event: DraggableEvent) => {
+    let mouseEvent = event as MouseEvent;
+    dispatch(updateNote({ ...props.note, posX: mouseEvent.pageX, posY: mouseEvent.pageY }));
     updateXarrow();
   };
 
   const onStop = (event: DraggableEvent) => {
     let mouseEvent = event as MouseEvent;
+    enableNoteForOthers(props.note.id);
     // TODO problem: descrition can not be expanded
     // dispatch(updateNote({ ...props.note, posX: mouseEvent.pageX, posY: mouseEvent.pageY }));
   };
+
+  const setDisabledNote = () => {
+    if (props.note.blockedBy === null) {
+      return false;
+    }
+    if (props.note.blockedBy !== currentUserId) {
+      return true;
+    }
+    return false;
+  }
+
+  const onSelectNote = () => {
+    if (props.note.blockedBy === null) {
+      dispatch(addSelectedNote(props.note.id));
+      disableNoteForOthers(props.note.id);
+    }
+  }
 
   const boarderWhenIsSearching = () => {
     if (props.note.tag.startsWith(searchText) && searchText.length) {
@@ -77,8 +111,11 @@ function NoteCard(props: {note: Note}) {
 
   return (
     <Draggable
+      disabled={setDisabledNote()}
+      onStart={onStart}
       onDrag={onDrag}
       onStop={onStop}
+      position={{x: props.note.posX, y: props.note.posY}}
       nodeRef={nodeRef}
       bounds="parent"
     >
@@ -86,7 +123,7 @@ function NoteCard(props: {note: Note}) {
         id={props.note.tag}
         style={{ ...NoteCardStyle, ...boarderWhenIsSearching(), ...borderWhenIsSelected() }}
         ref={nodeRef}
-        onDoubleClick={() => { dispatch(addSelectedNote(props.note.id)); }}
+        onDoubleClick={onSelectNote}
       >
         <div style={{
           ...StripeStyle, backgroundColor: props.note.color,
@@ -118,6 +155,6 @@ function NoteCard(props: {note: Note}) {
       </div>
     </Draggable>
   );
-}
+}, areEqual)
 
 export default NoteCard;

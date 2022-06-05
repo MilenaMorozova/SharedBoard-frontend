@@ -1,5 +1,7 @@
+import Note from "../../entities/note/note";
 import Access from "../../entities/user/access";
 import { accessEnumToAccessNumber } from "../../mapper/boardMapper";
+import { noteEntityToNoteDto } from "../../mapper/noteMapper";
 import WEBSOCKET_CONNECTION from "./websocket-connection";
 
 
@@ -37,6 +39,49 @@ export function changeBoardName(newBoardName: string) {
         "type": "change_board_config",
         "config": {
             "name": newBoardName,
+        }
+    })
+}
+
+export function createNote() {
+    WEBSOCKET_CONNECTION.send({
+        "type": "create_node",
+    })
+}
+
+export function getAllNotes() {
+    WEBSOCKET_CONNECTION.send({
+        "type": "board_nodes",
+    })
+}
+
+export function disableNoteForOthers(noteId: string) {
+    WEBSOCKET_CONNECTION.send({
+        "type": "start_changing_node",
+        "node_id": noteId
+    })
+}
+
+export function enableNoteForOthers(noteId: string) {
+    WEBSOCKET_CONNECTION.send({
+        "type": "stop_changing_node",
+        "node_id": noteId
+    })
+}
+
+export function removeNote(noteId: string) {
+    WEBSOCKET_CONNECTION.send({
+        "type": "delete_node",
+        "node_id": noteId
+    })
+}
+
+export function changeNote(changedNote: Note) {
+    const nodeDto = noteEntityToNoteDto(changedNote);
+    WEBSOCKET_CONNECTION.send({
+        "type": "changing_node",
+        "node": {
+            nodeDto
         }
     })
 }
