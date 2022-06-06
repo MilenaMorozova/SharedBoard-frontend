@@ -5,7 +5,7 @@ export const AccessSelectStyle = {
   color: COLORS.TEXT_GRAY,
   ...FONTS.BODY,
   paddingTop: '6px',
-  marginLeft: "10px"
+  marginLeft: '10px',
 };
 
 export const AccessFormControlStyle = {

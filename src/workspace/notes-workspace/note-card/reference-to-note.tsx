@@ -18,8 +18,8 @@ function Reference(props: {note: Note}) {
   const onSave = () => {
     const { notes } = store.getState().workspace;
     dispatch(updateArrows());
-    
-    changeNote({...props.note})
+
+    changeNote({ ...props.note });
     enableNoteForOthers(props.note.id);
 
     if (props.note.refTag === '') {
@@ -32,15 +32,13 @@ function Reference(props: {note: Note}) {
 
   const onStartEditing = () => {
     disableNoteForOthers(props.note.id);
-  }
+  };
 
   const onUpdateTag = (refTag: string) => {
     dispatch(updateNote({ ...props.note, refTag }));
   };
 
-  const setDisabledRef = () => {
-    return setDisableElement(props.note, currentUser);
-  }
+  const setDisabledRef = () => setDisableElement(props.note, currentUser);
 
   return (
     <div style={ReferenceStyle}>

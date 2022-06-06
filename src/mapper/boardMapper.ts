@@ -1,8 +1,9 @@
+/* eslint-disable camelcase */
 import Board, { newBoard } from '../entities/board/board';
 import BoardType from '../entities/board/board-type';
 import TableBoardItem, { newTableBoardItem } from '../entities/board/table-board-item';
 import Access from '../entities/user/access';
-import {userDtoToUserEntity} from './userMapper';
+import { userDtoToUserEntity } from './userMapper';
 
 
 const AccessArray: Array<Access> = [Access.VIEWER, Access.EDITOR, Access.OWNER];
@@ -33,12 +34,12 @@ export function boardDtoToTableBoardEntity(boardDto: {[key: string]: any}): Tabl
 }
 
 export function boardInfoDtoToBoardEntity(boardInfoDto: {[key: string]: unknown}): Board {
-  const {board_type, link_access, ...commonBoardInfo} = boardInfoDto;
+  const { board_type, link_access, ...commonBoardInfo } = boardInfoDto;
 
   return {
     ...newBoard(),
     ...commonBoardInfo,
     type: board_type as BoardType,
     linkAccess: accessNumberToAccessEnum(link_access as number),
-  }
+  };
 }

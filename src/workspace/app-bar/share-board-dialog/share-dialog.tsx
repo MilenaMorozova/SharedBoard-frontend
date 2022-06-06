@@ -23,11 +23,9 @@ function AccessToBoardDialog(props: AccessToBoardDialogProps) {
   const linkAccess = useAppSelector(state => state.workspace.board.linkAccess);
   const setLinkAccess = (access: Access) => {
     changeLinkAccess(access);
-  }
+  };
 
-  const setAccessDisabled = () => {
-    return currentUser.access !== Access.OWNER;
-  }
+  const setAccessDisabled = () => currentUser.access !== Access.OWNER;
 
   return (
     <Dialog
@@ -41,10 +39,9 @@ function AccessToBoardDialog(props: AccessToBoardDialogProps) {
         <BoardTextField
           placeholder="Link"
           value={window.location.href}
-          onChange={() => {}}
           sx={{ width: '100%' }}
-          InputProps={{ 
-            endAdornment: <AccessSelect value={linkAccess} onChange={setLinkAccess} disabled={setAccessDisabled()}/> 
+          InputProps={{
+            endAdornment: <AccessSelect value={linkAccess} onChange={setLinkAccess} disabled={setAccessDisabled()} />,
           }}
         />
         <Scrollbars

@@ -42,5 +42,8 @@ module.exports = {
       'jsx-a11y/click-events-have-key-events': 0,
       'max-classes-per-file': 0,
       'class-methods-use-this': 0,
+      '@typescript-eslint/no-explicit-any': 0,
+      'no-useless-escape': 0,
+      '@typescript-eslint/no-non-null-assertion': 0
     }
   };

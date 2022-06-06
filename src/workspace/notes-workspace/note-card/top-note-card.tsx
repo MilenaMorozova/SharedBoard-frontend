@@ -22,16 +22,14 @@ function TopNoteCard(props: {note: Note}) {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(state => state.workspace.currentUser);
 
-  const setDisabledTitle = () => {
-    return setDisableElement(props.note, currentUser);
-  }
+  const setDisabledTitle = () => setDisableElement(props.note, currentUser);
 
   const onStartEditTitle = () => {
     disableNoteForOthers(props.note.id);
-  }
+  };
 
   const onSaveTitle = () => {
-    changeNote({...props.note})
+    changeNote({ ...props.note });
     enableNoteForOthers(props.note.id);
   };
 

@@ -22,7 +22,7 @@ export function notesAreEqual(note1: Note, note2: Note): boolean {
     && note1.posY === note2.posY
     && note1.refTag === note2.refTag
     && note1.blockedBy === note2.blockedBy
-  )
+  );
 }
 
 export default Note;

@@ -12,9 +12,9 @@ class UrlParamUtils {
 
   getFileToken(): string {
     const { href } = window.location;
-    const groupName = "fileToken";
+    const groupName = 'fileToken';
     const matchResult = href.match(`\/board\/(?<${groupName}>.*)`);
-    return matchResult!.groups!["fileToken"];
+    return matchResult!.groups!.fileToken;
   }
 }
 

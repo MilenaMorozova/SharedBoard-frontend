@@ -13,20 +13,22 @@ function Workspace() {
     if (!WEBSOCKET_CONNECTION.isConnect) {
       WEBSOCKET_CONNECTION.connect();
     }
-  }, [])
+  }, []);
 
   function WorkspaceContent() {
-    switch(currentBoardType) {
+    switch (currentBoardType) {
       case BoardType.KANBAN:
-        return <></>
+        return <></>;
       case BoardType.NOTES:
-        return <NotesWorkspace />
+        return <NotesWorkspace />;
+      default:
+        throw Error(`Unhandled BoardType ${currentBoardType}`);
     }
   }
 
   return (
     <div id="Workspace_div" style={WorkspaceStyle}>
-      <WorkspaceContent/>
+      <WorkspaceContent />
     </div>
   );
 }

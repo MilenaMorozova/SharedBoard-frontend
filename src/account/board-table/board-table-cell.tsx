@@ -1,5 +1,5 @@
 import { TableCell, TableCellProps } from '@mui/material';
-import { MouseEventHandler, SyntheticEvent } from 'react';
+import { SyntheticEvent } from 'react';
 import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 import { ErrorButton, SecondaryButton } from '../../custom-mui-components/button/secondary/secondary-button';
 import TableBoardItem from '../../entities/board/table-board-item';

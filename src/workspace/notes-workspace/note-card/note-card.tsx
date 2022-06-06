@@ -1,7 +1,7 @@
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import { Button, Collapse } from '@mui/material';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 import { useXarrow } from 'react-xarrows';
 import Note, { notesAreEqual } from '../../../entities/note/note';
@@ -16,7 +16,7 @@ import Reference from './reference-to-note';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { addSelectedNote, selectSearchText, updateNote } from '../../workspaceSlice';
 import { changeNote, disableNoteForOthers, enableNoteForOthers } from '../../../service/websocket/websocket-sender';
-import React from 'react';
+
 import Avatar from '../../../custom-mui-components/avatar/avatar';
 import { store } from '../../../store/store';
 import Access from '../../../entities/user/access';
@@ -26,7 +26,7 @@ import User from '../../../entities/user/user';
 let lastSendedMessageTime: Date = new Date();
 type propsType = {note: Note};
 
-function areEqual(prevProps: propsType, nextProps: propsType){
+function areEqual(prevProps: propsType, nextProps: propsType) {
   const res = notesAreEqual(prevProps.note, nextProps.note);
   return res;
 }
@@ -44,7 +44,7 @@ export function setDisableElement(note: Note, currentUser: User): boolean {
   return false;
 }
 
-const NoteCard = React.memo(function NoteCard(props: propsType) {
+const NoteCard = React.memo((props: propsType) => {
   const [expanded, setExpanded] = useState(false);
   const isSelected = useAppSelector(state => state.workspace.selectedNotesIds.has(props.note.id));
   const currentUser = useAppSelector(state => state.workspace.currentUser);
@@ -60,49 +60,46 @@ const NoteCard = React.memo(function NoteCard(props: propsType) {
   };
 
   const onSaveDescription = () => {
-    changeNote({...props.note})
+    changeNote({ ...props.note });
     enableNoteForOthers(props.note.id);
-  }
+  };
 
   const onStartEditDescription = () => {
     disableNoteForOthers(props.note.id);
-  }
+  };
 
   const onStart = () => {
     disableNoteForOthers(props.note.id);
-  }
+  };
 
   const onDrag = (event: DraggableEvent, data: DraggableData) => {
-    const newNote = { 
-      ...props.note, 
-      posX: data.x, 
-      posY: data.y, 
+    const newNote = {
+      ...props.note,
+      posX: data.x,
+      posY: data.y,
     };
     dispatch(updateNote(newNote));
     updateXarrow();
 
     const currentTime = new Date();
-    if ((+currentTime - +lastSendedMessageTime) > 1000/30) {
+    if ((+currentTime - +lastSendedMessageTime) > 1000 / 30) {
       changeNote(newNote);
       lastSendedMessageTime = new Date();
     }
-    
   };
 
-  const onStop = (event: DraggableEvent) => {
+  const onStop = () => {
     enableNoteForOthers(props.note.id);
   };
 
-  const setDisabledNote = () => {
-    return setDisableElement(props.note, currentUser);
-  }
+  const setDisabledNote = () => setDisableElement(props.note, currentUser);
 
   const onSelectNote = () => {
     if (props.note.blockedBy === null) {
       dispatch(addSelectedNote(props.note.id));
       disableNoteForOthers(props.note.id);
     }
-  }
+  };
 
   const boarderWhenIsSearching = () => {
     if (props.note.tag.startsWith(searchText) && searchText.length) {
@@ -142,64 +139,64 @@ const NoteCard = React.memo(function NoteCard(props: propsType) {
       return null;
     }
     const anotherUser = store.getState().workspace.activeCollaborators.find(
-      collaborator => collaborator.id === props.note.blockedBy
-    )
+      collaborator => collaborator.id === props.note.blockedBy,
+    );
     if (anotherUser === undefined) {
       return null;
     }
-    return <Avatar user={anotherUser} style={AvatarStyle}/>
+    return <Avatar user={anotherUser} style={AvatarStyle} />;
   }
 
   return (
-      <Draggable
-        key={`Draggable ${props.note.id}`}
-        disabled={setDisabledNote()}
-        onStart={onStart}
-        onDrag={onDrag}
-        onStop={onStop}
-        position={{x: props.note.posX, y: props.note.posY}}
-        nodeRef={nodeRef}
-        bounds="parent"
+    <Draggable
+      key={`Draggable ${props.note.id}`}
+      disabled={setDisabledNote()}
+      onStart={onStart}
+      onDrag={onDrag}
+      onStop={onStop}
+      position={{ x: props.note.posX, y: props.note.posY }}
+      nodeRef={nodeRef}
+      bounds="parent"
+    >
+      <div
+        id={props.note.tag}
+        style={{ ...NoteCardStyle, ...boarderWhenIsSearching(), ...borderWhenIsSelected() }}
+        ref={nodeRef}
+        onDoubleClick={onSelectNote}
       >
-        <div
-          id={props.note.tag}
-          style={{ ...NoteCardStyle, ...boarderWhenIsSearching(), ...borderWhenIsSelected() }}
-          ref={nodeRef}
-          onDoubleClick={onSelectNote}
+        <UserAvatarWhoBlockingNote />
+        <div style={{
+          ...StripeStyle, backgroundColor: props.note.color,
+        }}
+        />
+        <div style={{
+          ...NoteContentStyle, borderColor: CardColorStyle[props.note.color],
+        }}
         >
-          <UserAvatarWhoBlockingNote/>
-          <div style={{
-            ...StripeStyle, backgroundColor: props.note.color,
-          }}
-          />
-          <div style={{
-            ...NoteContentStyle, borderColor: CardColorStyle[props.note.color],
-          }}
+          <TopNoteCard note={props.note} />
+          <Reference note={props.note} />
+          <ExpandButton />
+          <Collapse
+            in={expanded}
+            timeout="auto"
+            unmountOnExit
+            sx={DescriptionBlockStyle}
           >
-            <TopNoteCard note={props.note} />
-            <Reference note={props.note} />
-            <ExpandButton />
-            <Collapse
-              in={expanded}
-              timeout="auto"
-              unmountOnExit
-              sx={DescriptionBlockStyle}
-            >
-              <EditableText
-                value={props.note.description}
-                setValue={onUpdateDescription}
-                textStyle={DescriptionBlockStyle}
-                onStartEdit={onStartEditDescription}
-                disabled={setDisabledNote()}
-                width="100%"
-                multiline
-                onSave={onSaveDescription}
-              />
-            </Collapse>
-          </div>
+            <EditableText
+              value={props.note.description}
+              setValue={onUpdateDescription}
+              textStyle={DescriptionBlockStyle}
+              onStartEdit={onStartEditDescription}
+              disabled={setDisabledNote()}
+              width="100%"
+              multiline
+              onSave={onSaveDescription}
+            />
+          </Collapse>
         </div>
-      </Draggable>
+      </div>
+    </Draggable>
   );
-}, areEqual)
+}, areEqual);
 
 export default NoteCard;

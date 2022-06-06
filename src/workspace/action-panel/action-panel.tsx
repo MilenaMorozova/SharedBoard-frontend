@@ -29,9 +29,7 @@ function ActionPanel() {
   const hasSelectedNotes = useAppSelector(state => state.workspace.selectedNotesIds.size > 0);
   const currentUserAccess = useAppSelector(state => state.workspace.currentUser.access);
 
-  const setDisabledButtons = () => {
-    return currentUserAccess === Access.VIEWER;
-  }
+  const setDisabledButtons = () => currentUserAccess === Access.VIEWER;
 
   const onDelete = () => {
     store.getState().workspace.selectedNotesIds.forEach(removeNote);

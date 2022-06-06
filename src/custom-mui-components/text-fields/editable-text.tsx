@@ -1,7 +1,5 @@
 import { Input } from '@mui/material';
 import { CSSProperties, useState } from 'react';
-import { changeNote } from '../../service/websocket/websocket-sender';
-import { store } from '../../store/store';
 
 
 type EditableTextProps = {
@@ -13,7 +11,7 @@ type EditableTextProps = {
     multiline?: boolean,
     disabled?: boolean,
     onSave: () => void,
-    onStartEdit: () => void,
+    onStartEdit?: () => void,
 }
 
 function EditableText(props: EditableTextProps) {
@@ -25,9 +23,9 @@ function EditableText(props: EditableTextProps) {
   };
 
   const getValue = (text: string) => {
-    const value = props.getValue(text)
-    return value.trim() === ''? "None" : value
-  }
+    const value = props.getValue(text);
+    return value.trim() === '' ? 'None' : value;
+  };
 
   return toggle ? (
     <span
@@ -68,7 +66,7 @@ EditableText.defaultProps = {
   getValue: (text: string) => text,
   multiline: false,
   disabled: false,
-  onStartEdit: () => {},
+  onStartEdit: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
 };
 
 export default EditableText;

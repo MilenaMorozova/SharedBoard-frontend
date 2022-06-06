@@ -9,7 +9,7 @@ interface WorkspaceState {
   board: Board,
   currentUser: User,
   collaborators: Array<User>,
-  activeCollaborators: Array<User>,  
+  activeCollaborators: Array<User>,
 
   notes: Array<Note>,
   arrows: Map<string, string>,
@@ -55,7 +55,7 @@ export const WorkspaceSlice = createSlice({
         state.collaborators = state.collaborators.map(
           collaborator => (collaborator.id === payload.id ? payload : collaborator),
         );
-      }      
+      }
     },
 
     setCollaborators: (state: WorkspaceState, action: PayloadAction<Array<User>>) => {
@@ -64,16 +64,16 @@ export const WorkspaceSlice = createSlice({
     setActiveCollaborators: (state: WorkspaceState, action: PayloadAction<Array<User>>) => {
       state.activeCollaborators = action.payload.filter(user => user.id !== state.currentUser.id);
     },
-    addActiveUser: (state: WorkspaceState, {payload}: PayloadAction<User>) => {
+    addActiveUser: (state: WorkspaceState, { payload }: PayloadAction<User>) => {
       if (!state.activeCollaborators.includes(payload)) {
         state.activeCollaborators = state.activeCollaborators.concat(payload);
       }
     },
-    removeActiveUser: (state: WorkspaceState, {payload}: PayloadAction<string>) => {
+    removeActiveUser: (state: WorkspaceState, { payload }: PayloadAction<string>) => {
       state.activeCollaborators = state.activeCollaborators.filter(user => user.id !== payload);
     },
 
-    setBoard: (state: WorkspaceState, {payload}: PayloadAction<Board>) => {
+    setBoard: (state: WorkspaceState, { payload }: PayloadAction<Board>) => {
       state.board = payload;
     },
     setBoardName: (state: WorkspaceState, { payload }: PayloadAction<string>) => {
@@ -87,16 +87,15 @@ export const WorkspaceSlice = createSlice({
     updateNote: (state: WorkspaceState, { payload }: PayloadAction<Note>) => {
       let shouldUpdateArrows = false;
       state.notes = state.notes.map((note) => {
-        if (note.id !== payload.id)
-          return note;
-        
-        if (note.refTag !== payload.refTag){
+        if (note.id !== payload.id) return note;
+
+        if (note.refTag !== payload.refTag) {
           shouldUpdateArrows = true;
         }
         return payload;
       });
-      
-      if(shouldUpdateArrows){
+
+      if (shouldUpdateArrows) {
         state.arrows = createArrowDict(state.notes);
       }
     },
@@ -117,7 +116,7 @@ export const WorkspaceSlice = createSlice({
     deselectSelectedNotes: (state: WorkspaceState) => {
       state.selectedNotesIds = new Set();
     },
-    deleteSelectedNote: (state: WorkspaceState, {payload}: PayloadAction<string>) => {
+    deleteSelectedNote: (state: WorkspaceState, { payload }: PayloadAction<string>) => {
       state.notes = state.notes.filter(note => note.id !== payload);
       state.arrows = createArrowDict(state.notes);
       if (state.selectedNotesIds.delete(payload)) {
@@ -130,10 +129,10 @@ export const WorkspaceSlice = createSlice({
 export const {
   setUser, updateUser,
   setCollaborators, setActiveCollaborators, addActiveUser, removeActiveUser,
-  setBoard, setBoardName, 
+  setBoard, setBoardName,
   updateNote, setNotes, addNote, addSelectedNote, deselectSelectedNotes, deleteSelectedNote,
   updateArrows,
-  setSearchText, 
+  setSearchText,
 } = WorkspaceSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.workspace.currentUser;

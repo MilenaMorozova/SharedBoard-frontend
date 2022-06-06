@@ -52,8 +52,8 @@ export const ReferenceStyle = {
 };
 
 export const AvatarStyle = {
-  "position": "absolute" as "absolute", 
-  "top": -30, 
-  "width": "25px", 
-  "height": "25px"
-}
+  position: 'absolute' as 'absolute',
+  top: -30,
+  width: '25px',
+  height: '25px',
+};

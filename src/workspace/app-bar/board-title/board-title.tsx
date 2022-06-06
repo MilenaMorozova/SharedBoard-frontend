@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import BoardIcon from '../../../custom-mui-components/icon/board-icon';
 import EditableText from '../../../custom-mui-components/text-fields/editable-text';
 import BoardType from '../../../entities/board/board-type';
@@ -23,11 +22,9 @@ function BoardTitle(props: BoardTitleProps) {
 
   const setValue = (name: string) => {
     dispatch(setBoardName(name));
-  }
+  };
 
-  const setDisabled = () => {
-    return currentUserAccess === Access.VIEWER;
-  }
+  const setDisabled = () => currentUserAccess === Access.VIEWER;
 
   const getValue = (text: string) => {
     if (text.length > 9) {

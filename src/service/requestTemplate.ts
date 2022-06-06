@@ -40,7 +40,7 @@ function handleUnathorizedResponse(originalMethod: () => Promise<Response>) {
     .catch(async error => {
       if (error.status === 401) {
         if (refreshResponse === null) {
-          refreshResponse = AUTH_SERVICE.refreshToken()
+          refreshResponse = AUTH_SERVICE.refreshToken();
         }
         await refreshResponse;
         refreshResponse = null;

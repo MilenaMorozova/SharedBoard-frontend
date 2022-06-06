@@ -70,7 +70,7 @@ class AccountService {
   getBoardUrl(boardId: string) {
     return authPost(
       ServerRoute.OPEN_BOARD_URL,
-      JSON.stringify({board_id: boardId})
+      JSON.stringify({ board_id: boardId }),
     );
   }
 }

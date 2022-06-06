@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import BoardTitle from './board-title/board-title';
 import {
   AppBarStyle, LeftSideStyle, RightSideStyle, SearchFieldStyle, ShareBoardButtonStyle,
@@ -11,7 +11,6 @@ import BoardButton from '../../custom-mui-components/button/button';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentUser, setSearchText } from '../workspaceSlice';
 import AccessToBoardDialog from './share-board-dialog/share-dialog';
-import React from 'react';
 
 
 type WorkspaceAppBarProps = {
@@ -19,12 +18,12 @@ type WorkspaceAppBarProps = {
     placeholder: string,
 }
 
-function areEqual(prevProps: WorkspaceAppBarProps, nextProps: WorkspaceAppBarProps){
+function areEqual(prevProps: WorkspaceAppBarProps, nextProps: WorkspaceAppBarProps) {
   const res = prevProps.boardType === nextProps.boardType && prevProps.placeholder === nextProps.placeholder;
   return res;
 }
 
-const WorkspaceAppBar = React.memo(function WorkspaceAppBar(props: WorkspaceAppBarProps) {
+const WorkspaceAppBar = React.memo((props: WorkspaceAppBarProps) => {
   const [isSharingBoard, setSharingBoard] = useState(false);
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
@@ -65,6 +64,6 @@ const WorkspaceAppBar = React.memo(function WorkspaceAppBar(props: WorkspaceAppB
       />
     </div>
   );
-}, areEqual)
+}, areEqual);
 
 export default WorkspaceAppBar;

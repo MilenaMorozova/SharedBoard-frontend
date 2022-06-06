@@ -41,10 +41,11 @@ function NotesWorkspace() {
           boardType={BoardType.NOTES}
         />
       </div>
-      <div 
-        id="NotesWorkspace_board" 
+      <div
+        id="NotesWorkspace_board"
         onClick={onClickBackground}
         style={FullScreenStyle}
+        role="note"
       >
         <ActionPanel />
         <Xwrapper>

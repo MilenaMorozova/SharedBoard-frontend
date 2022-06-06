@@ -16,9 +16,7 @@ function ParticipantRow(props: {user: User, isCurrentUser?: boolean}) {
     changeUserAccess(props.user.id, access);
   };
 
-  const setAccessDisabled = () => {
-    return currentUserAccess !== Access.OWNER;
-  }
+  const setAccessDisabled = () => currentUserAccess !== Access.OWNER;
 
   return (
     <div style={ParticipantRowStyle}>

@@ -4,8 +4,8 @@ import { AccessFormControlStyle, AccessSelectStyle, MenuItemStyle } from './styl
 
 
 type AccessSelectProps = {
-  value: Access, 
-  onChange: (access: Access) => void, 
+  value: Access,
+  onChange: (access: Access) => void,
   disabled?: boolean,
 }
 
@@ -22,19 +22,19 @@ function AccessSelect(props: AccessSelectProps) {
         displayEmpty
         disableUnderline
       >
-      <MenuItem sx={MenuItemStyle} value={Access.VIEWER}>
-        {Access.VIEWER}
-      </MenuItem>
-      <MenuItem sx={MenuItemStyle} value={Access.EDITOR}>
-        {Access.EDITOR}
-      </MenuItem>
-      { props.value === Access.OWNER ? (
-        <MenuItem sx={MenuItemStyle} value={Access.OWNER}>
-          {Access.OWNER}
-        </MenuItem>        
-      ) : (
-        null
-      )}
+        <MenuItem sx={MenuItemStyle} value={Access.VIEWER}>
+          {Access.VIEWER}
+        </MenuItem>
+        <MenuItem sx={MenuItemStyle} value={Access.EDITOR}>
+          {Access.EDITOR}
+        </MenuItem>
+        { props.value === Access.OWNER ? (
+          <MenuItem sx={MenuItemStyle} value={Access.OWNER}>
+            {Access.OWNER}
+          </MenuItem>
+        ) : (
+          null
+        )}
       </Select>
     </FormControl>
   );

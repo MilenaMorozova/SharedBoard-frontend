@@ -22,8 +22,8 @@ function BoardTable() {
 
     const onOpenBoard = (boardId: string) => {
       ACCOUNT_CONTROLLER.getBoardUrl(boardId)
-      .then((link) => navigate(link))
-    }
+        .then((link) => navigate(link));
+    };
 
     if (userBoards.length === 0) {
       content = (
@@ -33,7 +33,7 @@ function BoardTable() {
       );
     } else {
       content = userBoards.map((board) => (
-        <TableRow hover key={board.id} onClick={()=> onOpenBoard(board.id)}>
+        <TableRow hover key={board.id} onClick={() => onOpenBoard(board.id)}>
           <CustomTableCell>
             <BoardTypeChip boardType={board.type} />
           </CustomTableCell>

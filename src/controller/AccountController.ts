@@ -3,8 +3,8 @@ import {
 } from '../account/accountSlice';
 import BoardType from '../entities/board/board-type';
 import TableBoardItem from '../entities/board/table-board-item';
-import {boardDtoToTableBoardEntity} from '../mapper/boardMapper';
-import {userDtoToUserEntity} from '../mapper/userMapper';
+import { boardDtoToTableBoardEntity } from '../mapper/boardMapper';
+import { userDtoToUserEntity } from '../mapper/userMapper';
 import ACCOUNT_SERVICE from '../service/AccountService';
 import AUTH_SERVICE from '../service/AuthService';
 import { store } from '../store/store';
@@ -64,7 +64,7 @@ class AccountController {
 
   getBoardUrl(boardId: string) {
     return ACCOUNT_SERVICE.getBoardUrl(boardId)
-    .then(response => response.text());
+      .then(response => response.text());
   }
 }
 

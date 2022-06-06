@@ -41,7 +41,7 @@ class AuthService {
         this.setTokensToLocalStorage(jsonResponse.access, jsonResponse.refresh);
         return jsonResponse;
       })
-      .catch(error => {
+      .catch(() => {
         this.removeTokensFromLocalStorage();
         this.openLogin();
       });
