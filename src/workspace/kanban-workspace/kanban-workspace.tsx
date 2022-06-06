@@ -1,17 +1,21 @@
 import { MouseEvent } from 'react';
+import WORKSPACE_CONTROLLER from '../../controller/WorkspaceController';
 import BoardType from '../../entities/board/board-type';
+import BoardColumn from '../../entities/board/column';
 import Note from '../../entities/note/note';
 import { enableNoteForOthers } from '../../service/websocket/websocket-sender';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { store } from '../../store/store';
 import WorkspaceAppBar from '../app-bar/app-bar';
-import { deselectSelectedNotes, selectNotes } from '../workspaceSlice';
+import { deselectSelectedNotes, selectBoardColumns, selectNotes } from '../workspaceSlice';
 import KanbanActionPanel from './action-panel/action-panel';
-import { AppBarStyle, FullScreenStyle } from './style';
+import Column from './board-column/board-column';
+import { AppBarStyle, FullScreenStyle, KanbanBoardStyle } from './style';
 
 
 function KanbanWorkspace() {
   const notes: Array<Note> = useAppSelector(selectNotes);
+  const boardColumns: Array<BoardColumn> = useAppSelector(selectBoardColumns);
 
   const dispatch = useAppDispatch();
 
@@ -44,6 +48,14 @@ function KanbanWorkspace() {
         role="task"
       >
         <KanbanActionPanel/>
+        <div style={KanbanBoardStyle}>
+          {
+            boardColumns.map(boardColumn => {
+              const tasks = WORKSPACE_CONTROLLER.getTasksByStatus(notes, boardColumn.name);
+              return <Column key={boardColumn.id} boardColumn={boardColumn} tasks={tasks} />
+            })
+          }
+        </div>
       </div>
     </div>
   );

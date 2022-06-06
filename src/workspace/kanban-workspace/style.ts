@@ -10,3 +10,8 @@ export const FullScreenStyle = {
     zIndex: 11,
   };
   
+  export const KanbanBoardStyle = {
+    position: "absolute" as "absolute", 
+    left: "190px", 
+    top: "160px",
+  }

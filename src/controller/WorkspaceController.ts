@@ -15,7 +15,12 @@ class WorkspaceController {
           return true;
         }
         return false;
-      }
+    }
+
+    getTasksByStatus(notes: Array<Note>, status: string) {
+      const result = notes.filter(note => note.status === status);
+      return result;
+    }
 }
 
 const WORKSPACE_CONTROLLER = new WorkspaceController();

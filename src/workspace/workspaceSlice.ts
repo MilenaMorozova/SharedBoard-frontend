@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Board, { newBoard } from '../entities/board/board';
+import BoardColumn from '../entities/board/column';
 import Note from '../entities/note/note';
 import User, { newUser } from '../entities/user/user';
 import { RootState } from '../store/store';
@@ -7,6 +8,7 @@ import { RootState } from '../store/store';
 
 interface WorkspaceState {
   board: Board,
+  boardColumns: Array<BoardColumn>,
   currentUser: User,
   collaborators: Array<User>,
   activeCollaborators: Array<User>,
@@ -15,6 +17,7 @@ interface WorkspaceState {
   arrows: Map<string, string>,
   searchText: string,
   selectedNotesIds: Set<string>,
+  
 }
 
 function createArrowDict(notes: Array<Note>): Map<string, string> {
@@ -31,6 +34,7 @@ function createArrowDict(notes: Array<Note>): Map<string, string> {
 
 const initialState: WorkspaceState = {
   board: newBoard(),
+  boardColumns: [{id: "1", name: "TODO4", position: 0}],
   currentUser: newUser(),
   collaborators: [],
   activeCollaborators: [],
@@ -139,6 +143,7 @@ export const selectCurrentUser = (state: RootState) => state.workspace.currentUs
 export const selectCollaborators = (state: RootState) => state.workspace.collaborators;
 export const selectActiveCollaborators = (state: RootState) => state.workspace.activeCollaborators;
 export const selectBoard = (state: RootState) => state.workspace.board;
+export const selectBoardColumns = (state: RootState) => state.workspace.boardColumns;
 export const selectNotes = (state: RootState) => state.workspace.notes;
 export const selectSelectedNotes = (state: RootState) => state.workspace.selectedNotesIds;
 export const selectArrows = (state: RootState) => state.workspace.arrows;
