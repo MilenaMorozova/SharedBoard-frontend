@@ -18,6 +18,7 @@ class WorkspaceController {
     }
 
     getTasksByStatus(notes: Array<Note>, status: string) {
+      console.log(notes)
       const result = notes.filter(note => note.status === status);
       return result;
     }

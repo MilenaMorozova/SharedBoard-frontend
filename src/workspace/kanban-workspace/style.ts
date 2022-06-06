@@ -11,6 +11,9 @@ export const FullScreenStyle = {
   };
   
   export const KanbanBoardStyle = {
+    display: 'flex',
+    flexDirection: 'row' as 'row',
+    gap: '20px',
     position: "absolute" as "absolute", 
     left: "190px", 
     top: "160px",

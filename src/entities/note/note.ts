@@ -28,7 +28,7 @@ export function newNote() {
     posX: 0,
     posY: 0,
 
-    refTag: null,
+    refTag: '',
     blockedBy: null,
 
     assigned: null,

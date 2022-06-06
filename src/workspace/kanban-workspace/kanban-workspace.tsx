@@ -51,7 +51,7 @@ function KanbanWorkspace() {
         <div style={KanbanBoardStyle}>
           {
             boardColumns.map(boardColumn => {
-              const tasks = WORKSPACE_CONTROLLER.getTasksByStatus(notes, boardColumn.name);
+              const tasks = WORKSPACE_CONTROLLER.getTasksByStatus(notes, boardColumn.id);
               return <Column key={boardColumn.id} boardColumn={boardColumn} tasks={tasks} />
             })
           }

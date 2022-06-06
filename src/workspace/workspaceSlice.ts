@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import COLORS from '../colors';
 import Board, { newBoard } from '../entities/board/board';
 import BoardColumn from '../entities/board/column';
-import Note from '../entities/note/note';
+import Note, { newNote } from '../entities/note/note';
 import User, { newUser } from '../entities/user/user';
 import { RootState } from '../store/store';
 
@@ -34,12 +35,24 @@ function createArrowDict(notes: Array<Note>): Map<string, string> {
 
 const initialState: WorkspaceState = {
   board: newBoard(),
-  boardColumns: [{id: "1", name: "TODO4", position: 0}],
+  boardColumns: [{id: "1", name: "TODO4", position: 0}, {id: "2", name: "IN PROGRESS", position: 1}],
   currentUser: newUser(),
   collaborators: [],
   activeCollaborators: [],
 
-  notes: [],
+  notes: [{
+    ...newNote(),
+    status:'1',
+    color: COLORS.CHIP_LABEL_PURPLE,
+    tag: 'qweew-2'
+  },
+  {
+    ...newNote(),
+    status:'1',
+    color: COLORS.CHIP_LABEL_PURPLE,
+    tag: 'qweqw-3'
+  }
+],
   arrows: new Map(),
   searchText: '',
   selectedNotesIds: new Set(),

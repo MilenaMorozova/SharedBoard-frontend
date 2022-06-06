@@ -38,7 +38,7 @@ class WebsocketConnection {
     this.socket.onmessage = this.onMessage;
     getAllUsers();
     getAllActiveUsers();
-    getAllNotes();
+    //getAllNotes();
   }
 
   onClose(event: CloseEvent) {
