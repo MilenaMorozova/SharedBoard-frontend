@@ -1,4 +1,5 @@
 import { TableCell, TableCellProps } from '@mui/material';
+import { MouseEventHandler, SyntheticEvent } from 'react';
 import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 import { ErrorButton, SecondaryButton } from '../../custom-mui-components/button/secondary/secondary-button';
 import TableBoardItem from '../../entities/board/table-board-item';
@@ -29,12 +30,14 @@ export function DateTimeTableCell(props: {date: Date}) {
 export function ActionTableCell(props: {board: TableBoardItem}) {
   const user = useAppSelector(state => state.account.user);
 
-  const onDeleteBoard = () => {
+  const onDeleteBoard = (event: SyntheticEvent) => {
     ACCOUNT_CONTROLLER.deleteBoard(props.board.id);
+    event.stopPropagation();
   };
 
-  const onLeaveBoard = () => {
+  const onLeaveBoard = (event: SyntheticEvent) => {
     ACCOUNT_CONTROLLER.leaveBoard(props.board.id);
+    event.stopPropagation();
   };
 
   return (
