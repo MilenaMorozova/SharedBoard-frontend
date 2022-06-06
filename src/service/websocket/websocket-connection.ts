@@ -2,6 +2,7 @@ import { ServerRoute } from "../../routers/serverRouters";
 import urlParamUtils from "../../utils/UrlParamUtils";
 import AUTH_SERVICE from "../AuthService";
 import receive from "./websocket-receiver";
+import { getAllUsers, getAllActiveUsers, getAllNotes } from "./websocket-sender";
 
 
 class WebsocketConnection {
@@ -36,13 +37,16 @@ class WebsocketConnection {
         this.socket.onclose = this.onClose;
         this.socket.onmessage = this.onMessage;
         this.socket.onerror = () => {};
+        getAllUsers();
+        getAllActiveUsers();
+        getAllNotes();
     }
 
     onClose(event: CloseEvent) {
         console.log(event);
         if (event.code === 4401) {
             AUTH_SERVICE.refreshToken()
-            .then(() => {console.log("REFRESH"); WEBSOCKET_CONNECTION.connect()});
+            .then(WEBSOCKET_CONNECTION.connect);
         }
     }
 

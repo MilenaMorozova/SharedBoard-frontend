@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import BoardType from '../entities/board/board-type';
 import WEBSOCKET_CONNECTION from '../service/websocket/websocket-connection';
-import { getAllActiveUsers, getAllNotes, getAllUsers } from '../service/websocket/websocket-sender';
 import { useAppSelector } from '../store/hooks';
 import NotesWorkspace from './notes-workspace/notes-workspace';
 import WorkspaceStyle from './style';
@@ -13,9 +12,6 @@ function Workspace() {
   useEffect(() => {
     if (!WEBSOCKET_CONNECTION.isConnect) {
       WEBSOCKET_CONNECTION.connect();
-      getAllUsers();
-      getAllActiveUsers();
-      getAllNotes();
     }
   }, [])
 

@@ -55,18 +55,36 @@ export function getAllNotes() {
     })
 }
 
+const blockMap: Map<string, number> = new Map();
+
 export function disableNoteForOthers(noteId: string) {
-    WEBSOCKET_CONNECTION.send({
-        "type": "start_changing_node",
-        "node_id": noteId
-    })
+    if (!blockMap.has(noteId)){
+        blockMap.set(noteId, 1);
+    }
+    else {
+        blockMap.set(noteId, blockMap.get(noteId)! + 1);
+    }
+    if(blockMap.get(noteId) === 1){
+        WEBSOCKET_CONNECTION.send({
+            "type": "start_changing_node",
+            "node_id": noteId
+        })
+    }
 }
 
 export function enableNoteForOthers(noteId: string) {
-    WEBSOCKET_CONNECTION.send({
-        "type": "stop_changing_node",
-        "node_id": noteId
-    })
+    if (blockMap.has(noteId)){
+        blockMap.set(noteId, blockMap.get(noteId)! - 1);
+    }
+    else {
+        throw Error("Note is not blocked!");        
+    }
+    if (blockMap.get(noteId) === 0){
+        WEBSOCKET_CONNECTION.send({
+            "type": "stop_changing_node",
+            "node_id": noteId
+        })
+    }
 }
 
 export function removeNote(noteId: string) {

@@ -19,6 +19,8 @@ import { changeNote, disableNoteForOthers, enableNoteForOthers } from '../../../
 import React from 'react';
 import Avatar from '../../../custom-mui-components/avatar/avatar';
 import { store } from '../../../store/store';
+import Access from '../../../entities/user/access';
+import User from '../../../entities/user/user';
 
 
 let lastSendedMessageTime: Date = new Date();
@@ -29,10 +31,23 @@ function areEqual(prevProps: propsType, nextProps: propsType){
   return res;
 }
 
+export function setDisableElement(note: Note, currentUser: User): boolean {
+  if (currentUser.access === Access.VIEWER) {
+    return true;
+  }
+  if (note.blockedBy === null) {
+    return false;
+  }
+  if (note.blockedBy !== currentUser.id) {
+    return true;
+  }
+  return false;
+}
+
 const NoteCard = React.memo(function NoteCard(props: propsType) {
   const [expanded, setExpanded] = useState(false);
   const isSelected = useAppSelector(state => state.workspace.selectedNotesIds.has(props.note.id));
-  const currentUserId = useAppSelector(state => state.workspace.currentUser.id);
+  const currentUser = useAppSelector(state => state.workspace.currentUser);
 
   const searchText = useAppSelector(selectSearchText);
   const nodeRef = useRef(null);
@@ -40,11 +55,11 @@ const NoteCard = React.memo(function NoteCard(props: propsType) {
   const dispatch = useAppDispatch();
   const updateXarrow = useXarrow();
 
-  const onSaveDescription = () => {};
-
   const onUpdateDescription = (description: string) => {
     dispatch(updateNote({ ...props.note, description }));
   };
+
+  const onSaveDescription = () => {}
 
   const onStart = () => {
     disableNoteForOthers(props.note.id);
@@ -72,13 +87,7 @@ const NoteCard = React.memo(function NoteCard(props: propsType) {
   };
 
   const setDisabledNote = () => {
-    if (props.note.blockedBy === null) {
-      return false;
-    }
-    if (props.note.blockedBy !== currentUserId) {
-      return true;
-    }
-    return false;
+    return setDisableElement(props.note, currentUser);
   }
 
   const onSelectNote = () => {
@@ -122,7 +131,7 @@ const NoteCard = React.memo(function NoteCard(props: propsType) {
   }
 
   function UserAvatarWhoBlockingNote() {
-    if (props.note.blockedBy === null || props.note.blockedBy === currentUserId) {
+    if (props.note.blockedBy === null || props.note.blockedBy === currentUser.id) {
       return null;
     }
     const anotherUser = store.getState().workspace.activeCollaborators.find(
