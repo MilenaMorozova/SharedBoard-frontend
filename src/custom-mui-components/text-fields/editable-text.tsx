@@ -11,7 +11,7 @@ type EditableTextProps = {
     multiline?: boolean,
     disabled?: boolean,
     onSave: () => void,
-    onStartEdit?: () => void,
+    onStartEdit: () => void,
 }
 
 function EditableText(props: EditableTextProps) {

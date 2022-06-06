@@ -11,6 +11,29 @@ interface Note {
 
   refTag: string,
   blockedBy: string | null,
+
+  assigned: string | null,
+  status: string | null,
+}
+
+export function newNote() {
+  return {
+    id: '',
+    title: '',
+    tag: '',
+    description: '',
+    created: new Date(),
+    updated: new Date(),
+    color: '',
+    posX: 0,
+    posY: 0,
+
+    refTag: null,
+    blockedBy: null,
+
+    assigned: null,
+    status: "TODO",
+  }
 }
 
 export function notesAreEqual(note1: Note, note2: Note): boolean {
