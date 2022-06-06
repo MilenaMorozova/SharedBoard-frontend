@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { store } from '../../store/store';
 import WorkspaceAppBar from '../app-bar/app-bar';
 import { deselectSelectedNotes, selectNotes } from '../workspaceSlice';
+import KanbanActionPanel from './action-panel/action-panel';
 import { AppBarStyle, FullScreenStyle } from './style';
 
 
@@ -42,6 +43,7 @@ function KanbanWorkspace() {
         style={FullScreenStyle}
         role="task"
       >
+        <KanbanActionPanel/>
       </div>
     </div>
   );
