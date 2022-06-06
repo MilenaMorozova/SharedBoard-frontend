@@ -3,22 +3,30 @@ import { ColumnActionPanelStyle } from "./style";
 import { ReactComponent as AddColumnIcon } from '../../../media/column-plus.svg';
 import { ReactComponent as AddColumnAfterIcon } from '../../../media/column-plus-after.svg';
 import { ReactComponent as RemoveColumnIcon } from '../../../media/column-remove.svg';
+import BoardColumn from "../../../entities/board/column";
+import { createColumn, removeColumn } from "../../../service/websocket/websocket-sender";
 
 
-function BoardColumnActionPanel() {
+function BoardColumnActionPanel(props: {boardColumn: BoardColumn}) {
     return (
         <span style={ColumnActionPanelStyle}>
             <ActionIconButton
                 icon={<AddColumnIcon/>}
-                onClick={() => {}}
+                onClick={() => {
+                    createColumn(props.boardColumn.position);
+                }}
             />
             <ActionIconButton
                 icon={<AddColumnAfterIcon/>}
-                onClick={() => {}}
+                onClick={() => {
+                    createColumn(props.boardColumn.position + 1);
+                }}
             />
             <ActionIconButton
                 icon={<RemoveColumnIcon/>}
-                onClick={() => {}}
+                onClick={() => {
+                    removeColumn(props.boardColumn.id)
+                }}
             />
         </span>
     )

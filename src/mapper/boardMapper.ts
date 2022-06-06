@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import Board, { newBoard } from '../entities/board/board';
 import BoardType from '../entities/board/board-type';
+import BoardColumn from '../entities/board/column';
 import TableBoardItem, { newTableBoardItem } from '../entities/board/table-board-item';
 import Access from '../entities/user/access';
 import { userDtoToUserEntity } from './userMapper';
@@ -42,4 +43,8 @@ export function boardInfoDtoToBoardEntity(boardInfoDto: {[key: string]: unknown}
     type: board_type as BoardType,
     linkAccess: accessNumberToAccessEnum(link_access as number),
   };
+}
+
+export function columnDtoToColumnEntity(column: BoardColumn): BoardColumn {
+  return column;
 }

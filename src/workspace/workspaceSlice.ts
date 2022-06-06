@@ -34,25 +34,12 @@ function createArrowDict(notes: Array<Note>): Map<string, string> {
 
 const initialState: WorkspaceState = {
   board: newBoard(),
-  boardColumns: [{id: "1", name: "TODO4", position: 0}, {id: "2", name: "IN PROGRESS", position: 1}],
+  boardColumns: [],
   currentUser: newUser(),
   collaborators: [],
   activeCollaborators: [],
 
-  notes: [{
-    ...newNote(),
-    id: '3',
-    status:'1',
-    color: COLORS.CHIP_LABEL_PURPLE,
-    tag: 'qweew-2'
-  },
-  {
-    ...newNote(),
-    status:'1',
-    color: COLORS.CHIP_LABEL_PURPLE,
-    tag: 'qweqw-3'
-  }
-],
+  notes: [],
   arrows: new Map(),
   searchText: '',
   selectedNotesIds: new Set(),
@@ -140,6 +127,9 @@ export const WorkspaceSlice = createSlice({
         state.selectedNotesIds = new Set(state.selectedNotesIds);
       }
     },
+    setColumns: (state: WorkspaceState, { payload }: PayloadAction<Array<BoardColumn>>) => {
+      state.boardColumns = payload.sort((column1, column2) => column1.position - column2.position);
+    },
   },
 });
 
@@ -150,6 +140,7 @@ export const {
   updateNote, setNotes, addNote, addSelectedNote, deselectSelectedNotes, deleteSelectedNote,
   updateArrows,
   setSearchText,
+  setColumns
 } = WorkspaceSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.workspace.currentUser;

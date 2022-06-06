@@ -25,7 +25,7 @@ function HeaderBoardColumn(props: {boardColumn: BoardColumn, taskCount: number, 
 
     return (
         <Tooltip 
-            title={<BoardColumnActionPanel/>} 
+            title={<BoardColumnActionPanel boardColumn={props.boardColumn}/>} 
             placement="top-end" 
             componentsProps={{tooltip: {sx: TooltipStyle}}}
         >

@@ -2,7 +2,7 @@ import { ServerRoute } from '../../routers/serverRouters';
 import urlParamUtils from '../../utils/UrlParamUtils';
 import AUTH_SERVICE from '../AuthService';
 import receive from './websocket-receiver';
-import { getAllUsers, getAllActiveUsers, getAllNotes } from './websocket-sender';
+import { getAllUsers, getAllActiveUsers, getAllNotes, getColumnsInfo } from './websocket-sender';
 
 
 class WebsocketConnection {
@@ -38,7 +38,8 @@ class WebsocketConnection {
     this.socket.onmessage = this.onMessage;
     getAllUsers();
     getAllActiveUsers();
-    //getAllNotes();
+    getAllNotes();
+    getColumnsInfo();
   }
 
   onClose(event: CloseEvent) {

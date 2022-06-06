@@ -99,3 +99,23 @@ export function changeNote(changedNote: Note) {
     node: nodeDto,
   });
 }
+
+export function getColumnsInfo() {
+  WEBSOCKET_CONNECTION.send({
+    type: 'columns_info',
+  });
+}
+
+export function createColumn(position: number) {
+  WEBSOCKET_CONNECTION.send({
+    type: 'create_column',
+    position
+  });
+}
+
+export function removeColumn(columnId: string) {
+  WEBSOCKET_CONNECTION.send({
+    type: 'delete_column',
+    column_id: columnId
+  });
+}
