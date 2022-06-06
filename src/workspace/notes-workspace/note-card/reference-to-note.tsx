@@ -1,10 +1,10 @@
+import WORKSPACE_CONTROLLER from '../../../controller/WorkspaceController';
 import EditableText from '../../../custom-mui-components/text-fields/editable-text';
 import Note from '../../../entities/note/note';
 import { changeNote, disableNoteForOthers, enableNoteForOthers } from '../../../service/websocket/websocket-sender';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { store } from '../../../store/store';
 import { updateArrows, updateNote } from '../../workspaceSlice';
-import { setDisableElement } from './note-card';
 import { ReferenceStyle } from './style';
 
 
@@ -38,7 +38,9 @@ function Reference(props: {note: Note}) {
     dispatch(updateNote({ ...props.note, refTag }));
   };
 
-  const setDisabledRef = () => setDisableElement(props.note, currentUser);
+  const setDisabledRef = () => {
+    return WORKSPACE_CONTROLLER.setDisableElement(props.note, currentUser)
+  };;
 
   return (
     <div style={ReferenceStyle}>

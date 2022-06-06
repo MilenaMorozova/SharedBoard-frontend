@@ -1,16 +1,11 @@
-import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
-import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
-import { Button, Collapse } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 import { useXarrow } from 'react-xarrows';
 import Note, { notesAreEqual } from '../../../entities/note/note';
 import {
   AvatarStyle,
-  CardColorStyle,
-  DescriptionBlockStyle, ExpandButonStyle, NoteCardStyle, NoteContentStyle, StripeStyle,
+  CardColorStyle, NoteBoardWhenSearchingStyle, NoteCardStyle, NoteContentStyle, SelectedNoteStyle, StripeStyle,
 } from './style';
-import EditableText from '../../../custom-mui-components/text-fields/editable-text';
 import TopNoteCard from './top-note-card';
 import Reference from './reference-to-note';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
@@ -19,8 +14,8 @@ import { changeNote, disableNoteForOthers, enableNoteForOthers } from '../../../
 
 import Avatar from '../../../custom-mui-components/avatar/avatar';
 import { store } from '../../../store/store';
-import Access from '../../../entities/user/access';
-import User from '../../../entities/user/user';
+import DescriptionCollapse from './descrition-collapse/description-collapse';
+import WORKSPACE_CONTROLLER from '../../../controller/WorkspaceController';
 
 
 let lastSendedMessageTime: Date = new Date();
@@ -31,21 +26,7 @@ function areEqual(prevProps: propsType, nextProps: propsType) {
   return res;
 }
 
-export function setDisableElement(note: Note, currentUser: User): boolean {
-  if (currentUser.access === Access.VIEWER) {
-    return true;
-  }
-  if (note.blockedBy === null) {
-    return false;
-  }
-  if (note.blockedBy !== currentUser.id) {
-    return true;
-  }
-  return false;
-}
-
 const NoteCard = React.memo((props: propsType) => {
-  const [expanded, setExpanded] = useState(false);
   const isSelected = useAppSelector(state => state.workspace.selectedNotesIds.has(props.note.id));
   const currentUser = useAppSelector(state => state.workspace.currentUser);
 
@@ -54,19 +35,6 @@ const NoteCard = React.memo((props: propsType) => {
 
   const dispatch = useAppDispatch();
   const updateXarrow = useXarrow();
-
-  const onUpdateDescription = (description: string) => {
-    dispatch(updateNote({ ...props.note, description }));
-  };
-
-  const onSaveDescription = () => {
-    changeNote({ ...props.note });
-    enableNoteForOthers(props.note.id);
-  };
-
-  const onStartEditDescription = () => {
-    disableNoteForOthers(props.note.id);
-  };
 
   const onStart = () => {
     disableNoteForOthers(props.note.id);
@@ -92,7 +60,9 @@ const NoteCard = React.memo((props: propsType) => {
     enableNoteForOthers(props.note.id);
   };
 
-  const setDisabledNote = () => setDisableElement(props.note, currentUser);
+  const setDisabledNote = () => {
+    return WORKSPACE_CONTROLLER.setDisableElement(props.note, currentUser)
+  };
 
   const onSelectNote = () => {
     if (props.note.blockedBy === null) {
@@ -104,8 +74,8 @@ const NoteCard = React.memo((props: propsType) => {
   const boarderWhenIsSearching = () => {
     if (props.note.tag.startsWith(searchText) && searchText.length) {
       return {
-        boxShadow: `0px 4px 12px ${props.note.color}`,
-        borderRadius: '10px',
+        ...NoteBoardWhenSearchingStyle,
+        color: props.note.color,
       };
     }
     return {};
@@ -114,25 +84,12 @@ const NoteCard = React.memo((props: propsType) => {
   const borderWhenIsSelected = () => {
     if (isSelected) {
       return {
-        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-        borderRadius: '10px',
-        border: `2px dashed ${props.note.color}`,
+        ...SelectedNoteStyle,
+        borderColor: props.note.color,
       };
     }
     return {};
   };
-
-  function ExpandButton() {
-    return (
-      <Button
-        onClick={() => setExpanded(!expanded)}
-        startIcon={expanded ? <ExpandLessOutlinedIcon /> : <ExpandMoreOutlinedIcon />}
-        sx={ExpandButonStyle}
-      >
-        description
-      </Button>
-    );
-  }
 
   function UserAvatarWhoBlockingNote() {
     if (props.note.blockedBy === null || props.note.blockedBy === currentUser.id) {
@@ -175,24 +132,7 @@ const NoteCard = React.memo((props: propsType) => {
         >
           <TopNoteCard note={props.note} />
           <Reference note={props.note} />
-          <ExpandButton />
-          <Collapse
-            in={expanded}
-            timeout="auto"
-            unmountOnExit
-            sx={DescriptionBlockStyle}
-          >
-            <EditableText
-              value={props.note.description}
-              setValue={onUpdateDescription}
-              textStyle={DescriptionBlockStyle}
-              onStartEdit={onStartEditDescription}
-              disabled={setDisabledNote()}
-              width="100%"
-              multiline
-              onSave={onSaveDescription}
-            />
-          </Collapse>
+          <DescriptionCollapse note={props.note}/>
         </div>
       </div>
     </Draggable>
