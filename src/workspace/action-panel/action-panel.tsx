@@ -6,6 +6,7 @@ import { IconButtonStyle, ActionPanelStyle } from './style';
 import { useAppSelector } from '../../store/hooks';
 import { createNote, removeNote } from '../../service/websocket/websocket-sender';
 import { store } from '../../store/store';
+import Access from '../../entities/user/access';
 
 
 function ActionIconButton(props: {icon: ReactNode, onClick: () => void, disabled?: boolean}) {
@@ -26,6 +27,11 @@ ActionIconButton.defaultProps = {
 
 function ActionPanel() {
   const hasSelectedNotes = useAppSelector(state => state.workspace.selectedNotesIds.size > 0);
+  const currentUserAccess = useAppSelector(state => state.workspace.currentUser.access);
+
+  const setDisabledButtons = () => {
+    return currentUserAccess === Access.VIEWER;
+  }
 
   const onDelete = () => {
     store.getState().workspace.selectedNotesIds.forEach(removeNote);
@@ -43,11 +49,12 @@ function ActionPanel() {
       <ActionIconButton
         icon={<AddOutlinedIcon />}
         onClick={onCreate}
+        disabled={setDisabledButtons()}
       />
       <ActionIconButton
         icon={<DeleteOutlinedIcon />}
         onClick={onDelete}
-        disabled={!hasSelectedNotes}
+        disabled={!hasSelectedNotes || setDisabledButtons()}
       />
     </div>
   );
