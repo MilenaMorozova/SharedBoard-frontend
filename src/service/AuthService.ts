@@ -25,8 +25,8 @@ class AuthService {
       });
   }
 
-  private openLogin() {
-    window.location.href = window.location.origin + ROUTE.LOGIN;
+  openPage(url: string) {
+    window.location.href = window.location.origin + url;
   }
 
   refreshToken() {
@@ -43,7 +43,7 @@ class AuthService {
       })
       .catch(() => {
         this.removeTokensFromLocalStorage();
-        this.openLogin();
+        this.openPage(ROUTE.LOGIN);
       });
   }
 

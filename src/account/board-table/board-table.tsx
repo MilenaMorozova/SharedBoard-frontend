@@ -1,9 +1,9 @@
 import {
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 import TableBoardItem from '../../entities/board/table-board-item';
+import AUTH_SERVICE from '../../service/AuthService';
 import { useAppSelector } from '../../store/hooks';
 import { selectBoards } from '../accountSlice';
 import { ActionTableCell, CustomTableCell, DateTimeTableCell } from './board-table-cell';
@@ -18,11 +18,10 @@ function BoardTable() {
 
   function TableContent() {
     let content;
-    const navigate = useNavigate();
 
     const onOpenBoard = (boardId: string) => {
       ACCOUNT_CONTROLLER.getBoardUrl(boardId)
-        .then((link) => navigate(link));
+        .then((link) => AUTH_SERVICE.openPage(link));
     };
 
     if (userBoards.length === 0) {

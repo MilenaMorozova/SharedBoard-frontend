@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import BoardType from '../entities/board/board-type';
 import WEBSOCKET_CONNECTION from '../service/websocket/websocket-connection';
 import { useAppSelector } from '../store/hooks';
+import KanbanWorkspace from './kanban-workspace/kanban-workspace';
 import NotesWorkspace from './notes-workspace/notes-workspace';
 import WorkspaceStyle from './style';
 
@@ -18,7 +19,7 @@ function Workspace() {
   function WorkspaceContent() {
     switch (currentBoardType) {
       case BoardType.KANBAN:
-        return <></>;
+        return <KanbanWorkspace/>;
       case BoardType.NOTES:
         return <NotesWorkspace />;
       default:
