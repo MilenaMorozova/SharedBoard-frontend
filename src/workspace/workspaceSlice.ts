@@ -85,7 +85,20 @@ export const WorkspaceSlice = createSlice({
       state.arrows = createArrowDict(state.notes);
     },
     updateNote: (state: WorkspaceState, { payload }: PayloadAction<Note>) => {
-      state.notes = state.notes.map((note) => (note.id === payload.id ? payload : note));
+      let shouldUpdateArrows = false;
+      state.notes = state.notes.map((note) => {
+        if (note.id !== payload.id)
+          return note;
+        
+        if (note.refTag !== payload.refTag){
+          shouldUpdateArrows = true;
+        }
+        return payload;
+      });
+      
+      if(shouldUpdateArrows){
+        state.arrows = createArrowDict(state.notes);
+      }
     },
     addNote: (state: WorkspaceState, { payload }: PayloadAction<Note>) => {
       state.notes = state.notes.concat(payload);
