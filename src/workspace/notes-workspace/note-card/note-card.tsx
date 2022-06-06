@@ -6,6 +6,7 @@ import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 import { useXarrow } from 'react-xarrows';
 import Note, { notesAreEqual } from '../../../entities/note/note';
 import {
+  AvatarStyle,
   CardColorStyle,
   DescriptionBlockStyle, ExpandButonStyle, NoteCardStyle, NoteContentStyle, StripeStyle,
 } from './style';
@@ -16,6 +17,8 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { addSelectedNote, selectSearchText, updateNote } from '../../workspaceSlice';
 import { changeNote, disableNoteForOthers, enableNoteForOthers } from '../../../service/websocket/websocket-sender';
 import React from 'react';
+import Avatar from '../../../custom-mui-components/avatar/avatar';
+import { store } from '../../../store/store';
 
 
 let lastSendedMessageTime: Date = new Date();
@@ -118,52 +121,66 @@ const NoteCard = React.memo(function NoteCard(props: propsType) {
     );
   }
 
+  function UserAvatarWhoBlockingNote() {
+    if (props.note.blockedBy === null || props.note.blockedBy === currentUserId) {
+      return null;
+    }
+    const anotherUser = store.getState().workspace.activeCollaborators.find(
+      collaborator => collaborator.id === props.note.blockedBy
+    )
+    if (anotherUser === undefined) {
+      return null;
+    }
+    return <Avatar user={anotherUser} style={AvatarStyle}/>
+  }
+
   return (
-    <Draggable
-      key={`Draggable ${props.note.id}`}
-      disabled={setDisabledNote()}
-      onStart={onStart}
-      onDrag={onDrag}
-      onStop={onStop}
-      position={{x: props.note.posX, y: props.note.posY}}
-      nodeRef={nodeRef}
-      bounds="parent"
-    >
-      <div
-        id={props.note.tag}
-        style={{ ...NoteCardStyle, ...boarderWhenIsSearching(), ...borderWhenIsSelected() }}
-        ref={nodeRef}
-        onDoubleClick={onSelectNote}
+      <Draggable
+        key={`Draggable ${props.note.id}`}
+        disabled={setDisabledNote()}
+        onStart={onStart}
+        onDrag={onDrag}
+        onStop={onStop}
+        position={{x: props.note.posX, y: props.note.posY}}
+        nodeRef={nodeRef}
+        bounds="parent"
       >
-        <div style={{
-          ...StripeStyle, backgroundColor: props.note.color,
-        }}
-        />
-        <div style={{
-          ...NoteContentStyle, borderColor: CardColorStyle[props.note.color],
-        }}
+        <div
+          id={props.note.tag}
+          style={{ ...NoteCardStyle, ...boarderWhenIsSearching(), ...borderWhenIsSelected() }}
+          ref={nodeRef}
+          onDoubleClick={onSelectNote}
         >
-          <TopNoteCard note={props.note} />
-          <Reference note={props.note} />
-          <ExpandButton />
-          <Collapse
-            in={expanded}
-            timeout="auto"
-            unmountOnExit
-            sx={DescriptionBlockStyle}
+          <UserAvatarWhoBlockingNote/>
+          <div style={{
+            ...StripeStyle, backgroundColor: props.note.color,
+          }}
+          />
+          <div style={{
+            ...NoteContentStyle, borderColor: CardColorStyle[props.note.color],
+          }}
           >
-            <EditableText
-              value={props.note.description}
-              setValue={onUpdateDescription}
-              textStyle={DescriptionBlockStyle}
-              width="100%"
-              multiline
-              onSave={onSaveDescription}
-            />
-          </Collapse>
+            <TopNoteCard note={props.note} />
+            <Reference note={props.note} />
+            <ExpandButton />
+            <Collapse
+              in={expanded}
+              timeout="auto"
+              unmountOnExit
+              sx={DescriptionBlockStyle}
+            >
+              <EditableText
+                value={props.note.description}
+                setValue={onUpdateDescription}
+                textStyle={DescriptionBlockStyle}
+                width="100%"
+                multiline
+                onSave={onSaveDescription}
+              />
+            </Collapse>
+          </div>
         </div>
-      </div>
-    </Draggable>
+      </Draggable>
   );
 }, areEqual)
 
