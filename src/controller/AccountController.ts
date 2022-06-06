@@ -2,8 +2,9 @@ import {
   setBoards, setEmail, setUser, setUsername,
 } from '../account/accountSlice';
 import BoardType from '../entities/board/board-type';
-import boardDtoToTableBoardEntity from '../mapper/boardMapper';
-import userDtoToUserEntity from '../mapper/userMapper';
+import TableBoardItem from '../entities/board/table-board-item';
+import { boardDtoToTableBoardEntity } from '../mapper/boardMapper';
+import { userDtoToUserEntity } from '../mapper/userMapper';
 import ACCOUNT_SERVICE from '../service/AccountService';
 import AUTH_SERVICE from '../service/AuthService';
 import { store } from '../store/store';
@@ -20,7 +21,7 @@ class AccountController {
   downloadBoards() {
     ACCOUNT_SERVICE.getUserBoards()
       .then(response => response.json() as unknown as Array<{ [key: string]: any; }>) // eslint-disable-line @typescript-eslint/no-explicit-any
-      .then(jsonResponse => jsonResponse.map(boardDtoToTableBoardEntity))
+      .then(jsonResponse => jsonResponse.map(boardDtoToTableBoardEntity) as Array<TableBoardItem>)
       .then(boards => store.dispatch(setBoards(boards)));
   }
 
@@ -59,6 +60,11 @@ class AccountController {
   leaveBoard(boardId: string) {
     return ACCOUNT_SERVICE.leaveBoard(boardId)
       .then(() => this.downloadBoards());
+  }
+
+  getBoardUrl(boardId: string) {
+    return ACCOUNT_SERVICE.getBoardUrl(boardId)
+      .then(response => response.text());
   }
 }
 

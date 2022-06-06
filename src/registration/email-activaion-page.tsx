@@ -40,7 +40,7 @@ function EmailActivatePage() {
             <br />
             If this does not happen click
             {' '}
-            <a href="#" onClick={redirect}>here</a>
+            <a href="#" onClick={redirect}>here</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
             .
           </span>
         </div>

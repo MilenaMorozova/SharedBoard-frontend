@@ -9,7 +9,9 @@ type EditableTextProps = {
     textStyle: CSSProperties,
     width: string,
     multiline?: boolean,
+    disabled?: boolean,
     onSave: () => void,
+    onStartEdit?: () => void,
 }
 
 function EditableText(props: EditableTextProps) {
@@ -20,15 +22,23 @@ function EditableText(props: EditableTextProps) {
     props.onSave();
   };
 
+  const getValue = (text: string) => {
+    const value = props.getValue(text);
+    return value.trim() === '' ? 'None' : value;
+  };
+
   return toggle ? (
     <span
       style={{ ...props.textStyle, width: props.width, wordBreak: 'break-all' }}
       onDoubleClick={(event) => {
-        setToggle(false);
+        if (!props.disabled) {
+          setToggle(false);
+          props.onStartEdit();
+        }
         event.stopPropagation();
       }}
     >
-      {props.getValue(props.value)}
+      {getValue(props.value)}
     </span>
   ) : (
     <Input
@@ -55,6 +65,8 @@ function EditableText(props: EditableTextProps) {
 EditableText.defaultProps = {
   getValue: (text: string) => text,
   multiline: false,
+  disabled: false,
+  onStartEdit: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
 };
 
 export default EditableText;

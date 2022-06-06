@@ -1,12 +1,16 @@
 import EditableText from '../../../custom-mui-components/text-fields/editable-text';
 import Note from '../../../entities/note/note';
-import { useAppDispatch } from '../../../store/hooks';
+import { changeNote, disableNoteForOthers, enableNoteForOthers } from '../../../service/websocket/websocket-sender';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { store } from '../../../store/store';
 import { updateArrows, updateNote } from '../../workspaceSlice';
+import { setDisableElement } from './note-card';
 import { ReferenceStyle } from './style';
 
 
 function Reference(props: {note: Note}) {
+  const currentUser = useAppSelector(state => state.workspace.currentUser);
+
   const dispatch = useAppDispatch();
 
   const getValue = (text: string) => ((text !== '') ? text : 'none');
@@ -14,6 +18,9 @@ function Reference(props: {note: Note}) {
   const onSave = () => {
     const { notes } = store.getState().workspace;
     dispatch(updateArrows());
+
+    changeNote({ ...props.note });
+    enableNoteForOthers(props.note.id);
 
     if (props.note.refTag === '') {
       return;
@@ -23,9 +30,15 @@ function Reference(props: {note: Note}) {
     }
   };
 
+  const onStartEditing = () => {
+    disableNoteForOthers(props.note.id);
+  };
+
   const onUpdateTag = (refTag: string) => {
     dispatch(updateNote({ ...props.note, refTag }));
   };
+
+  const setDisabledRef = () => setDisableElement(props.note, currentUser);
 
   return (
     <div style={ReferenceStyle}>
@@ -34,7 +47,9 @@ function Reference(props: {note: Note}) {
         value={props.note.refTag}
         setValue={onUpdateTag}
         getValue={getValue}
+        onStartEdit={onStartEditing}
         textStyle={ReferenceStyle}
+        disabled={setDisabledRef()}
         width="100%"
         onSave={onSave}
       />

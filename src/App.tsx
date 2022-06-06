@@ -29,7 +29,9 @@ class App extends Component {
                 <Route path={ROUTE.LOGIN} element={<LoginPage />} />
                 <Route path={ROUTE.SIGN_UP} element={<SignUpPage />} />
                 <Route path={ROUTE.ACCOUNT} element={<AccountPage />} />
-                <Route path={ROUTE.WORKSPACE} element={<Workspace />} />
+                <Route path={ROUTE.WORKSPACE}>
+                  <Route path=":board_id" element={<Workspace />} />
+                </Route>
                 <Route path={ROUTE.ACTIVATION} element={<EmailActivatePage />} />
               </Routes>
             </BrowserRouter>

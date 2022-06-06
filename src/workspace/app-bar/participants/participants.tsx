@@ -3,17 +3,17 @@ import Avatar from '../../../custom-mui-components/avatar/avatar';
 import CircleWithText from '../../../custom-mui-components/avatar/circle-with-text';
 import User from '../../../entities/user/user';
 import { useAppSelector } from '../../../store/hooks';
-import { selectParticipants } from '../../workspaceSlice';
+import { selectActiveCollaborators } from '../../workspaceSlice';
 import { MovedLeftAvatarStyle, ParticipantsCounterStyle, ParticipantsStyle } from './style';
 
 
-function Participants() {
-  const users: Array<User> = useAppSelector(selectParticipants);
+function Collaborators() {
+  const collaborators: Array<User> = useAppSelector(selectActiveCollaborators);
 
   return (
     <div style={ParticipantsStyle}>
       {
-        users.slice(0, 5).map((user, i) => (
+        collaborators.slice(0, 5).map((user, i) => (
           <Avatar
             key={user.id}
             user={user}
@@ -22,9 +22,9 @@ function Participants() {
         ))
       }
       {
-        users.length > 5 ? (
+        collaborators.length > 5 ? (
           <CircleWithText
-            text={`+${users.length - 5}`}
+            text={`+${collaborators.length - 5}`}
             color={COLORS.BACKGOUND_LIGHT_BLUE}
             style={ParticipantsCounterStyle}
           />
@@ -36,4 +36,4 @@ function Participants() {
   );
 }
 
-export default Participants;
+export default Collaborators;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import BoardTitle from './board-title/board-title';
 import {
   AppBarStyle, LeftSideStyle, RightSideStyle, SearchFieldStyle, ShareBoardButtonStyle,
@@ -6,7 +6,7 @@ import {
 import BoardType from '../../entities/board/board-type';
 import SearchField from '../../custom-mui-components/text-fields/search-field';
 import Avatar from '../../custom-mui-components/avatar/avatar';
-import Participants from './participants/participants';
+import Collaborators from './participants/participants';
 import BoardButton from '../../custom-mui-components/button/button';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentUser, setSearchText } from '../workspaceSlice';
@@ -18,7 +18,12 @@ type WorkspaceAppBarProps = {
     placeholder: string,
 }
 
-function WorkspaceAppBar(props: WorkspaceAppBarProps) {
+function areEqual(prevProps: WorkspaceAppBarProps, nextProps: WorkspaceAppBarProps) {
+  const res = prevProps.boardType === nextProps.boardType && prevProps.placeholder === nextProps.placeholder;
+  return res;
+}
+
+const WorkspaceAppBar = React.memo((props: WorkspaceAppBarProps) => {
   const [isSharingBoard, setSharingBoard] = useState(false);
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
@@ -43,7 +48,7 @@ function WorkspaceAppBar(props: WorkspaceAppBarProps) {
         />
       </div>
       <div style={RightSideStyle}>
-        <Participants />
+        <Collaborators />
         <BoardButton
           variant="contained"
           fullWidth={false}
@@ -59,6 +64,6 @@ function WorkspaceAppBar(props: WorkspaceAppBarProps) {
       />
     </div>
   );
-}
+}, areEqual);
 
 export default WorkspaceAppBar;

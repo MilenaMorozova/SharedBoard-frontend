@@ -2,7 +2,7 @@ const ROUTE = {
   LOGIN: '/login',
   SIGN_UP: '/sign_up',
   ACCOUNT: '/account',
-  WORKSPACE: '/workspace',
+  WORKSPACE: '/board',
   ACTIVATION: '/activate',
 };
 

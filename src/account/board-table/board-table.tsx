@@ -1,6 +1,8 @@
 import {
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import ACCOUNT_CONTROLLER from '../../controller/AccountController';
 import TableBoardItem from '../../entities/board/table-board-item';
 import { useAppSelector } from '../../store/hooks';
 import { selectBoards } from '../accountSlice';
@@ -16,6 +18,12 @@ function BoardTable() {
 
   function TableContent() {
     let content;
+    const navigate = useNavigate();
+
+    const onOpenBoard = (boardId: string) => {
+      ACCOUNT_CONTROLLER.getBoardUrl(boardId)
+        .then((link) => navigate(link));
+    };
 
     if (userBoards.length === 0) {
       content = (
@@ -25,7 +33,7 @@ function BoardTable() {
       );
     } else {
       content = userBoards.map((board) => (
-        <TableRow hover key={board.id}>
+        <TableRow hover key={board.id} onClick={() => onOpenBoard(board.id)}>
           <CustomTableCell>
             <BoardTypeChip boardType={board.type} />
           </CustomTableCell>

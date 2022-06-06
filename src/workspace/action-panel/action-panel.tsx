@@ -3,10 +3,10 @@ import { ReactNode } from 'react';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { IconButtonStyle, ActionPanelStyle } from './style';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { addNote, deleteSelectedNotes } from '../workspaceSlice';
-import Note from '../../entities/note/note';
-import COLORS from '../../colors';
+import { useAppSelector } from '../../store/hooks';
+import { createNote, removeNote } from '../../service/websocket/websocket-sender';
+import { store } from '../../store/store';
+import Access from '../../entities/user/access';
 
 
 function ActionIconButton(props: {icon: ReactNode, onClick: () => void, disabled?: boolean}) {
@@ -27,27 +27,16 @@ ActionIconButton.defaultProps = {
 
 function ActionPanel() {
   const hasSelectedNotes = useAppSelector(state => state.workspace.selectedNotesIds.size > 0);
-  const dispatch = useAppDispatch();
+  const currentUserAccess = useAppSelector(state => state.workspace.currentUser.access);
+
+  const setDisabledButtons = () => currentUserAccess === Access.VIEWER;
 
   const onDelete = () => {
-    dispatch(deleteSelectedNotes());
+    store.getState().workspace.selectedNotesIds.forEach(removeNote);
   };
 
   const onCreate = () => {
-    const mockNote: Note = {
-      id: '51',
-      title: 'New task',
-      tag: 'patsvr-59',
-      description: 'no description',
-      color: COLORS.CHIP_LABEL_YELLOW,
-      created: new Date(),
-      updated: new Date(),
-      posX: 200,
-      posY: 200,
-      refTag: '',
-    };
-
-    dispatch(addNote(mockNote));
+    createNote();
   };
 
   return (
@@ -58,11 +47,12 @@ function ActionPanel() {
       <ActionIconButton
         icon={<AddOutlinedIcon />}
         onClick={onCreate}
+        disabled={setDisabledButtons()}
       />
       <ActionIconButton
         icon={<DeleteOutlinedIcon />}
         onClick={onDelete}
-        disabled={!hasSelectedNotes}
+        disabled={!hasSelectedNotes || setDisabledButtons()}
       />
     </div>
   );

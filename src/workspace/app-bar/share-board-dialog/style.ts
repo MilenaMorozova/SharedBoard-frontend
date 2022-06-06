@@ -4,8 +4,12 @@ import FONTS from '../../../fonts';
 export const AccessSelectStyle = {
   color: COLORS.TEXT_GRAY,
   ...FONTS.BODY,
-  minWidth: '90px',
   paddingTop: '6px',
+  marginLeft: '10px',
+};
+
+export const AccessFormControlStyle = {
+  minWidth: '90px',
 };
 
 export const MenuItemStyle = {
@@ -35,7 +39,7 @@ export const CurrentUserAccessStyle = {
   color: COLORS.TEXT_GRAY,
   ...FONTS.BODY,
   alignSelf: 'center',
-  paddingRight: '44px',
+  paddingRight: '34px',
 };
 
 export const DialogContextStyle = {

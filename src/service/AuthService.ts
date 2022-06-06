@@ -1,3 +1,4 @@
+import ROUTE from '../routers/routers';
 import { ServerRoute } from '../routers/serverRouters';
 import { post } from './requestTemplate';
 
@@ -24,6 +25,10 @@ class AuthService {
       });
   }
 
+  private openLogin() {
+    window.location.href = window.location.origin + ROUTE.LOGIN;
+  }
+
   refreshToken() {
     let refresh = localStorage.getItem('refresh');
 
@@ -34,6 +39,11 @@ class AuthService {
       .then(response => response.json())
       .then(jsonResponse => {
         this.setTokensToLocalStorage(jsonResponse.access, jsonResponse.refresh);
+        return jsonResponse;
+      })
+      .catch(() => {
+        this.removeTokensFromLocalStorage();
+        this.openLogin();
       });
   }
 
