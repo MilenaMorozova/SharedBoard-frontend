@@ -59,7 +59,14 @@ const NoteCard = React.memo(function NoteCard(props: propsType) {
     dispatch(updateNote({ ...props.note, description }));
   };
 
-  const onSaveDescription = () => {}
+  const onSaveDescription = () => {
+    changeNote({...props.note})
+    enableNoteForOthers(props.note.id);
+  }
+
+  const onStartEditDescription = () => {
+    disableNoteForOthers(props.note.id);
+  }
 
   const onStart = () => {
     disableNoteForOthers(props.note.id);
@@ -182,6 +189,8 @@ const NoteCard = React.memo(function NoteCard(props: propsType) {
                 value={props.note.description}
                 setValue={onUpdateDescription}
                 textStyle={DescriptionBlockStyle}
+                onStartEdit={onStartEditDescription}
+                disabled={setDisabledNote()}
                 width="100%"
                 multiline
                 onSave={onSaveDescription}

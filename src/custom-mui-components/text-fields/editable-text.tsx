@@ -24,6 +24,11 @@ function EditableText(props: EditableTextProps) {
     props.onSave();
   };
 
+  const getValue = (text: string) => {
+    const value = props.getValue(text)
+    return value.trim() === ''? "None" : value
+  }
+
   return toggle ? (
     <span
       style={{ ...props.textStyle, width: props.width, wordBreak: 'break-all' }}
@@ -35,7 +40,7 @@ function EditableText(props: EditableTextProps) {
         event.stopPropagation();
       }}
     >
-      {props.getValue(props.value)}
+      {getValue(props.value)}
     </span>
   ) : (
     <Input
