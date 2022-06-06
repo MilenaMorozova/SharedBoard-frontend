@@ -4,6 +4,11 @@ import User from "../entities/user/user";
 
 
 class WorkspaceController {
+    dragedTask: Note | null;
+    constructor() {
+      this.dragedTask = null;
+    }
+
     setDisableElement(note: Note, currentUser: User): boolean {
         if (currentUser.access === Access.VIEWER) {
           return true;
@@ -18,7 +23,6 @@ class WorkspaceController {
     }
 
     getTasksByStatus(notes: Array<Note>, status: string) {
-      console.log(notes)
       const result = notes.filter(note => note.status === status);
       return result;
     }

@@ -18,7 +18,6 @@ interface WorkspaceState {
   arrows: Map<string, string>,
   searchText: string,
   selectedNotesIds: Set<string>,
-  
 }
 
 function createArrowDict(notes: Array<Note>): Map<string, string> {
@@ -42,6 +41,7 @@ const initialState: WorkspaceState = {
 
   notes: [{
     ...newNote(),
+    id: '3',
     status:'1',
     color: COLORS.CHIP_LABEL_PURPLE,
     tag: 'qweew-2'

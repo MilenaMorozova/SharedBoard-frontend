@@ -32,6 +32,7 @@ const TaskCard = React.memo((props: propsType) => {
 
   const onStart = () => {
     disableNoteForOthers(props.note.id);
+    WORKSPACE_CONTROLLER.dragedTask = props.note;
   };
 
   const setDisabledNote = () => {
@@ -83,6 +84,10 @@ const TaskCard = React.memo((props: propsType) => {
         id={props.note.tag}
         style={{ ...TaskCardStyle, ...boarderWhenIsSearching(), ...borderWhenIsSelected() }}
         onDoubleClick={onSelectNote}
+        draggable={!setDisabledNote()}
+        onDragStart={onStart}
+        onDragOver={event => event.preventDefault()}
+        data-position={props.note.tag}
       >
         <UserAvatarWhoBlockingNote />
         <div style={{

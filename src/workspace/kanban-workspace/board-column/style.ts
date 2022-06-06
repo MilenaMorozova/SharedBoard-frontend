@@ -17,6 +17,10 @@ export const HeaderColumnStyle = {
     color: COLORS.TEXT_DARK_GRAY,
 }
 
+export const HeaderColumnStyleOnHover = {
+    background: COLORS.ICON_LIGHT_GRAY
+}
+
 export const TaskCounterBadgeStyle = {
     display: "flex",
     flexDirection: "row" as "row",
