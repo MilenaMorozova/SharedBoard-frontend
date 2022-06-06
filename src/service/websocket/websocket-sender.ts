@@ -80,8 +80,6 @@ export function changeNote(changedNote: Note) {
     const nodeDto = noteEntityToNoteDto(changedNote);
     WEBSOCKET_CONNECTION.send({
         "type": "changing_node",
-        "node": {
-            nodeDto
-        }
+        "node": nodeDto,
     })
 }

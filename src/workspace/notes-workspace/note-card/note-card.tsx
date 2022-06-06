@@ -2,9 +2,9 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import { Button, Collapse } from '@mui/material';
 import { useRef, useState } from 'react';
-import Draggable, { DraggableEvent } from 'react-draggable';
+import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 import { useXarrow } from 'react-xarrows';
-import Note from '../../../entities/note/note';
+import Note, { notesAreEqual } from '../../../entities/note/note';
 import {
   CardColorStyle,
   DescriptionBlockStyle, ExpandButonStyle, NoteCardStyle, NoteContentStyle, StripeStyle,
@@ -14,18 +14,19 @@ import TopNoteCard from './top-note-card';
 import Reference from './reference-to-note';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { addSelectedNote, selectSearchText, updateNote } from '../../workspaceSlice';
-import { disableNoteForOthers, enableNoteForOthers } from '../../../service/websocket/websocket-sender';
+import { changeNote, disableNoteForOthers, enableNoteForOthers } from '../../../service/websocket/websocket-sender';
 import React from 'react';
 
+
+let lastSendedMessageTime: Date = new Date();
 type propsType = {note: Note};
 
 function areEqual(prevProps: propsType, nextProps: propsType){
-  const res = prevProps.note.posX === nextProps.note.posX && prevProps.note.posY === nextProps.note.posY ;
+  const res = notesAreEqual(prevProps.note, nextProps.note);
   return res;
 }
 
 const NoteCard = React.memo(function NoteCard(props: propsType) {
-  console.log(props.note.tag)
   const [expanded, setExpanded] = useState(false);
   const isSelected = useAppSelector(state => state.workspace.selectedNotesIds.has(props.note.id));
   const currentUserId = useAppSelector(state => state.workspace.currentUser.id);
@@ -46,17 +47,25 @@ const NoteCard = React.memo(function NoteCard(props: propsType) {
     disableNoteForOthers(props.note.id);
   }
 
-  const onDrag = (event: DraggableEvent) => {
-    let mouseEvent = event as MouseEvent;
-    dispatch(updateNote({ ...props.note, posX: mouseEvent.pageX, posY: mouseEvent.pageY }));
+  const onDrag = (event: DraggableEvent, data: DraggableData) => {
+    const newNote = { 
+      ...props.note, 
+      posX: data.x, 
+      posY: data.y, 
+    };
+    dispatch(updateNote(newNote));
     updateXarrow();
+
+    const currentTime = new Date();
+    if ((+currentTime - +lastSendedMessageTime) > 1000/30) {
+      changeNote(newNote);
+      lastSendedMessageTime = new Date();
+    }
+    
   };
 
   const onStop = (event: DraggableEvent) => {
-    let mouseEvent = event as MouseEvent;
     enableNoteForOthers(props.note.id);
-    // TODO problem: descrition can not be expanded
-    // dispatch(updateNote({ ...props.note, posX: mouseEvent.pageX, posY: mouseEvent.pageY }));
   };
 
   const setDisabledNote = () => {
@@ -111,6 +120,7 @@ const NoteCard = React.memo(function NoteCard(props: propsType) {
 
   return (
     <Draggable
+      key={`Draggable ${props.note.id}`}
       disabled={setDisabledNote()}
       onStart={onStart}
       onDrag={onDrag}

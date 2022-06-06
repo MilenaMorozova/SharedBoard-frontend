@@ -39,7 +39,6 @@ function NotesWorkspace() {
         <WorkspaceAppBar
           placeholder="search note by tag"
           boardType={BoardType.NOTES}
-          key="appbar"
         />
       </div>
       <div 

@@ -65,7 +65,9 @@ export const WorkspaceSlice = createSlice({
       state.activeCollaborators = action.payload.filter(user => user.id !== state.currentUser.id);
     },
     addActiveUser: (state: WorkspaceState, {payload}: PayloadAction<User>) => {
-      state.activeCollaborators = state.activeCollaborators.concat(payload);
+      if (!state.activeCollaborators.includes(payload)) {
+        state.activeCollaborators = state.activeCollaborators.concat(payload);
+      }
     },
     removeActiveUser: (state: WorkspaceState, {payload}: PayloadAction<string>) => {
       state.activeCollaborators = state.activeCollaborators.filter(user => user.id !== payload);

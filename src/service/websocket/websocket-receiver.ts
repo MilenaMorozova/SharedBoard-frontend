@@ -68,7 +68,10 @@ function getRemovedNote({node_id}: {node_id: string}) {
     store.dispatch(deleteSelectedNote(node_id));
 }
 
-function getNoteChanges({node}: {node: PayloadType}) {
+function getNoteChanges({node, channel_name}: {node: PayloadType, channel_name: string}) {
+    if (channel_name === WEBSOCKET_CONNECTION.channelName) {
+        return;
+    }
     const updatedNote = noteDtoToNoteEntity(node);
     store.dispatch(updateNote(updatedNote));
 }
