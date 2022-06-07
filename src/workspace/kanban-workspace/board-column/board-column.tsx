@@ -2,7 +2,7 @@ import React from "react";
 import WORKSPACE_CONTROLLER from "../../../controller/WorkspaceController";
 import BoardColumn from "../../../entities/board/column";
 import Note from "../../../entities/note/note";
-import { changeNote } from "../../../service/websocket/websocket-sender";
+import { changeNote, enableNoteForOthers } from "../../../service/websocket/websocket-sender";
 import { useAppDispatch } from "../../../store/hooks";
 import { updateNote } from "../../workspaceSlice";
 import TaskCard from "../task-card/task-card";
@@ -17,9 +17,10 @@ function Column(props: {boardColumn: BoardColumn, tasks: Array<Note>}) {
 
     const onDrop = () => {
         if(WORKSPACE_CONTROLLER.dragedTask !== null){
-            const newNode = {...WORKSPACE_CONTROLLER.dragedTask, status: props.boardColumn.id};
+            const newNode: Note = {...WORKSPACE_CONTROLLER.dragedTask, status: props.boardColumn.id};
             dispatch(updateNote(newNode))
             changeNote(newNode);
+            enableNoteForOthers(newNode.id);
         }
         setDragHover(false);
     }
