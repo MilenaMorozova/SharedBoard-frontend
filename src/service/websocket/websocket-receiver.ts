@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
-import { accessNumberToAccessEnum, boardInfoDtoToBoardEntity } from '../../mapper/boardMapper';
+import { accessNumberToAccessEnum, boardInfoDtoToBoardEntity, columnDtoToColumnEntity } from '../../mapper/boardMapper';
 import { noteDtoToNoteEntity } from '../../mapper/noteMapper';
 import { boardUserDtoToUserEntity } from '../../mapper/userMapper';
 import { store } from '../../store/store';
 import {
   addActiveUser, addNote, deleteSelectedNote, removeActiveUser,
   setActiveCollaborators, setBoard, setCollaborators,
-  setNotes, setUser, updateNote, updateUser,
+  setColumns,
+  setNotes, setUser, updateColumn, updateNote, updateUser,
 } from '../../workspace/workspaceSlice';
 import WEBSOCKET_CONNECTION from './websocket-connection';
 
@@ -79,6 +80,39 @@ function getNoteChanges({ node, channel_name }: {node: PayloadType, channel_name
   store.dispatch(updateNote(updatedNote));
 }
 
+function getColumns({columns}: {columns: Array<any>}){
+  const columnsInfo = columns.map(columnDtoToColumnEntity)
+  store.dispatch(setColumns(columnsInfo));
+}
+
+function newColumn({column}: {column: any}){
+  const columnInfo = columnDtoToColumnEntity(column);
+  store.dispatch(setColumns(
+    store.getState().workspace.boardColumns.map(
+      item => item.position < columnInfo.position ? item : {...item, position: item.position + 1} 
+    ).concat([columnInfo])
+  ));
+}
+
+function remColumn({column}: {column: any}){
+  const columnInfo = columnDtoToColumnEntity(column);
+  console.log(store.getState().workspace.boardColumns.filter(
+    item => item.id !== columnInfo.id
+  ))
+  store.dispatch(setColumns(
+    store.getState().workspace.boardColumns.filter(
+      item => item.id !== columnInfo.id
+    ).map(
+      item => item.position < columnInfo.position ? item : {...item, position: item.position - 1} 
+    )
+  ));
+}
+
+function changeColumn({column}: {column: any}){
+  const columnInfo = columnDtoToColumnEntity(column);
+  store.dispatch(updateColumn(columnInfo))
+}
+
 const MESSAGE_TYPES: {[key: string]: (body: any) => void} = {
   channel_name: channelName,
   board_info: boardInfo,
@@ -93,6 +127,11 @@ const MESSAGE_TYPES: {[key: string]: (body: any) => void} = {
   node_created: newNote,
   node_deleted: getRemovedNote,
   node_changed: getNoteChanges,
+
+  columns_info: getColumns,
+  column_created: newColumn,
+  column_deleted: remColumn,
+  column_changed: changeColumn,
 
   board_nodes: boardNodes,
 };

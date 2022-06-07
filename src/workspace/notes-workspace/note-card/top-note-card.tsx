@@ -8,7 +8,7 @@ import NoteTagChip from './chip-note-card/tag-chip';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { updateNote } from '../../workspaceSlice';
 import { changeNote, disableNoteForOthers, enableNoteForOthers } from '../../../service/websocket/websocket-sender';
-import { setDisableElement } from './note-card';
+import WORKSPACE_CONTROLLER from '../../../controller/WorkspaceController';
 
 function DateRow(props: {title: string, date: Date}) {
   return (
@@ -22,7 +22,9 @@ function TopNoteCard(props: {note: Note}) {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(state => state.workspace.currentUser);
 
-  const setDisabledTitle = () => setDisableElement(props.note, currentUser);
+  const setDisabledTitle = () => {
+    return WORKSPACE_CONTROLLER.setDisableElement(props.note, currentUser)
+  };
 
   const onStartEditTitle = () => {
     disableNoteForOthers(props.note.id);

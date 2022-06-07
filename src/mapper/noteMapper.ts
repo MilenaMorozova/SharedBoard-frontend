@@ -1,7 +1,8 @@
-import Note from '../entities/note/note';
+import Note, { newNote } from '../entities/note/note';
 
 export function noteDtoToNoteEntity(noteDto: {[key: string]: any}): Note {
   return {
+    ...newNote,
     id: noteDto.id,
     title: noteDto.title,
     tag: noteDto.full_tag,
@@ -13,6 +14,8 @@ export function noteDtoToNoteEntity(noteDto: {[key: string]: any}): Note {
     posY: noteDto.position_y,
     refTag: noteDto.link_to,
     blockedBy: noteDto.blocked_by,
+    assigned: noteDto.assigned,
+    status: noteDto.status,
   };
 }
 
@@ -24,5 +27,7 @@ export function noteEntityToNoteDto(note: Note): {[key: string]: any} {
     position_x: note.posX,
     position_y: note.posY,
     link_to: note.refTag,
+    assigned: note.assigned,
+    status: note.status,
   };
 }

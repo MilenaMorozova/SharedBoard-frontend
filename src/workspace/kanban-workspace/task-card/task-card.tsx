@@ -1,24 +1,20 @@
-import React, { useRef } from 'react';
-import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
-import { useXarrow } from 'react-xarrows';
+import React from 'react';
 import Note, { notesAreEqual } from '../../../entities/note/note';
-import {
-  AvatarStyle,
-  CardColorStyle, NoteBoardWhenSearchingStyle, NoteCardStyle, NoteContentStyle, SelectedNoteStyle, StripeStyle,
-} from './style';
-import TopNoteCard from './top-note-card';
-import Reference from './reference-to-note';
+
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { addSelectedNote, selectSearchText, updateNote } from '../../workspaceSlice';
-import { changeNote, disableNoteForOthers, enableNoteForOthers } from '../../../service/websocket/websocket-sender';
+import { addSelectedNote, selectSearchText } from '../../workspaceSlice';
+import { disableNoteForOthers } from '../../../service/websocket/websocket-sender';
 
 import Avatar from '../../../custom-mui-components/avatar/avatar';
 import { store } from '../../../store/store';
-import DescriptionCollapse from './descrition-collapse/description-collapse';
 import WORKSPACE_CONTROLLER from '../../../controller/WorkspaceController';
+import DescriptionCollapse from '../../notes-workspace/note-card/descrition-collapse/description-collapse';
+import { NoteBoardWhenSearchingStyle, SelectedNoteStyle, StripeStyle, NoteContentStyle, CardColorStyle } from '../../notes-workspace/note-card/style';
+import TopNoteCard from '../../notes-workspace/note-card/top-note-card';
+import { TaskCardStyle, AvatarStyle } from './style';
+import Assigned from './assigned';
 
 
-let lastSendedMessageTime: Date = new Date();
 type propsType = {note: Note};
 
 function areEqual(prevProps: propsType, nextProps: propsType) {
@@ -26,38 +22,17 @@ function areEqual(prevProps: propsType, nextProps: propsType) {
   return res;
 }
 
-const NoteCard = React.memo((props: propsType) => {
+const TaskCard = React.memo((props: propsType) => {
   const isSelected = useAppSelector(state => state.workspace.selectedNotesIds.has(props.note.id));
   const currentUser = useAppSelector(state => state.workspace.currentUser);
 
   const searchText = useAppSelector(selectSearchText);
-  const nodeRef = useRef(null);
 
   const dispatch = useAppDispatch();
-  const updateXarrow = useXarrow();
 
   const onStart = () => {
     disableNoteForOthers(props.note.id);
-  };
-
-  const onDrag = (event: DraggableEvent, data: DraggableData) => {
-    const newNote = {
-      ...props.note,
-      posX: data.x,
-      posY: data.y,
-    };
-    dispatch(updateNote(newNote));
-    updateXarrow();
-
-    const currentTime = new Date();
-    if ((+currentTime - +lastSendedMessageTime) > 1000 / 30) {
-      changeNote(newNote);
-      lastSendedMessageTime = new Date();
-    }
-  };
-
-  const onStop = () => {
-    enableNoteForOthers(props.note.id);
+    WORKSPACE_CONTROLLER.dragedTask = props.note;
   };
 
   const setDisabledNote = () => {
@@ -105,21 +80,14 @@ const NoteCard = React.memo((props: propsType) => {
   }
 
   return (
-    <Draggable
-      key={`Draggable ${props.note.id}`}
-      disabled={setDisabledNote()}
-      onStart={onStart}
-      onDrag={onDrag}
-      onStop={onStop}
-      position={{ x: props.note.posX, y: props.note.posY }}
-      nodeRef={nodeRef}
-      bounds="parent"
-    >
       <div
         id={props.note.tag}
-        style={{ ...NoteCardStyle, ...boarderWhenIsSearching(), ...borderWhenIsSelected() }}
-        ref={nodeRef}
+        style={{ ...TaskCardStyle, ...boarderWhenIsSearching(), ...borderWhenIsSelected() }}
         onDoubleClick={onSelectNote}
+        draggable={!setDisabledNote()}
+        onDragStart={onStart}
+        onDragOver={event => event.preventDefault()}
+        data-position={props.note.tag}
       >
         <UserAvatarWhoBlockingNote />
         <div style={{
@@ -131,12 +99,11 @@ const NoteCard = React.memo((props: propsType) => {
         }}
         >
           <TopNoteCard note={props.note} />
-          <Reference note={props.note} />
+          <Assigned note={props.note} />
           <DescriptionCollapse note={props.note}/>
         </div>
       </div>
-    </Draggable>
   );
 }, areEqual);
 
-export default NoteCard;
+export default TaskCard;

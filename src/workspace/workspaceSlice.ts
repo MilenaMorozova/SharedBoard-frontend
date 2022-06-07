@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import COLORS from '../colors';
 import Board, { newBoard } from '../entities/board/board';
-import Note from '../entities/note/note';
+import BoardColumn from '../entities/board/column';
+import Note, { newNote } from '../entities/note/note';
 import User, { newUser } from '../entities/user/user';
 import { RootState } from '../store/store';
 
 
 interface WorkspaceState {
   board: Board,
+  boardColumns: Array<BoardColumn>,
   currentUser: User,
   collaborators: Array<User>,
   activeCollaborators: Array<User>,
@@ -31,6 +34,7 @@ function createArrowDict(notes: Array<Note>): Map<string, string> {
 
 const initialState: WorkspaceState = {
   board: newBoard(),
+  boardColumns: [],
   currentUser: newUser(),
   collaborators: [],
   activeCollaborators: [],
@@ -123,6 +127,12 @@ export const WorkspaceSlice = createSlice({
         state.selectedNotesIds = new Set(state.selectedNotesIds);
       }
     },
+    setColumns: (state: WorkspaceState, { payload }: PayloadAction<Array<BoardColumn>>) => {
+      state.boardColumns = payload.sort((column1, column2) => column1.position - column2.position);
+    },
+    updateColumn: (state: WorkspaceState, { payload }: PayloadAction<BoardColumn>) => {
+      state.boardColumns = state.boardColumns.map(column => column.id === payload.id? payload : column)
+    },
   },
 });
 
@@ -133,12 +143,14 @@ export const {
   updateNote, setNotes, addNote, addSelectedNote, deselectSelectedNotes, deleteSelectedNote,
   updateArrows,
   setSearchText,
+  setColumns, updateColumn
 } = WorkspaceSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.workspace.currentUser;
 export const selectCollaborators = (state: RootState) => state.workspace.collaborators;
 export const selectActiveCollaborators = (state: RootState) => state.workspace.activeCollaborators;
 export const selectBoard = (state: RootState) => state.workspace.board;
+export const selectBoardColumns = (state: RootState) => state.workspace.boardColumns;
 export const selectNotes = (state: RootState) => state.workspace.notes;
 export const selectSelectedNotes = (state: RootState) => state.workspace.selectedNotesIds;
 export const selectArrows = (state: RootState) => state.workspace.arrows;

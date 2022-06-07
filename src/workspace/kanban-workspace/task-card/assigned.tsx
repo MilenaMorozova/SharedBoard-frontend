@@ -4,11 +4,11 @@ import Note from '../../../entities/note/note';
 import { changeNote, disableNoteForOthers, enableNoteForOthers } from '../../../service/websocket/websocket-sender';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { store } from '../../../store/store';
-import { updateArrows, updateNote } from '../../workspaceSlice';
-import { ReferenceStyle } from './style';
+import { ReferenceStyle } from '../../notes-workspace/note-card/style';
+import { updateNote } from '../../workspaceSlice';
 
 
-function Reference(props: {note: Note}) {
+function Assigned(props: {note: Note}) {
   const currentUser = useAppSelector(state => state.workspace.currentUser);
 
   const dispatch = useAppDispatch();
@@ -17,41 +17,33 @@ function Reference(props: {note: Note}) {
 
   const onSave = () => {
     const { notes } = store.getState().workspace;
-    dispatch(updateArrows());
 
     changeNote({ ...props.note });
     enableNoteForOthers(props.note.id);
-
-    if (props.note.refTag === '') {
-      return;
-    }
-    if (notes.find((note) => note.tag === props.note.refTag) === undefined) {
-      alert('No such tag'); // eslint-disable-line  no-alert
-    }
   };
 
   const onStartEditing = () => {
     disableNoteForOthers(props.note.id);
   };
 
-  const onUpdateTag = (refTag: string) => {
-    dispatch(updateNote({ ...props.note, refTag }));
+  const onUpdateAssigned = (assigned: string) => {
+    dispatch(updateNote({ ...props.note, assigned }));
   };
 
-  const setDisabledRef = () => {
+  const setDisabledAssigned = () => {
     return WORKSPACE_CONTROLLER.setDisableElement(props.note, currentUser)
   };;
 
   return (
     <div style={ReferenceStyle}>
-      Reference to:{' '}
+      Assigned:{' '}
       <EditableText
         value={props.note.refTag}
-        setValue={onUpdateTag}
+        setValue={onUpdateAssigned}
         getValue={getValue}
         onStartEdit={onStartEditing}
         textStyle={ReferenceStyle}
-        disabled={setDisabledRef()}
+        disabled={setDisabledAssigned()}
         width="100%"
         onSave={onSave}
       />
@@ -59,4 +51,4 @@ function Reference(props: {note: Note}) {
   );
 }
 
-export default Reference;
+export default Assigned;

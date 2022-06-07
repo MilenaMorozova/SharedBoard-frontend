@@ -1,3 +1,5 @@
+import Board from '../../entities/board/board';
+import BoardColumn from '../../entities/board/column';
 import Note from '../../entities/note/note';
 import Access from '../../entities/user/access';
 import { accessEnumToAccessNumber } from '../../mapper/boardMapper';
@@ -43,9 +45,10 @@ export function changeBoardName(newBoardName: string) {
   });
 }
 
-export function createNote() {
+export function createNote(status: string | null = null) {
   WEBSOCKET_CONNECTION.send({
     type: 'create_node',
+    status: status
   });
 }
 
@@ -97,5 +100,44 @@ export function changeNote(changedNote: Note) {
   WEBSOCKET_CONNECTION.send({
     type: 'changing_node',
     node: nodeDto,
+  });
+}
+
+export function getColumnsInfo() {
+  WEBSOCKET_CONNECTION.send({
+    type: 'columns_info',
+  });
+}
+
+export function createColumn(position: number) {
+  WEBSOCKET_CONNECTION.send({
+    type: 'create_column',
+    position
+  });
+}
+
+export function removeColumn(columnId: string) {
+  WEBSOCKET_CONNECTION.send({
+    type: 'delete_column',
+    column_id: columnId
+  });
+}
+
+export function changingColumn(column: BoardColumn) {
+  WEBSOCKET_CONNECTION.send({
+    type: 'changing_column',
+    column
+  });
+}
+
+export function migrateBoard(board_id: string, columns: Map<string, BoardColumn>) {
+  const data: {[key: string]: string} = {};
+  Array.from(columns.keys()).forEach(key => {
+    data[key] = columns.get(key)!.id;
+  })
+  WEBSOCKET_CONNECTION.send({
+    type: 'migrate_to_another_board',
+    board_id,
+    columns: data
   });
 }

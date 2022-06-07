@@ -23,6 +23,8 @@ export const ServerRoute = {
   DELETE_BOARD_URL: `${MAIN_BOARD_URL}/delete_board/`,
   LEAVE_BOARD_URL: `${MAIN_BOARD_URL}/leave_board/`,
   OPEN_BOARD_URL: `${MAIN_BOARD_URL}/open_board/`,
+  GET_COLUMNS_URL: `${MAIN_BOARD_URL}/get_board_columns/`,
+
 
   CHANNELS_SERVER_URL: 'ws://26.124.121.68:8000/boards',
 };

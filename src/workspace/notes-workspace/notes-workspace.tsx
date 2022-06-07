@@ -5,9 +5,9 @@ import Note from '../../entities/note/note';
 import { enableNoteForOthers } from '../../service/websocket/websocket-sender';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { store } from '../../store/store';
-import ActionPanel from '../action-panel/action-panel';
 import WorkspaceAppBar from '../app-bar/app-bar';
 import { deselectSelectedNotes, selectArrows, selectNotes } from '../workspaceSlice';
+import NotesActionPanel from './action-panel/action-panel';
 import Arrow from './arrow/arrow';
 import NoteCard from './note-card/note-card';
 import { AppBarStyle, FullScreenStyle } from './style';
@@ -47,7 +47,7 @@ function NotesWorkspace() {
         style={FullScreenStyle}
         role="note"
       >
-        <ActionPanel />
+        <NotesActionPanel />
         <Xwrapper>
           {
             notes.map(note => (

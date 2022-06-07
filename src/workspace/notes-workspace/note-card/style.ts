@@ -57,3 +57,14 @@ export const AvatarStyle = {
   width: '25px',
   height: '25px',
 };
+
+export const NoteBoardWhenSearchingStyle = {
+  boxShadow: "0px 4px 12px",
+  borderRadius: '10px',
+}
+
+export const SelectedNoteStyle = {
+  boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+  borderRadius: '10px',
+  border: `2px dashed`,
+}
