@@ -6,11 +6,14 @@ import Access from '../../../entities/user/access';
 import { createNote, removeNote } from '../../../service/websocket/websocket-sender';
 import { useAppSelector } from '../../../store/hooks';
 import { store } from '../../../store/store';
+import { useState } from 'react';
+import MigrateTasksDialog from '../migrate-tasks-dialog/migrate-tasks-dialog';
 
 
 function KanbanActionPanel() {
   const hasSelectedNotes = useAppSelector(state => state.workspace.selectedNotesIds.size > 0);
   const currentUserAccess = useAppSelector(state => state.workspace.currentUser.access);
+  const [isMigratingTasks, setMigratingTasks] = useState(false);
 
   const setDisabledButtons = () => currentUserAccess === Access.VIEWER;
 
@@ -22,7 +25,12 @@ function KanbanActionPanel() {
     createNote();
   };
 
+  const onMigrateTasks = () => {
+    setMigratingTasks(true);
+  }
+
   return (
+    <>
     <ActionPanel>
         <ActionIconButton
             icon={<DashboardCustomizeOutlinedIcon />}
@@ -31,7 +39,7 @@ function KanbanActionPanel() {
         />
         <ActionIconButton
             icon={<MoveUpOutlinedIcon />}
-            onClick={onCreate}
+            onClick={onMigrateTasks}
             disabled={setDisabledButtons()}
         />
       <ActionIconButton
@@ -40,6 +48,11 @@ function KanbanActionPanel() {
         disabled={!hasSelectedNotes || setDisabledButtons()}
       />
     </ActionPanel>
+    <MigrateTasksDialog 
+      open={isMigratingTasks} 
+      onClose={() => setMigratingTasks(false)}
+    />
+  </>
   );
 }
 

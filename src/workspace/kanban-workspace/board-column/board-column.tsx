@@ -31,7 +31,7 @@ function Column(props: {boardColumn: BoardColumn, tasks: Array<Note>}) {
             onDragLeave={()=>{setDragHover(false)}}
             onDragOver={(event)=>{event.preventDefault();}}
             onDrop={onDrop}
-        >            
+        >
             <HeaderBoardColumn boardColumn={props.boardColumn} taskCount={props.tasks.length} hover={isDragHover}/>
             {props.tasks.map(task => <TaskCard key={task.id} note={task} />)}
         </div>

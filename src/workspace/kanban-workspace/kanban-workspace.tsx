@@ -10,6 +10,7 @@ import WorkspaceAppBar from '../app-bar/app-bar';
 import { deselectSelectedNotes, selectBoardColumns, selectNotes } from '../workspaceSlice';
 import KanbanActionPanel from './action-panel/action-panel';
 import Column from './board-column/board-column';
+import MigrateTasksDialog from './migrate-tasks-dialog/migrate-tasks-dialog';
 import { AppBarStyle, FullScreenStyle, KanbanBoardStyle } from './style';
 
 
