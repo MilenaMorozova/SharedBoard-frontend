@@ -14,6 +14,13 @@ class AccountService {
     return authGet(ServerRoute.GET_MY_BOARDS_URL);
   }
 
+  getColumns(board_id: string) {
+    return authPost(
+      ServerRoute.GET_COLUMNS_URL,
+      JSON.stringify({ board_id })
+    );
+  }
+
   changeUsername(newUsername: string, password: string) {
     return authPost(
       ServerRoute.CHANGE_USERNAME_URL,

@@ -3,10 +3,11 @@ import { AccessFormControlStyle, AccessSelectStyle, MenuItemStyle } from './styl
 
 
 type BoardSelectProps = {
-  value: string,
+  value: any,
   width: string,
-  possibleValues: Array<string>,
-  onChange: (value: string) => void,
+  possibleValues: Array<any>,
+  getText: (value: any) => string,
+  onChange: (value: any) => void,
   disabled?: boolean,
 }
 
@@ -15,17 +16,17 @@ function BoardSelect(props: BoardSelectProps) {
     <FormControl sx={AccessFormControlStyle}>
       <Select
         disabled={props.disabled}
-        sx={{AccessSelectStyle, minWidth: props.width}}
-        value={props.value}
+        sx={{AccessSelectStyle, width: props.width}}
+        value={props.value === null || props.value === undefined ? '' : props.value}
         onChange={(event) => props.onChange(event.target.value)}
         displayEmpty
       >
         {
-            props.possibleValues.map(value => {
-                return <MenuItem sx={MenuItemStyle} value={value}>
-                {value}
-              </MenuItem>
-            })
+            props.possibleValues.map((value, i) =>  (
+            <MenuItem sx={MenuItemStyle} value={value} key={`${props.getText(value)} ${i}`}>
+                {props.getText(value)}
+              </MenuItem>)
+            )
         }
       </Select>
     </FormControl>

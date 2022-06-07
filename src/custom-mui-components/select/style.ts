@@ -23,4 +23,10 @@ export const ColumnsMapStyle = {
     flexDirection: "column" as "column",
     gap: "5px",
 }
+
+export const ContentMapStyle = {
+    display: "flex",
+    flexDirection: "row" as "row",
+    gap: "5px",
+}
   

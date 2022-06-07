@@ -129,3 +129,15 @@ export function changingColumn(column: BoardColumn) {
     column
   });
 }
+
+export function migrateBoard(board_id: string, columns: Map<string, BoardColumn>) {
+  const data: {[key: string]: string} = {};
+  Array.from(columns.keys()).forEach(key => {
+    data[key] = columns.get(key)!.id;
+  })
+  WEBSOCKET_CONNECTION.send({
+    type: 'migrate_to_another_board',
+    board_id,
+    columns: data
+  });
+}
