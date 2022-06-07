@@ -46,5 +46,8 @@ export function boardInfoDtoToBoardEntity(boardInfoDto: {[key: string]: unknown}
 }
 
 export function columnDtoToColumnEntity(column: BoardColumn): BoardColumn {
-  return column;
+  return {
+    ...column,
+    id: `${column.id}`
+  };
 }

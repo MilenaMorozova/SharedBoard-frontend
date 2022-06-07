@@ -9,9 +9,9 @@ import Avatar from '../../../custom-mui-components/avatar/avatar';
 import { store } from '../../../store/store';
 import WORKSPACE_CONTROLLER from '../../../controller/WorkspaceController';
 import DescriptionCollapse from '../../notes-workspace/note-card/descrition-collapse/description-collapse';
-import { NoteBoardWhenSearchingStyle, SelectedNoteStyle, AvatarStyle, StripeStyle, NoteContentStyle, CardColorStyle } from '../../notes-workspace/note-card/style';
+import { NoteBoardWhenSearchingStyle, SelectedNoteStyle, StripeStyle, NoteContentStyle, CardColorStyle } from '../../notes-workspace/note-card/style';
 import TopNoteCard from '../../notes-workspace/note-card/top-note-card';
-import { TaskCardStyle } from './style';
+import { TaskCardStyle, AvatarStyle } from './style';
 import Assigned from './assigned';
 
 

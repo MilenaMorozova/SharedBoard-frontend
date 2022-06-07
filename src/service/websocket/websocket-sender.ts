@@ -1,3 +1,5 @@
+import Board from '../../entities/board/board';
+import BoardColumn from '../../entities/board/column';
 import Note from '../../entities/note/note';
 import Access from '../../entities/user/access';
 import { accessEnumToAccessNumber } from '../../mapper/boardMapper';
@@ -43,9 +45,10 @@ export function changeBoardName(newBoardName: string) {
   });
 }
 
-export function createNote() {
+export function createNote(status: string | null = null) {
   WEBSOCKET_CONNECTION.send({
     type: 'create_node',
+    status: status
   });
 }
 
@@ -117,5 +120,12 @@ export function removeColumn(columnId: string) {
   WEBSOCKET_CONNECTION.send({
     type: 'delete_column',
     column_id: columnId
+  });
+}
+
+export function changingColumn(column: BoardColumn) {
+  WEBSOCKET_CONNECTION.send({
+    type: 'changing_column',
+    column
   });
 }

@@ -130,6 +130,9 @@ export const WorkspaceSlice = createSlice({
     setColumns: (state: WorkspaceState, { payload }: PayloadAction<Array<BoardColumn>>) => {
       state.boardColumns = payload.sort((column1, column2) => column1.position - column2.position);
     },
+    updateColumn: (state: WorkspaceState, { payload }: PayloadAction<BoardColumn>) => {
+      state.boardColumns = state.boardColumns.map(column => column.id === payload.id? payload : column)
+    },
   },
 });
 
@@ -140,7 +143,7 @@ export const {
   updateNote, setNotes, addNote, addSelectedNote, deselectSelectedNotes, deleteSelectedNote,
   updateArrows,
   setSearchText,
-  setColumns
+  setColumns, updateColumn
 } = WorkspaceSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.workspace.currentUser;

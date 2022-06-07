@@ -7,7 +7,7 @@ import {
   addActiveUser, addNote, deleteSelectedNote, removeActiveUser,
   setActiveCollaborators, setBoard, setCollaborators,
   setColumns,
-  setNotes, setUser, updateNote, updateUser,
+  setNotes, setUser, updateColumn, updateNote, updateUser,
 } from '../../workspace/workspaceSlice';
 import WEBSOCKET_CONNECTION from './websocket-connection';
 
@@ -108,6 +108,11 @@ function remColumn({column}: {column: any}){
   ));
 }
 
+function changeColumn({column}: {column: any}){
+  const columnInfo = columnDtoToColumnEntity(column);
+  store.dispatch(updateColumn(columnInfo))
+}
+
 const MESSAGE_TYPES: {[key: string]: (body: any) => void} = {
   channel_name: channelName,
   board_info: boardInfo,
@@ -126,6 +131,7 @@ const MESSAGE_TYPES: {[key: string]: (body: any) => void} = {
   columns_info: getColumns,
   column_created: newColumn,
   column_deleted: remColumn,
+  column_changed: changeColumn,
 
   board_nodes: boardNodes,
 };
